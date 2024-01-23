@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../network/api_error.dart';
 import '../../data/model/claim_folder_model.dart';
 
-abstract class AiCycleBuyMeRepository {
+abstract class AiCycleClaimMeRepository {
   Future<Either<APIErrors, ClaimFolderModel>> createFolder({
     required String externalClaimId,
     required String folderName,

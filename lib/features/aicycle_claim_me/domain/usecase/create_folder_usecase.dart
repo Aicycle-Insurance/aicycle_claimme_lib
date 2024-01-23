@@ -2,10 +2,10 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../network/api_error.dart';
 import '../../data/model/claim_folder_model.dart';
-import '../repository/aicycle_buy_me_repository.dart';
+import '../repository/aicycle_claim_me_repository.dart';
 
 class CreateFolderUsecase {
-  final AiCycleBuyMeRepository repository;
+  final AiCycleClaimMeRepository repository;
   CreateFolderUsecase(this.repository);
   Future<Either<APIErrors, ClaimFolderModel>> call({
     required String externalClaimId,

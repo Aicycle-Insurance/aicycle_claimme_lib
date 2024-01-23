@@ -69,25 +69,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       );
                       return;
                     }
-                    // Navigator.of(context).push(
-                    //   MaterialPageRoute<void>(
-                    //     builder: (BuildContext context) => AiCycleBuyMe(
-                    //       onViewResultCallBack: (imagesResult) {
-                    //         ScaffoldMessenger.of(context).showSnackBar(
-                    //           const SnackBar(
-                    //             content: Text("return result"),
-                    //           ),
-                    //         );
-                    //       },
-                    //       argument: AiCycleBuyMeArgument(
-                    //         externalClaimId: externalClaimIdController.text,
-                    //         apiToken: '',
-                    //         environtment: Evn.production,
-                    //         locale: const Locale('en', 'US'),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.of(context).push(
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => AiCycleClaimMe(
+                          // onViewResultCallBack: (imagesResult) {
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     const SnackBar(
+                          //       content: Text("return result"),
+                          //     ),
+                          //   );
+                          // },
+                          argument: AiCycleClaimMeArgument(
+                            externalClaimId: externalClaimIdController.text,
+                            apiToken: 'e5183c6c-4d0c-4254-b7df-01aeb4dd6ab9',
+                            environtment: Evn.stage,
+                            locale: const Locale('en', 'US'),
+                          ),
+                        ),
+                      ),
+                    );
                   },
                   child: const Text(
                     "GO",

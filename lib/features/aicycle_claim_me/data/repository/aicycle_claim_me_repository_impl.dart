@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../network/api_error.dart';
-import '../../domain/repository/aicycle_buy_me_repository.dart';
+import '../../domain/repository/aicycle_claim_me_repository.dart';
 import '../model/claim_folder_model.dart';
-import '../remote_data/aicycle_buyme_api.dart';
+import '../remote_data/aicycle_claim_me_api.dart';
 
-class AicycleBuyMeRepositoryImpl implements AiCycleBuyMeRepository {
+class AicycleClaimMeRepositoryImpl implements AiCycleClaimMeRepository {
   @override
   Future<Either<APIErrors, ClaimFolderModel>> createFolder({
     required String externalClaimId,
@@ -18,7 +18,7 @@ class AicycleBuyMeRepositoryImpl implements AiCycleBuyMeRepository {
     bool? hasLicensePlate = true,
   }) async {
     try {
-      final res = await AicycleBuyMeApi.createFolder(
+      final res = await AicycleClaimMeApi.createFolder(
         externalClaimId: externalClaimId,
         folderName: folderName,
         appUser: appUser,
@@ -45,7 +45,7 @@ class AicycleBuyMeRepositoryImpl implements AiCycleBuyMeRepository {
   Future<Either<APIErrors, ClaimFolderModel>> getDuplicateFolder(
       {required String externalClaimId}) async {
     try {
-      final res = await AicycleBuyMeApi.getDuplicateFolder(
+      final res = await AicycleClaimMeApi.getDuplicateFolder(
         externalClaimId: externalClaimId,
       ).request();
       return Right(ClaimFolderModel.fromJson(res[0]));

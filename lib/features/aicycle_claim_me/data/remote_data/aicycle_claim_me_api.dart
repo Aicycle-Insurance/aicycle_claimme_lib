@@ -1,8 +1,8 @@
 import '../../../../network/api_request.dart';
 import '../../../../network/endpoints.dart';
 
-class AicycleBuyMeApi extends APIRequest {
-  AicycleBuyMeApi.createFolder({
+class AicycleClaimMeApi extends APIRequest {
+  AicycleClaimMeApi.createFolder({
     required String externalClaimId,
     required String folderName,
     String? vehicleBrandId,
@@ -29,7 +29,7 @@ class AicycleBuyMeApi extends APIRequest {
             });
 
   ///
-  AicycleBuyMeApi.getDuplicateFolder({
+  AicycleClaimMeApi.getDuplicateFolder({
     required String externalClaimId,
   }) : super(
             endpoint: Endpoint.claimFolders,
