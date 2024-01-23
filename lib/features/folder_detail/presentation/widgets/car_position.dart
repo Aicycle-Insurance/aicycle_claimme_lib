@@ -7,8 +7,10 @@ import '../../../../common/themes/c_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../enum/car_model.dart';
 import '../../../../enum/car_part_direction.dart';
 import '../../../../generated/assets.gen.dart';
+import '../../../camera/presentation/camera_page.dart';
 import '../../data/models/image_direction_model.dart';
 
 class CarPosition extends StatelessWidget {
@@ -35,18 +37,21 @@ class CarPosition extends StatelessWidget {
         .thumbnail;
 
     return InkWell(
-      onTap: () {},
-      // onTap: () => Navigator.of(context).push(
-      //   MaterialPageRoute(
-      //     builder: (context) => CameraPage(
-      //       argument: BuyMeCameraArgument(
-      //         carPartDirectionEnum: direction,
-      //         carModelEnum: CarModelEnum.kiaMorning,
-      //         claimId: claimFolderId,
-      //       ),
-      //     ),
-      //   ),
-      // ),
+      onTap: () {
+        if (image == null) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => CameraPage(
+                argument: ClaimMeCameraArgument(
+                  carPartDirectionEnum: direction,
+                  carModelEnum: CarModelEnum.kiaMorning,
+                  claimId: claimFolderId,
+                ),
+              ),
+            ),
+          );
+        } else {}
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

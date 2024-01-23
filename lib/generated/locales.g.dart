@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
 
-// ignore_for_file: lines_longer_than_80_chars, constant_identifier_names
+// ignore_for_file: lines_longer_than_80_chars
 // ignore: avoid_classes_with_only_static_members
 class AppTranslation {
   static Map<String, Map<String, String>> translations = {
@@ -45,6 +45,10 @@ class LocaleKeys {
   static const leftFront = 'leftFront';
   static const rightBack = 'rightBack';
   static const leftBack = 'leftBack';
+  static const longShot = 'longShot';
+  static const middleShot = 'middleShot';
+  static const closeUpShot = 'closeUpShot';
+  static const close = 'close';
 }
 
 class Locales {
@@ -82,6 +86,10 @@ class Locales {
     'leftFront': '左前',
     'rightBack': '右後ろ',
     'leftBack': '左後ろ',
+    'longShot': 'ロングショット',
+    'middleShot': 'ミドルショット',
+    'closeUpShot': 'クローズアップショット',
+    'close': '閉じる',
   };
   static const en_US = {
     'viewResult': 'Result',
@@ -117,6 +125,10 @@ class Locales {
     'leftFront': 'Left - Front',
     'rightBack': 'Right - Back',
     'leftBack': 'Left - Back',
+    'longShot': 'Long Shot',
+    'middleShot': 'Middle Shot',
+    'closeUpShot': 'Close-up Shot',
+    'close': 'Close',
   };
   static const vi_VN = {
     'viewResult': 'Xem kết quả',
@@ -153,5 +165,9 @@ class Locales {
     'leftFront': 'Trái - Trước',
     'rightBack': 'Phải - Sau',
     'leftBack': 'Trái - Sau',
+    'longShot': 'Toàn cảnh',
+    'middleShot': 'Trung cảnh',
+    'closeUpShot': 'Cận cảnh',
+    'close': 'Đóng',
   };
 }

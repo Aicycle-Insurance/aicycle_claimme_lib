@@ -31,5 +31,9 @@
   "rightFront": "Right - Front",
   "leftFront": "Left - Front",
   "rightBack": "Right - Back",
-  "leftBack": "Left - Back"
+  "leftBack": "Left - Back",
+  "longShot": "Long Shot",
+  "middleShot": "Middle Shot",
+  "closeUpShot": "Close-up Shot",
+  "close": "Close"
 }

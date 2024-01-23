@@ -31,5 +31,9 @@
   "rightFront": "右前",
   "leftFront": "左前",
   "rightBack": "右後ろ",
-  "leftBack": "左後ろ"
+  "leftBack": "左後ろ",
+  "longShot": "ロングショット",
+  "middleShot": "ミドルショット",
+  "closeUpShot": "クローズアップショット",
+  "close": "閉じる"
 }

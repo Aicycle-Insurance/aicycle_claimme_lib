@@ -31,5 +31,9 @@
   "rightFront": "Phải - Trước",
   "leftFront": "Trái - Trước",
   "rightBack": "Phải - Sau",
-  "leftBack": "Trái - Sau"
+  "leftBack": "Trái - Sau",
+  "longShot": "Toàn cảnh",
+  "middleShot": "Trung cảnh",
+  "closeUpShot": "Cận cảnh",
+  "close": "Đóng"
 }
