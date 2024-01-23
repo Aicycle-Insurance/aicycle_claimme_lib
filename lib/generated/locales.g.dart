@@ -34,6 +34,17 @@ class LocaleKeys {
   static const cathayFurniture = 'cathayFurniture';
   static const isProcessing = 'isProcessing';
   static const reason = 'reason';
+  static const up = 'up';
+  static const front = 'front';
+  static const rightFront45 = 'rightFront45';
+  static const leftFront45 = 'leftFront45';
+  static const back = 'back';
+  static const rightBack45 = 'rightBack45';
+  static const leftBack45 = 'leftBack45';
+  static const rightFront = 'rightFront';
+  static const leftFront = 'leftFront';
+  static const rightBack = 'rightBack';
+  static const leftBack = 'leftBack';
 }
 
 class Locales {
@@ -60,6 +71,17 @@ class Locales {
     'cathayFurniture': 'Odometer, interior',
     'isProcessing': 'システムはデータを処理しています。\n少々お待ちください。',
     'reason': '理由: @message',
+    'up': '上',
+    'front': '前',
+    'rightFront45': '前右45°',
+    'leftFront45': '前左45°',
+    'back': '後ろ',
+    'rightBack45': '後右45°',
+    'leftBack45': '後左45°',
+    'rightFront': '右前',
+    'leftFront': '左前',
+    'rightBack': '右後ろ',
+    'leftBack': '左後ろ',
   };
   static const en_US = {
     'viewResult': 'Result',
@@ -84,6 +106,17 @@ class Locales {
     'cathayFurniture': 'Odometer, interior',
     'isProcessing': 'The system is processing the data.\nPlease wait a moment.',
     'reason': 'Reason: @message',
+    'up': 'Top',
+    'front': 'Front',
+    'rightFront45': '45° Right - Front',
+    'leftFront45': '45° Left - Front',
+    'back': 'Back',
+    'rightBack45': '45° Right - Back',
+    'leftBack45': '45° Left - Back',
+    'rightFront': 'Right - Front',
+    'leftFront': 'Left - Front',
+    'rightBack': 'Right - Back',
+    'leftBack': 'Left - Back',
   };
   static const vi_VN = {
     'viewResult': 'Xem kết quả',
@@ -109,5 +142,16 @@ class Locales {
     'isProcessing':
         'Hệ thống đang xử lý dữ liệu.\nVui lòng đợi trong giây lát.',
     'reason': 'Lý do: @message',
+    'up': 'Trên',
+    'front': 'Trước',
+    'rightFront45': '45° Phải - Trước',
+    'leftFront45': '45° Trái - Trước',
+    'back': 'Sau',
+    'rightBack45': '45° Phải - Sau',
+    'leftBack45': '45° Trái - Sau',
+    'rightFront': 'Phải - Trước',
+    'leftFront': 'Trái - Trước',
+    'rightBack': 'Phải - Sau',
+    'leftBack': 'Trái - Sau',
   };
 }

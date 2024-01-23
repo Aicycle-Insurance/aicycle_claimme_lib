@@ -68,27 +68,27 @@ extension CarPartDirectionEnumExt on CarPartDirectionEnum {
   String get title {
     switch (this) {
       case CarPartDirectionEnum.up:
-        return "up";
+        return LocaleKeys.up.trans;
       case CarPartDirectionEnum.front:
-        return "front";
+        return LocaleKeys.front.trans;
       case CarPartDirectionEnum.d45RightFront:
-        return "rightFront45";
+        return LocaleKeys.rightFront45.trans;
       case CarPartDirectionEnum.d45LeftFront:
-        return "leftFront45";
+        return LocaleKeys.leftFront45.trans;
       case CarPartDirectionEnum.back:
-        return "back";
+        return LocaleKeys.back.trans;
       case CarPartDirectionEnum.d45RightBack:
-        return "rightBack45";
+        return LocaleKeys.rightBack45.trans;
       case CarPartDirectionEnum.d45LeftBack:
-        return "leftBack45";
+        return LocaleKeys.leftBack45.trans;
       case CarPartDirectionEnum.rightFront:
-        return "rightFront";
+        return LocaleKeys.rightFront.trans;
       case CarPartDirectionEnum.leftFront:
-        return "leftFront";
+        return LocaleKeys.leftFront.trans;
       case CarPartDirectionEnum.rightBack:
-        return "rightBack";
+        return LocaleKeys.rightBack.trans;
       case CarPartDirectionEnum.leftBack:
-        return "leftBack";
+        return LocaleKeys.leftBack.trans;
       // case CarPartDirectionEnum.left:
       //   return "left";
       case CarPartDirectionEnum.leftDev:

@@ -20,5 +20,16 @@
   "cathayRearRight": "Right back",
   "cathayFurniture": "Odometer, interior",
   "isProcessing": "システムはデータを処理しています。\n少々お待ちください。",
-  "reason": "理由: @message"
+  "reason": "理由: @message",
+  "up": "上",
+  "front": "前",
+  "rightFront45": "前右45°",
+  "leftFront45": "前左45°",
+  "back": "後ろ",
+  "rightBack45": "後右45°",
+  "leftBack45": "後左45°",
+  "rightFront": "右前",
+  "leftFront": "左前",
+  "rightBack": "右後ろ",
+  "leftBack": "左後ろ"
 }

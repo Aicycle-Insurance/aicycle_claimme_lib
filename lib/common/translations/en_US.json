@@ -20,5 +20,16 @@
   "cathayRearRight": "Right back",
   "cathayFurniture": "Odometer, interior",
   "isProcessing": "The system is processing the data.\nPlease wait a moment.",
-  "reason": "Reason: @message"
+  "reason": "Reason: @message",
+  "up": "Top",
+  "front": "Front",
+  "rightFront45": "45° Right - Front",
+  "leftFront45": "45° Left - Front",
+  "back": "Back",
+  "rightBack45": "45° Right - Back",
+  "leftBack45": "45° Left - Back",
+  "rightFront": "Right - Front",
+  "leftFront": "Left - Front",
+  "rightBack": "Right - Back",
+  "leftBack": "Left - Back"
 }

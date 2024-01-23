@@ -20,5 +20,16 @@
   "cathayRearRight": "Mặt phải sau",
   "cathayFurniture": "Đồng hồ, nội thất",
   "isProcessing": "Hệ thống đang xử lý dữ liệu.\nVui lòng đợi trong giây lát.",
-  "reason": "Lý do: @message"
+  "reason": "Lý do: @message",
+  "up": "Trên",
+  "front": "Trước",
+  "rightFront45": "45° Phải - Trước",
+  "leftFront45": "45° Trái - Trước",
+  "back": "Sau",
+  "rightBack45": "45° Phải - Sau",
+  "leftBack45": "45° Trái - Sau",
+  "rightFront": "Phải - Trước",
+  "leftFront": "Trái - Trước",
+  "rightBack": "Phải - Sau",
+  "leftBack": "Trái - Sau"
 }
