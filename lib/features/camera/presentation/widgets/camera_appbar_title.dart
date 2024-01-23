@@ -55,7 +55,7 @@ class CameraAppBarTitle extends StatelessWidget {
           child: Center(
             child: Text(
               title ?? carPartDirectionEnum.title,
-              style: CTextStyles.base.whiteColor.s16,
+              style: CTextStyles.base.whiteColor.s16.w500(),
             ),
           ),
         ),

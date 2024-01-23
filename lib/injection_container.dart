@@ -3,12 +3,26 @@ import 'package:get/get.dart';
 import 'features/aicycle_claim_me/data/repository/aicycle_claim_me_repository_impl.dart';
 import 'features/aicycle_claim_me/domain/usecase/create_folder_usecase.dart';
 import 'features/aicycle_claim_me/domain/usecase/get_duplicate_folder_usecase.dart';
+import 'features/folder_detail/data/repository/folder_detail_repository_impl.dart';
+import 'features/folder_detail/domain/usecase/get_image_direction_usecase.dart';
 
 class InjectionContainer {
   InjectionContainer._();
 
   static initial() {
     _folder();
+    _folderDetail();
+  }
+
+  static void _folderDetail() {
+    Get.lazyPut(
+      () => FolderDetailRepositoryImpl(),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => GetImageDirectionUsecase(Get.find<FolderDetailRepositoryImpl>()),
+      fenix: true,
+    );
   }
 
   static void _folder() {

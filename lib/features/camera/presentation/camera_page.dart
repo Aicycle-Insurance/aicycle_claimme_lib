@@ -138,15 +138,9 @@ class _CameraPageState extends BaseState<CameraPage, CameraPageController> {
       controller: controller.tabController,
       onTap: (index) {},
       tabs: [
-        Tab(
-          text: LocaleKeys.longShot.trans,
-        ),
-        Tab(
-          text: LocaleKeys.middleShot.trans,
-        ),
-        Tab(
-          text: LocaleKeys.closeUpShot.trans,
-        ),
+        Tab(text: LocaleKeys.longShot.trans),
+        Tab(text: LocaleKeys.middleShot.trans),
+        Tab(text: LocaleKeys.closeUpShot.trans),
       ],
     );
   }
