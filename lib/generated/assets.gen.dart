@@ -24,6 +24,9 @@ class $AssetsGifGen {
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/ic_add.svg
+  SvgGenImage get icAdd => const SvgGenImage('assets/icons/ic_add.svg');
+
   /// File path: assets/icons/ic_camera.svg
   SvgGenImage get icCamera => const SvgGenImage('assets/icons/ic_camera.svg');
 
@@ -50,6 +53,9 @@ class $AssetsIconsGen {
   SvgGenImage get icInfoFilled =>
       const SvgGenImage('assets/icons/ic_info_filled.svg');
 
+  /// File path: assets/icons/ic_photo.svg
+  SvgGenImage get icPhoto => const SvgGenImage('assets/icons/ic_photo.svg');
+
   /// File path: assets/icons/ic_warning.svg
   SvgGenImage get icWarning => const SvgGenImage('assets/icons/ic_warning.svg');
 
@@ -59,6 +65,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+        icAdd,
         icCamera,
         icCheck,
         icCheckCircle,
@@ -66,6 +73,7 @@ class $AssetsIconsGen {
         icErrorFilled,
         icInfoFilledCopy,
         icInfoFilled,
+        icPhoto,
         icWarning,
         icWarningFilled
       ];

@@ -80,86 +80,96 @@ class _FolderDetailPageState
                   width: double.maxFinite,
                   padding: const EdgeInsets.symmetric(horizontal: 32),
                   margin: const EdgeInsets.only(bottom: 16),
-                  child: Obx(
-                    () => Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        SizedBox(
-                          width: double.maxFinite,
-                          child: Assets.images.car.image(
-                            package: packageName,
-                            height: 167,
-                            width: 113,
-                          ),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: double.maxFinite,
+                        child: Assets.images.car.image(
+                          package: packageName,
+                          height: 167,
+                          width: 113,
                         ),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: CarPosition(
+                      ),
+                      Align(
+                        alignment: Alignment.topCenter,
+                        child: Obx(
+                          () => CarPosition(
                             direction: CarPartDirectionEnum.front,
-                            claimFolderId: widget.argument.externalClaimId,
-                            imageDirectionModels:
-                                controller.imagesDirections.value,
+                            claimFolderId: widget.argument.aicycleClaimId ??
+                                widget.argument.externalClaimId,
+                            imageDirectionModel: controller.front.value,
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 64),
-                            child: CarPosition(
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 64),
+                          child: Obx(
+                            () => CarPosition(
                               direction: CarPartDirectionEnum.rightFront,
-                              claimFolderId: widget.argument.externalClaimId,
-                              imageDirectionModels:
-                                  controller.imagesDirections.value,
+                              claimFolderId: widget.argument.aicycleClaimId ??
+                                  widget.argument.externalClaimId,
+                              imageDirectionModel: controller.rightFront.value,
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Container(
-                            margin: const EdgeInsets.only(top: 64),
-                            child: CarPosition(
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 64),
+                          child: Obx(
+                            () => CarPosition(
                               direction: CarPartDirectionEnum.leftFront,
-                              claimFolderId: widget.argument.externalClaimId,
-                              imageDirectionModels:
-                                  controller.imagesDirections.value,
+                              claimFolderId: widget.argument.aicycleClaimId ??
+                                  widget.argument.externalClaimId,
+                              imageDirectionModel: controller.leftFront.value,
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 64),
-                            child: CarPosition(
+                      ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 64),
+                          child: Obx(
+                            () => CarPosition(
                               direction: CarPartDirectionEnum.leftBack,
-                              claimFolderId: widget.argument.externalClaimId,
-                              imageDirectionModels:
-                                  controller.imagesDirections.value,
+                              claimFolderId: widget.argument.aicycleClaimId ??
+                                  widget.argument.externalClaimId,
+                              imageDirectionModel: controller.leftBack.value,
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 64),
-                            child: CarPosition(
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 64),
+                          child: Obx(
+                            () => CarPosition(
                               direction: CarPartDirectionEnum.rightBack,
-                              claimFolderId: widget.argument.externalClaimId,
-                              imageDirectionModels:
-                                  controller.imagesDirections.value,
+                              claimFolderId: widget.argument.aicycleClaimId ??
+                                  widget.argument.externalClaimId,
+                              imageDirectionModel: controller.rightBack.value,
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: CarPosition(
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Obx(
+                          () => CarPosition(
                             direction: CarPartDirectionEnum.back,
-                            claimFolderId: widget.argument.externalClaimId,
-                            imageDirectionModels:
-                                controller.imagesDirections.value,
+                            claimFolderId: widget.argument.aicycleClaimId ??
+                                widget.argument.externalClaimId,
+                            imageDirectionModel: controller.back.value,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),

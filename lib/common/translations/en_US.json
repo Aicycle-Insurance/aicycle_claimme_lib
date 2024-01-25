@@ -35,5 +35,11 @@
   "longShot": "Long Shot",
   "middleShot": "Middle Shot",
   "closeUpShot": "Close-up Shot",
-  "close": "Close"
+  "close": "Close",
+  "straightFrame": "Straight frame",
+  "d45Frame": "45° angle frame",
+  "breakThrough": "Break through",
+  "dented": "Dented & Flatten car",
+  "cracked": "Cracked",
+  "scratches": "Scratches"
 }

@@ -2,24 +2,64 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
+import '../../../common/extension/translation_ext.dart';
 import '../../../common/base_controller.dart';
+import '../../../common/contants/direction_constant.dart';
 import '../../../common/utils.dart';
 import '../../../enum/app_state.dart';
+import '../../../generated/locales.g.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
+import '../data/models/car_part_has_damage_model.dart';
+import '../data/models/damage_assessment_response.dart';
+import '../domain/usecase/call_engine_usecase.dart';
+import '../domain/usecase/upload_image_usecase.dart';
 import 'camera_page.dart';
 
 class CameraPageController extends BaseController
     with GetTickerProviderStateMixin {
+  final UploadImageUsecase uploadImageToS3Server =
+      Get.find<UploadImageUsecase>();
+  final CallEngineUsecase callEngineUsecase = Get.find<CallEngineUsecase>();
+
   CameraController? cameraController;
   var isInActive = false.obs;
   var isCameraLoading = false.obs;
   ClaimMeCameraArgument? argument;
   late final TabController tabController;
+  var flashMode = Rx<FlashMode>(FlashMode.off);
+  var previewFile = Rx<XFile?>(null);
+  var isResizing = false.obs;
 
   late Stream<DeviceOrientation> sensorStream;
   var currentOrientation = Rx<DeviceOrientation>(DeviceOrientation.portraitUp);
+
+  var showRetake = false.obs;
+  var showErrorDialog = false.obs;
+  var currentTabIndex = 0.obs;
+  var carPartOnSelected = Rx<CarPartHasDamageModel?>(null);
+  var isConfidentLevelWarning = false.obs;
+  var damageAssessmentResponse = Rx<DamageAssessmentResponse?>(null);
+  var isPortraitUpWhileTakePhoto = false.obs;
+
+  ///
+  DamageAssessmentResponse? cacheDamageResponse;
+  Map<String, dynamic> cacheValidationModel = {};
+
+  ///
+  final Map<int, Map<String, String>> imageRangeIds = {
+    0: {"name": LocaleKeys.longShot.trans, "id": 'toan-canh-afh4l5'},
+    1: {'name': LocaleKeys.middleShot.trans, 'id': 'trung-canh-0s8mnb'},
+    2: {'name': LocaleKeys.closeUpShot.trans, 'id': 'can-canh-czu5jp'},
+  };
+  Map<String, String>? get currentAnggle =>
+      imageRangeIds[currentTabIndex.value];
+
+  ///
+  var carPartsForCloseUpShot = <Map<String, CarPartHasDamageModel>>{}.obs;
 
   @override
   void onInit() {
@@ -85,5 +125,312 @@ class CameraPageController extends BaseController
       );
     }
     update(['camera']);
+  }
+
+  void switchFlashMode() async {
+    if (flashMode() == FlashMode.off) {
+      await cameraController?.setFlashMode(FlashMode.torch);
+      flashMode.value = FlashMode.torch;
+    } else {
+      await cameraController?.setFlashMode(FlashMode.off);
+      flashMode.value = FlashMode.off;
+    }
+  }
+
+  Future<void> onTakePhoto() async {
+    late int rotate;
+    if (currentOrientation.value == DeviceOrientation.landscapeLeft) {
+      isPortraitUpWhileTakePhoto(false);
+      rotate = -90;
+    } else if (currentOrientation.value == DeviceOrientation.landscapeRight) {
+      isPortraitUpWhileTakePhoto(false);
+      rotate = 90;
+    } else {
+      isPortraitUpWhileTakePhoto(true);
+      rotate = 0;
+    }
+
+    ///
+    if (previewFile.value == null) {
+      previewFile.value = await cameraController?.takePicture();
+      await cameraController?.pausePreview();
+      if (previewFile.value != null) {
+        isResizing.value = true;
+        final resizeFile = await Utils.compressImageV2(
+          previewFile.value!,
+          100,
+          rotate: rotate,
+          imageSizeCallBack: (p0) {
+            // localImageSize.value = p0;
+          },
+        );
+        previewFile.value = resizeFile;
+        isResizing.value = false;
+        callEngine(resizeFile);
+      }
+    } else {
+      await cameraController?.resumePreview();
+    }
+  }
+
+  Future<void> onGalleryPick() async {
+    if (previewFile.value == null) {
+      isPortraitUpWhileTakePhoto(false);
+      var pickedFile = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 100,
+      );
+      if (pickedFile != null) {
+        previewFile.value = pickedFile;
+        isResizing.value = true;
+        var resizeFile = await Utils.compressImageV2(
+          pickedFile,
+          100,
+          imageSizeCallBack: (p0) {},
+        );
+        previewFile.value = resizeFile;
+        isResizing.value = false;
+        await callEngine(resizeFile);
+      }
+    }
+  }
+
+  Future<void> callEngine(XFile file) async {
+    if (argument != null) {
+      /// Tính thời gian upload
+      isLoading.value = true;
+      final Stopwatch timer = Stopwatch();
+      timer.start();
+      var uploadRes = await uploadImageToS3Server(localFilePath: file.path);
+      timer.stop();
+      // Kết thúc
+      uploadRes.fold(
+        (l) {
+          isLoading(false);
+          status(
+            BaseStatus(
+              message: l.message.toString(),
+              state: AppState.customError,
+            ),
+          );
+          showErrorDialog(true);
+          showRetake(true);
+        },
+        (r) async {
+          if (r.level == 'info' && r.filePath != null) {
+            await callEngineImpl(
+              localFilePath: file.path,
+              serverFilePath: r.filePath!,
+              timeAppUpload: timer.elapsedMilliseconds / 1000,
+            );
+          }
+
+          /// warning
+          else if (r.level == 'warning') {
+            cacheValidationModel['localFilePath'] = file.path;
+            cacheValidationModel['serverFilePath'] = r.filePath;
+            cacheValidationModel['timeAppUpload'] =
+                timer.elapsedMilliseconds / 1000;
+            isLoading(false);
+            showRetake(false);
+            status(BaseStatus(
+              message: r.message ?? 'Warning',
+              state: AppState.warning,
+            ));
+          }
+
+          /// error
+          else {
+            isLoading(false);
+            status(BaseStatus(
+              message: null,
+              state: AppState.idle,
+            ));
+            showRetake(true);
+          }
+        },
+      );
+    }
+  }
+
+  Future<void> callEngineImpl({
+    required String localFilePath,
+    required String serverFilePath,
+    double? timeAppUpload,
+  }) async {
+    var callEngineRes = await callEngineUsecase(
+      claimId: argument!.claimId,
+      imageName: basename(localFilePath),
+      filePath: serverFilePath,
+      position: positionIds[currentTabIndex.value],
+      direction: argument!.carPartDirectionEnum.excelId,
+      vehiclePartExcelId: currentTabIndex.value == 2
+          ? carPartOnSelected.value?.vehiclePartExcelId ?? ''
+          : '',
+      timeAppUpload: timeAppUpload,
+      utcTimeCreated: DateTime.now().toUtc().toIso8601String(),
+    );
+
+    callEngineRes.fold((l) {
+      isLoading(false);
+
+      /// Code from engine
+      if (l.errorCodeFromEngine != null) {
+        status(
+          BaseStatus(
+            message: l.message.toString(),
+            state: AppState.customError,
+          ),
+        );
+        showErrorDialog(true);
+        status(
+          BaseStatus(
+            message: l.message.toString(),
+            state: AppState.customError,
+          ),
+        );
+        showRetake(false);
+        showErrorDialog(true);
+      } else {
+        status(
+          BaseStatus(
+            message: l.message.toString(),
+            state: AppState.customError,
+          ),
+        );
+        showErrorDialog(true);
+        showRetake(true);
+      }
+    }, (r) {
+      isLoading(false);
+      if (r.errorCodeFromEngine == null || r.errorCodeFromEngine == 0) {
+        // updateDirection(r);
+      } else {
+        cacheDamageResponse = r;
+        damageAssessmentResponse.value = r;
+
+        /// confident level thấp
+        if (r.errorCodeFromEngine == 66616) {
+          status(
+            BaseStatus(
+              message: r.message,
+              state: AppState.warning,
+            ),
+          );
+          showRetake(false);
+          isConfidentLevelWarning(true);
+        } else {
+          status(
+            BaseStatus(
+              message: r.message,
+              state: AppState.customError,
+            ),
+          );
+          showRetake(false);
+          showErrorDialog(true);
+        }
+      }
+    });
+  }
+
+  void engineWarningHandle(String action) async {
+    switch (action) {
+      case 'next':
+        if (cacheValidationModel['localFilePath'] != null &&
+            cacheValidationModel['serverFilePath'] != null) {
+          await callEngineImpl(
+            localFilePath: cacheValidationModel['localFilePath'],
+            serverFilePath: cacheValidationModel['serverFilePath'],
+            timeAppUpload: cacheValidationModel['timeAppUpload'],
+          );
+        } else {
+          status(
+              BaseStatus(message: 'Hệ thống lỗi', state: AppState.customError));
+          showErrorDialog(true);
+          damageAssessmentResponse.value = null;
+          previewFile.value = null;
+        }
+        break;
+      case 'save':
+        if (cacheDamageResponse != null) {
+          // updateDirection(cacheDamageResponse);
+        }
+        status(BaseStatus(message: null, state: AppState.pop));
+        damageAssessmentResponse.value = cacheDamageResponse;
+        break;
+      case 'retake':
+        cameraController?.resumePreview();
+        if (status.value.state == AppState.warning &&
+            cacheDamageResponse != null) {
+          // await deleteImageByIdUsecase(cacheDamageResponse!.imageId.toString())
+          //     .then((value) => cacheDamageResponse = null);
+        }
+        // localImageSize.value = null;
+        previewFile.value = null;
+        cacheValidationModel = {};
+        status(BaseStatus(message: null, state: AppState.idle));
+        damageAssessmentResponse.value = null;
+        showErrorDialog(false);
+        cacheDamageResponse = null;
+        break;
+    }
+  }
+
+  void onNextTapped() {
+    if (currentTabIndex.value == 0) {
+      onTabChanged(1);
+    } else if (currentTabIndex.value == 1 &&
+        carPartsForCloseUpShot.isNotEmpty) {
+      onTabChanged(2);
+    }
+  }
+
+  void onTabChanged(int index) {
+    if (index == 2 && carPartsForCloseUpShot.isEmpty) {
+      status(
+        BaseStatus(
+          message: 'needValidImage',
+          state: AppState.failed,
+        ),
+      );
+      onTabChanged(1);
+    } else {
+      status(
+        BaseStatus(
+          message: '',
+          state: AppState.idle,
+        ),
+      );
+      previewFile.value = null;
+      currentTabIndex(index);
+      tabController.animateTo(index);
+    }
+    // currentTabIndex(index);
+    // if (index == 2 && state.carPartsForCloseUpShot.isEmpty) {
+    //   emit(
+    //     state.copyWith(
+    //       status: BaseStateStatus.failed,
+    //       message: 'needValidImage'.tr(),
+    //       pageLoading: false,
+    //       previewFile: null,
+    //       currentTabIndex: 1,
+    //       cameraArgument: state.cameraArgument?.copyWith(rangeId: 2),
+    //     ),
+    //   );
+    //   _changeTab(1, tabController, emit);
+    // } else {
+    //   emit(
+    //     state.copyWith(
+    //       status: BaseStateStatus.idle,
+    //       showDrawingTool: false,
+    //       pageLoading: false,
+    //       message: null,
+    //       previewFile: null,
+    //       currentTabIndex: index,
+    //       cameraArgument: state.cameraArgument?.copyWith(rangeId: index + 1),
+    //     ),
+    //   );
+    //   tabController.animateTo(index);
+    // }
   }
 }

@@ -11,6 +11,7 @@ class CachedImageWidget extends StatelessWidget {
   final BoxFit? fit;
   final double? width;
   final double? height;
+  final Color? color;
   const CachedImageWidget({
     super.key,
     required this.url,
@@ -20,12 +21,14 @@ class CachedImageWidget extends StatelessWidget {
     this.shape,
     this.width,
     this.height,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: url,
+      color: color,
       imageBuilder: (context, imageProvider) => Container(
         height: height,
         width: width,

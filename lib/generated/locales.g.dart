@@ -49,6 +49,8 @@ class LocaleKeys {
   static const middleShot = 'middleShot';
   static const closeUpShot = 'closeUpShot';
   static const close = 'close';
+  static const straightFrame = 'straightFrame';
+  static const d45Frame = 'd45Frame';
 }
 
 class Locales {
@@ -90,6 +92,8 @@ class Locales {
     'middleShot': 'ミドルショット',
     'closeUpShot': 'クローズアップショット',
     'close': '閉じる',
+    'straightFrame': '直フレーム',
+    'd45Frame': '45度フレーム',
   };
   static const en_US = {
     'viewResult': 'Result',
@@ -129,6 +133,8 @@ class Locales {
     'middleShot': 'Middle Shot',
     'closeUpShot': 'Close-up Shot',
     'close': 'Close',
+    'straightFrame': 'Straight frame',
+    'd45Frame': '45° angle frame',
   };
   static const vi_VN = {
     'viewResult': 'Xem kết quả',
@@ -169,5 +175,7 @@ class Locales {
     'middleShot': 'Trung cảnh',
     'closeUpShot': 'Cận cảnh',
     'close': 'Đóng',
+    'straightFrame': 'Khung thẳng',
+    'd45Frame': 'Khung 45°',
   };
 }

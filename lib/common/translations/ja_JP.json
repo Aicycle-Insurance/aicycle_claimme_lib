@@ -35,5 +35,11 @@
   "longShot": "ロングショット",
   "middleShot": "ミドルショット",
   "closeUpShot": "クローズアップショット",
-  "close": "閉じる"
+  "close": "閉じる",
+  "straightFrame": "直フレーム",
+  "d45Frame": "45度フレーム",
+  "breakThrough": "破れ、穴、裂け",
+  "dented": "へこみ",
+  "cracked": "ひび割れ",
+  "scratches": "擦り傷"
 }

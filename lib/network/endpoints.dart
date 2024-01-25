@@ -21,4 +21,5 @@ abstract class Endpoint {
   /// claim me
   static String get getImageDirectionV2 =>
       '/v2/claimfolders/{claimId}/total-images-direction';
+  static String get callClaimMeEngine => '/v2/claim-me/process';
 }

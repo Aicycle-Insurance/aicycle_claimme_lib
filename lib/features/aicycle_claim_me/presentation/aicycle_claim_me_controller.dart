@@ -45,6 +45,13 @@ class AiCycleClaimMeController extends BaseController {
         }
       },
       (r) {
+        argument = AiCycleClaimMeArgument(
+          externalClaimId: argument.externalClaimId,
+          apiToken: argument.apiToken,
+          aicycleClaimId: r.claimId,
+          environtment: argument.environtment,
+          locale: argument.locale,
+        );
         isLoading(false);
         status.value = BaseStatus(
           message: null,
@@ -67,6 +74,13 @@ class AiCycleClaimMeController extends BaseController {
         );
       },
       (r) {
+        argument = AiCycleClaimMeArgument(
+          externalClaimId: argument.externalClaimId,
+          apiToken: argument.apiToken,
+          aicycleClaimId: r.claimId,
+          environtment: argument.environtment,
+          locale: argument.locale,
+        );
         isLoading(false);
         status.value = BaseStatus(
           message: null,
