@@ -32,7 +32,6 @@ class FolderDetailController extends BaseController {
     processUsecaseResult<List<ImageDirectionModel>>(
       result: await getImageDirectionUsecase(argument.aicycleClaimId!),
       onSuccess: (result) {
-        print(result);
         matchDirection(result);
       },
     );

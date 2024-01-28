@@ -43,8 +43,8 @@ class PreviewWithMask extends StatelessWidget {
       var imWidth = damageAssessmentModel!.imgSize?[0]?.toDouble() ?? 1920.0;
       var imHeight = damageAssessmentModel!.imgSize?[1]?.toDouble() ?? 1080.0;
       for (var mask in damageAssessmentModel!.carDamages!) {
-        if (!cachedDamageType.contains(mask.classUuid)) {
-          cachedDamageType.add(mask.classUuid ?? '0');
+        if (!cachedDamageType.contains(mask.classUuid ?? mask.damageKey)) {
+          cachedDamageType.add(mask.classUuid ?? mask.damageKey ?? '0');
           var currentDamageType = damageTypes.firstWhereOrNull(
             (element) => element.damageTypeGuid == mask.classUuid,
           );
@@ -58,6 +58,12 @@ class PreviewWithMask extends StatelessWidget {
               left: (box[0]?.toDouble() ?? 0) * imWidth,
               top: (box[1]?.toDouble() ?? 0) * imHeight,
               child: SizedBox(
+                height: ((box[1]?.toDouble() ?? 0) - (box[3]?.toDouble() ?? 0))
+                        .abs() *
+                    imHeight,
+                width: ((box[0]?.toDouble() ?? 0) - (box[2]?.toDouble() ?? 0))
+                        .abs() *
+                    imWidth,
                 child: CachedImageWidget(
                   url: mask.maskUrl ?? '',
                   fit: BoxFit.fill,

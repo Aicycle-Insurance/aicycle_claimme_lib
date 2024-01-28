@@ -1,4 +1,5 @@
 import 'package:aicycle_claimme_lib/common/extension/translation_ext.dart';
+import 'package:aicycle_claimme_lib/features/aicycle_claim_me/presentation/aicycle_claim_me.dart';
 
 import '../generated/locales.g.dart';
 
@@ -55,6 +56,39 @@ enum CarPartDirectionEnum {
       case 22:
         return CarPartDirectionEnum.leftProd;
       case 31:
+        return CarPartDirectionEnum.leftDev;
+      default:
+        return CarPartDirectionEnum.leftFront;
+    }
+  }
+  factory CarPartDirectionEnum.fromExcelId(String excelId) {
+    switch (excelId) {
+      case "tren-BrogFf":
+        return CarPartDirectionEnum.up;
+      case "truoc-sT9qgX":
+        return CarPartDirectionEnum.front;
+      case "45-phai-truoc-UoYzs6":
+        return CarPartDirectionEnum.d45RightFront;
+      case "45-trai-truoc-C1xM02":
+        return CarPartDirectionEnum.d45LeftFront;
+      case "sau-htBwjB":
+        return CarPartDirectionEnum.back;
+      case "45-phai-sau-fRzY3r":
+        return CarPartDirectionEnum.d45RightBack;
+      case "45-trai-sau-1q3G3J":
+        return CarPartDirectionEnum.d45LeftBack;
+      case "phai-truoc-eYWg1d":
+        return CarPartDirectionEnum.rightFront;
+      case "trai-truoc-r6BEZd":
+        return CarPartDirectionEnum.leftFront;
+      case "phai-sau-v1hAm6":
+        return CarPartDirectionEnum.rightBack;
+      case "trai-sau-t8QgFO":
+        return CarPartDirectionEnum.leftBack;
+      case "trai-MyuVUE":
+        if (environtment == Evn.production) {
+          return CarPartDirectionEnum.leftProd;
+        }
         return CarPartDirectionEnum.leftDev;
       default:
         return CarPartDirectionEnum.leftFront;

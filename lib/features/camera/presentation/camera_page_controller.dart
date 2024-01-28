@@ -305,9 +305,16 @@ class CameraPageController extends BaseController
       isLoading(false);
       if (r.errorCodeFromEngine == null || r.errorCodeFromEngine == 0) {
         // updateDirection(r);
+        status(
+          BaseStatus(
+            message: null,
+            state: AppState.success,
+          ),
+        );
+        damageAssessmentResponse.value = r;
+        showRetake(false);
       } else {
         cacheDamageResponse = r;
-        damageAssessmentResponse.value = r;
 
         /// confident level thấp
         if (r.errorCodeFromEngine == 66616) {
@@ -386,6 +393,7 @@ class CameraPageController extends BaseController
   }
 
   void onTabChanged(int index) {
+    damageAssessmentResponse.value = null;
     if (index == 2 && carPartsForCloseUpShot.isEmpty) {
       status(
         BaseStatus(

@@ -35,7 +35,7 @@ class AicycleClaimMeApi extends APIRequest {
             endpoint: Endpoint.claimFolders,
             method: HTTPMethod.get,
             isLogResponse: true,
-            body: {
+            query: {
               "externalClaimId": externalClaimId,
             });
 }

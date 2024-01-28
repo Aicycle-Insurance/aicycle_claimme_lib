@@ -129,7 +129,11 @@ class _CameraPageState extends BaseState<CameraPage, CameraPageController> {
                                   damageAssessmentModel: controller
                                       .damageAssessmentResponse.value?.result,
                                   onYesTapped: controller.onNextTapped,
-                                  onNoTapped: () {},
+                                  onNoTapped: controller.onNextTapped,
+                                  retake: controller.showRetake()
+                                      ? () => controller
+                                          .engineWarningHandle('retake')
+                                      : null,
                                 ),
 
                                 /// compressing widget
@@ -242,13 +246,16 @@ class _CameraPageState extends BaseState<CameraPage, CameraPageController> {
                       alignment: Alignment.bottomCenter,
                       child: SafeArea(
                         child: Obx(
-                          () => AiCameraBottomBar(
-                            orientation: controller.currentOrientation.value,
-                            takePhoto: controller.onTakePhoto,
-                            toggleFlashMode: controller.switchFlashMode,
-                            flashMode: controller.flashMode.value,
-                            previewFile: controller.previewFile.value,
-                          ),
+                          () => controller.previewFile.value == null
+                              ? AiCameraBottomBar(
+                                  orientation:
+                                      controller.currentOrientation.value,
+                                  takePhoto: controller.onTakePhoto,
+                                  toggleFlashMode: controller.switchFlashMode,
+                                  flashMode: controller.flashMode.value,
+                                  previewFile: controller.previewFile.value,
+                                )
+                              : const SizedBox.shrink(),
                         ),
                       ),
                     )

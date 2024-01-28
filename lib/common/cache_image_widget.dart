@@ -28,7 +28,6 @@ class CachedImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: url,
-      color: color,
       imageBuilder: (context, imageProvider) => Container(
         height: height,
         width: width,
@@ -39,6 +38,9 @@ class CachedImageWidget extends StatelessWidget {
           image: DecorationImage(
             image: imageProvider,
             fit: fit ?? BoxFit.cover,
+            colorFilter: color != null
+                ? ColorFilter.mode(color!, BlendMode.srcIn)
+                : null,
           ),
         ),
       ),

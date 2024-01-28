@@ -1,3 +1,6 @@
+import 'package:aicycle_claimme_lib/common/contants/direction_constant.dart';
+import 'package:aicycle_claimme_lib/enum/car_part_direction.dart';
+
 import '../../../../network/api_request.dart';
 import '../../../../network/endpoints.dart';
 
@@ -17,15 +20,18 @@ class CameraAPI extends APIRequest {
     String? uploadLocation,
     String? utcTimeCreated,
   }) : super(
-          endpoint: Endpoint.callClaimMeEngine,
+          endpoint: Endpoint.callClaimMeEngineV1,
           method: HTTPMethod.post,
           isLogResponse: true,
+          isBaseResponse: false,
           body: {
             "claimId": claimId,
             "imageName": imageName,
             "filePath": filePath,
-            "position": position,
-            "direction": direction,
+            // "position": position,
+            // "direction": direction,
+            "imageRangeId": positionIds.indexOf(position) + 1,
+            "partDirectionId": CarPartDirectionEnum.fromExcelId(direction).id,
             "vehiclePartExcelId": vehiclePartExcelId,
             "oldImageId": oldImageId,
             "timeAppUpload": timeAppUpload,
@@ -33,7 +39,8 @@ class CameraAPI extends APIRequest {
             "location": locationName,
             "requestedTime": utcTimeCreated,
             "uploadLocation": uploadLocation,
-            "isValidate": true,
+            // "isValidate": true,
+            "isClaim": true,
           },
         );
 
