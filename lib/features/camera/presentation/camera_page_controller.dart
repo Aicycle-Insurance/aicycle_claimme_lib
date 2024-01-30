@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +15,7 @@ import '../../../common/utils.dart';
 import '../../../enum/app_state.dart';
 import '../../../generated/locales.g.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
+import '../../folder_detail/presentation/folder_detail_controller.dart';
 import '../data/models/car_part_has_damage_model.dart';
 import '../data/models/damage_assessment_response.dart';
 import '../domain/usecase/call_engine_usecase.dart';
@@ -61,6 +64,24 @@ class CameraPageController extends BaseController
   ///
   var carPartsForCloseUpShot = <Map<String, CarPartHasDamageModel>>{}.obs;
 
+  ///
+  var longShotImages = <String>[].obs;
+  var middleShotImages = <String>[].obs;
+  var closeUpShotImages = <String>[].obs;
+
+  List<String> get currentImageList {
+    switch (currentTabIndex.value) {
+      case 0:
+        return longShotImages.value;
+      case 1:
+        return middleShotImages.value;
+      case 2:
+        return closeUpShotImages.value;
+      default:
+        return longShotImages.value;
+    }
+  }
+
   @override
   void onInit() {
     WidgetsBinding.instance.addObserver(this);
@@ -86,6 +107,24 @@ class CameraPageController extends BaseController
       );
     }
     super.onReady();
+    if (argument?.longShotImages != null) {
+      longShotImages.assignAll(argument!.longShotImages!
+          .map((e) => e.imageUrl ?? e.url ?? '')
+          .toList());
+    }
+    if (argument?.middleShotImages != null) {
+      middleShotImages.assignAll(argument!.middleShotImages!
+          .map((e) => e.imageUrl ?? e.url ?? '')
+          .toList());
+    }
+    if (argument?.closeUpShotImages != null) {
+      closeUpShotImages.assignAll(argument!.closeUpShotImages!
+          .map((e) => e.imageUrl ?? e.url ?? '')
+          .toList());
+    }
+    if (argument?.initPositionIndex != null) {
+      onTabChanged(argument!.initPositionIndex!);
+    }
   }
 
   Future<void> onNewCameraSelected(CameraDescription cameraDescription) async {
@@ -304,7 +343,7 @@ class CameraPageController extends BaseController
     }, (r) {
       isLoading(false);
       if (r.errorCodeFromEngine == null || r.errorCodeFromEngine == 0) {
-        // updateDirection(r);
+        updateDirection(r);
         status(
           BaseStatus(
             message: null,
@@ -338,6 +377,25 @@ class CameraPageController extends BaseController
         }
       }
     });
+  }
+
+  updateDirection(DamageAssessmentResponse response) async {
+    switch (currentTabIndex.value) {
+      case 0:
+        longShotImages.assignAll([response.result?.imgUrl ?? '']);
+        break;
+      case 1:
+        middleShotImages.add(response.result?.imgUrl ?? '');
+        break;
+      case 2:
+        closeUpShotImages.add(response.result?.imgUrl ?? '');
+        break;
+    }
+
+    ///
+    if (Get.isRegistered<FolderDetailController>()) {
+      await Get.find<FolderDetailController>().getImageDirection();
+    }
   }
 
   void engineWarningHandle(String action) async {

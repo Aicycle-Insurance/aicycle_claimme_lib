@@ -22,7 +22,7 @@ class RangeImageSection extends StatelessWidget {
   });
   final int rangeId;
   final List<ClaimImageModel> images;
-  final Function()? onTakePhoto;
+  final Function(String? currentImageId)? onTakePhoto;
   final Function(String imageId)? onDeleteImage;
   final bool? isLoading;
   final List<String> deletingList;
@@ -57,7 +57,7 @@ class RangeImageSection extends StatelessWidget {
               CupertinoButton(
                 padding: EdgeInsets.zero,
                 minSize: 0,
-                onPressed: onTakePhoto,
+                onPressed: () => onTakePhoto?.call(null),
                 child: Material(
                   color: Colors.transparent,
                   child: Row(
@@ -109,7 +109,7 @@ class RangeImageSection extends StatelessWidget {
                         onDelete: () {
                           onDeleteImage?.call(e.imageId ?? '');
                         },
-                        onRetake: () {},
+                        onRetake: () => onTakePhoto?.call(e.imageId.toString()),
                         // onRetake: () => _pushToCamera(
                         //   rangeId: rangeId,
                         //   oldImageId: int.tryParse(e.imageId.toString()),
@@ -118,7 +118,7 @@ class RangeImageSection extends StatelessWidget {
                     }).toList()
                   : [
                       ImageContainer(
-                        onRetake: onTakePhoto,
+                        onRetake: () => onTakePhoto?.call(null),
                       ),
                     ],
         ),

@@ -13,14 +13,14 @@ class AiCameraBottomBar extends StatelessWidget {
     this.flashMode,
     required this.takePhoto,
     required this.toggleFlashMode,
-    this.imageNetworkList = const [],
+    this.imageUrls = const [],
     this.orientation = DeviceOrientation.portraitUp,
   });
   final XFile? previewFile;
   final FlashMode? flashMode;
   final Function() takePhoto;
   final Function()? toggleFlashMode;
-  final List imageNetworkList;
+  final List<String> imageUrls;
   final DeviceOrientation? orientation;
 
   static const double _bottomBarHeight = 100;
@@ -116,11 +116,8 @@ class AiCameraBottomBar extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedImageWidget(
-                            url: imageNetworkList.isNotEmpty
-                                ? imageNetworkList.last.url ??
-                                    imageNetworkList.last.imageUrl ??
-                                    ''
-                                : noImage,
+                            url:
+                                imageUrls.isNotEmpty ? imageUrls.last : noImage,
                             height: 52,
                             width: 52,
                             fit: BoxFit.cover,
@@ -136,7 +133,7 @@ class AiCameraBottomBar extends StatelessWidget {
                               color: Colors.black,
                             ),
                             child: Text(
-                              imageNetworkList.length.toString(),
+                              imageUrls.length.toString(),
                               style: const TextStyle(
                                 fontSize: 10,
                                 color: Colors.white,

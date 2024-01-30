@@ -46,7 +46,9 @@ class PreviewWithMask extends StatelessWidget {
         if (!cachedDamageType.contains(mask.classUuid ?? mask.damageKey)) {
           cachedDamageType.add(mask.classUuid ?? mask.damageKey ?? '0');
           var currentDamageType = damageTypes.firstWhereOrNull(
-            (element) => element.damageTypeGuid == mask.classUuid,
+            (element) =>
+                element.damageTypeGuid == mask.classUuid ||
+                element.damageTypeSlugId == mask.damageKey,
           );
           var color =
               ColorUtils.colorFromHex(currentDamageType?.damageTypeColor)

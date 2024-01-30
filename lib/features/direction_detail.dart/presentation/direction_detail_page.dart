@@ -97,6 +97,25 @@ class _DirectionDetailPageState
                   isLoading: controller.longLoading.value,
                   onDeleteImage: controller.onDeleteImage,
                   deletingList: controller.deletingList.value,
+                  onTakePhoto: (oldImageId) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CameraPage(
+                          argument: ClaimMeCameraArgument(
+                            carPartDirectionEnum:
+                                widget.argument.carPartDirectionEnum,
+                            carModelEnum: widget.argument.carModelEnum,
+                            claimId: widget.argument.claimId,
+                            closeUpShotImages: controller.closeUpShotImages,
+                            longShotImages: controller.longShotImages,
+                            middleShotImages: controller.middleShotImages,
+                            initPositionIndex: 0,
+                            oldImageId: oldImageId,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
               const Gap(20),
@@ -107,6 +126,25 @@ class _DirectionDetailPageState
                   isLoading: controller.middleLoading.value,
                   onDeleteImage: controller.onDeleteImage,
                   deletingList: controller.deletingList.value,
+                  onTakePhoto: (oldImageId) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CameraPage(
+                          argument: ClaimMeCameraArgument(
+                            carPartDirectionEnum:
+                                widget.argument.carPartDirectionEnum,
+                            carModelEnum: widget.argument.carModelEnum,
+                            claimId: widget.argument.claimId,
+                            closeUpShotImages: controller.closeUpShotImages,
+                            longShotImages: controller.longShotImages,
+                            middleShotImages: controller.middleShotImages,
+                            initPositionIndex: 1,
+                            oldImageId: oldImageId,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
               const Gap(20),
@@ -117,6 +155,25 @@ class _DirectionDetailPageState
                   isLoading: controller.closeUpLoading.value,
                   onDeleteImage: controller.onDeleteImage,
                   deletingList: controller.deletingList.value,
+                  onTakePhoto: (oldImageId) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => CameraPage(
+                          argument: ClaimMeCameraArgument(
+                            carPartDirectionEnum:
+                                widget.argument.carPartDirectionEnum,
+                            carModelEnum: widget.argument.carModelEnum,
+                            claimId: widget.argument.claimId,
+                            closeUpShotImages: controller.closeUpShotImages,
+                            longShotImages: controller.longShotImages,
+                            middleShotImages: controller.middleShotImages,
+                            initPositionIndex: 2,
+                            oldImageId: oldImageId,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

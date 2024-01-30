@@ -12,6 +12,7 @@ import '../../../enum/app_state.dart';
 import '../../../enum/car_model.dart';
 import '../../../enum/car_part_direction.dart';
 import '../../../generated/locales.g.dart';
+import '../../direction_detail.dart/data/models/claim_image_model.dart';
 import 'camera_page_controller.dart';
 import 'widgets/camera_appbar_title.dart';
 import 'widgets/camera_bottom_bar.dart';
@@ -24,11 +25,21 @@ class ClaimMeCameraArgument {
   final CarPartDirectionEnum carPartDirectionEnum;
   final CarModelEnum carModelEnum;
   final String claimId;
+  final String? oldImageId;
+  final int? initPositionIndex;
+  final List<ClaimImageModel>? longShotImages;
+  final List<ClaimImageModel>? middleShotImages;
+  final List<ClaimImageModel>? closeUpShotImages;
 
   ClaimMeCameraArgument({
     required this.carPartDirectionEnum,
     required this.carModelEnum,
     required this.claimId,
+    this.closeUpShotImages,
+    this.longShotImages,
+    this.middleShotImages,
+    this.oldImageId,
+    this.initPositionIndex,
   });
 }
 
@@ -254,6 +265,7 @@ class _CameraPageState extends BaseState<CameraPage, CameraPageController> {
                                   toggleFlashMode: controller.switchFlashMode,
                                   flashMode: controller.flashMode.value,
                                   previewFile: controller.previewFile.value,
+                                  imageUrls: controller.currentImageList,
                                 )
                               : const SizedBox.shrink(),
                         ),
