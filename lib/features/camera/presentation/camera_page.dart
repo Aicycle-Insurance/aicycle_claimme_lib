@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ import '../../../enum/car_model.dart';
 import '../../../enum/car_part_direction.dart';
 import '../../../generated/locales.g.dart';
 import '../../direction_detail.dart/data/models/claim_image_model.dart';
+import '../data/models/car_part_has_damage_model.dart';
 import 'camera_page_controller.dart';
 import 'widgets/camera_appbar_title.dart';
 import 'widgets/camera_bottom_bar.dart';
@@ -30,6 +33,7 @@ class ClaimMeCameraArgument {
   final List<ClaimImageModel>? longShotImages;
   final List<ClaimImageModel>? middleShotImages;
   final List<ClaimImageModel>? closeUpShotImages;
+  final List<CarPartHasDamageModel>? carPartHasDamage;
 
   ClaimMeCameraArgument({
     required this.carPartDirectionEnum,
@@ -40,6 +44,7 @@ class ClaimMeCameraArgument {
     this.middleShotImages,
     this.oldImageId,
     this.initPositionIndex,
+    this.carPartHasDamage,
   });
 }
 
@@ -186,6 +191,11 @@ class _CameraPageState extends BaseState<CameraPage, CameraPageController> {
                                   widget.argument.carPartDirectionEnum,
                               rangeShot:
                                   controller.currentAnggle?['name'] ?? '',
+                              carPartsForCloseUpShot:
+                                  controller.carPartsForCloseUpShot.value,
+                              onPartSelected: controller.carPartOnSelected,
+                              currentPartSeleted:
+                                  controller.carPartOnSelected.value,
                             ),
                           ),
                         );

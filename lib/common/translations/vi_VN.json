@@ -48,5 +48,6 @@
   "cancel": "Huỷ",
   "delete": "Xoá",
   "no": "Không",
-  "yes": "Có"
+  "yes": "Có",
+  "needValidImage": "Bạn cần chụp ảnh toàn cảnh hoặc trung cảnh hợp lệ trước."
 }

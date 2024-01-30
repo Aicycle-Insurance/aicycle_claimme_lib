@@ -62,6 +62,7 @@ class LocaleKeys {
   static const delete = 'delete';
   static const no = 'no';
   static const yes = 'yes';
+  static const needValidImage = 'needValidImage';
 }
 
 class Locales {
@@ -116,6 +117,7 @@ class Locales {
     'delete': '削除',
     'no': 'いいえ',
     'yes': 'はい',
+    'needValidImage': '有効なロングショットまたはミドルショットを撮影する必要があります。',
   };
   static const en_US = {
     'viewResult': 'Result',
@@ -168,6 +170,8 @@ class Locales {
     'no': 'No',
     'yes': 'Yes',
     'delete': 'Delete',
+    'needValidImage':
+        'You need to take a valid long shot or middle shot first.',
   };
   static const vi_VN = {
     'viewResult': 'Xem kết quả',
@@ -221,5 +225,7 @@ class Locales {
     'delete': 'Xoá',
     'no': 'Không',
     'yes': 'Có',
+    'needValidImage':
+        'Bạn cần chụp ảnh toàn cảnh hoặc trung cảnh hợp lệ trước.',
   };
 }

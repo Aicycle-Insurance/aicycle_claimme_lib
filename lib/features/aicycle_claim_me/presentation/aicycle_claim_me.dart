@@ -20,7 +20,7 @@ enum Evn {
   production,
 }
 
-bool? enableVersion2 = false;
+bool? enableVersion2 = true;
 String? apiToken;
 Evn environment = Evn.production;
 Locale? locale;
@@ -73,7 +73,7 @@ class _AiCycleClaimMeState
     controller.argument = widget.argument;
     apiToken = widget.argument.apiToken;
     environment = widget.argument.environtment ?? Evn.production;
-    enableVersion2 = widget.argument.enableVersion2 ?? false;
+    enableVersion2 = widget.argument.enableVersion2 ?? true;
     locale = widget.argument.locale;
     controller.status.listen((state) {
       if (state.state == AppState.redirect) {

@@ -1,3 +1,4 @@
+import 'package:aicycle_claimme_lib/features/camera/data/models/car_part_has_damage_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/extension/translation_ext.dart';
@@ -11,10 +12,18 @@ class DirectionInfoLayer extends StatefulWidget {
     required this.rangeShot,
     required this.carPartDirectionEnum,
     required this.onAngleCallBack,
+    this.carPartHasDamage,
+    this.onPartSelected,
+    this.currentPartSeleted,
   });
   final String rangeShot;
   final CarPartDirectionEnum carPartDirectionEnum;
   final Function(CarPartDirectionEnum)? onAngleCallBack;
+
+  ///
+  final List<CarPartHasDamageModel>? carPartHasDamage;
+  final Function(CarPartHasDamageModel value)? onPartSelected;
+  final CarPartHasDamageModel? currentPartSeleted;
 
   @override
   State<DirectionInfoLayer> createState() => _DirectionInfoLayerState();
@@ -27,10 +36,22 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
   late CarPartDirectionEnum currentAngle;
   bool showDropDown = false;
 
+  ///
+  bool showCarParts = false;
+  final GlobalKey carPartDropDownKey = GlobalKey();
+  CarPartHasDamageModel? currentCarPart;
+
   @override
   initState() {
     super.initState();
     currentAngle = widget.carPartDirectionEnum;
+    if (widget.carPartHasDamage != null &&
+        widget.carPartHasDamage!.isNotEmpty) {
+      currentCarPart = widget.carPartHasDamage!.first;
+    }
+    if (widget.currentPartSeleted != null) {
+      currentCarPart = widget.currentPartSeleted!;
+    }
   }
 
   Map<CarPartDirectionEnum, String> get anglesShot {
@@ -132,7 +153,45 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
               if (showDropDown) _frameSelector(),
             ],
           ),
-        if (widget.rangeShot != LocaleKeys.longShot.trans) const SizedBox(),
+        if (widget.rangeShot == LocaleKeys.closeUpShot.trans)
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    showCarParts = !showCarParts;
+                  });
+                },
+                child: Container(
+                  key: carPartDropDownKey,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        '${currentCarPart?.vehiclePartName ?? ''} (${currentCarPart?.totalCloseImages ?? 0})',
+                        style: CTextStyles.baseWhite.s14.w500(),
+                      ),
+                      const SizedBox(width: 8),
+                      const Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        color: Colors.white,
+                        size: 14,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 4),
+              if (showCarParts) _carPartSelector(),
+            ],
+          ),
+        if (widget.rangeShot == LocaleKeys.middleShot.trans) const SizedBox(),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
@@ -175,6 +234,43 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
                   currentAngle = e;
                   widget.onAngleCallBack?.call(currentAngle);
                   showDropDown = false;
+                });
+              },
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  ///
+  Widget _carPartSelector() {
+    return Container(
+      width: 250,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        children: (widget.carPartHasDamage ?? []).map((e) {
+          return Theme(
+            data: ThemeData(unselectedWidgetColor: Colors.white),
+            child: RadioListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                '${e.vehiclePartName ?? ''} (${e.totalCloseImages ?? 0})',
+                style: CTextStyles.baseWhite.s14.w500(),
+              ),
+              activeColor: Colors.white,
+              value: e,
+              selected: currentCarPart == e,
+              groupValue: currentCarPart,
+              onChanged: (value) async {
+                setState(() {
+                  currentCarPart = e;
+                  widget.onPartSelected?.call(currentCarPart!);
+                  showCarParts = false;
                 });
               },
             ),

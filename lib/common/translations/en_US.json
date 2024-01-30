@@ -48,5 +48,6 @@
   "cancel": "Cancel",
   "no": "No",
   "yes": "Yes",
-  "delete": "Delete"
+  "delete": "Delete",
+  "needValidImage": "You need to take a valid long shot or middle shot first."
 }

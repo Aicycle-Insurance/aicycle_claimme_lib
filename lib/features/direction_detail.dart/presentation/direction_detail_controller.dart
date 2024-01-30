@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 
 import '../../../common/base_controller.dart';
+import '../../camera/data/models/car_part_has_damage_model.dart';
 import '../../camera/presentation/camera_page.dart';
 import '../../folder_detail/presentation/folder_detail_controller.dart';
 import '../data/models/claim_image_model.dart';
 import '../domain/usecase/delete_all_image_usecase.dart';
 import '../domain/usecase/delete_image_by_id_usecase.dart';
+import '../domain/usecase/get_car_part_has_damage_usecase.dart';
 import '../domain/usecase/get_direction_image_usecase.dart';
 
 class DirectionDetailController extends BaseController {
@@ -14,6 +16,7 @@ class DirectionDetailController extends BaseController {
       Get.find();
   final DeleteAllImageUsecase deleteAllImageUsecase = Get.find();
   final DeleteImageByIdUsecase deleteImageByIdUsecase = Get.find();
+  final GetCarPartHasDamageUsecase getCarPartHasDamageUsecase = Get.find();
 
   var longShotImages = <ClaimImageModel>[].obs;
   var middleShotImages = <ClaimImageModel>[].obs;
@@ -24,13 +27,31 @@ class DirectionDetailController extends BaseController {
   var closeUpLoading = false.obs;
 
   var deletingList = <String>[].obs;
+  List<CarPartHasDamageModel> carPartsForCloseUpShot = [];
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
+    await getCarPartsForCloseUpShot();
     getDirectionImage(1);
     getDirectionImage(2);
     getDirectionImage(3);
+  }
+
+  Future<void> getCarPartsForCloseUpShot() async {
+    if (argument?.claimId == null) {
+      return;
+    }
+    isLoading(true);
+    processUsecaseResult(
+      result: await getCarPartHasDamageUsecase(
+        claimId: argument!.claimId,
+        partDirectionId: argument!.carPartDirectionEnum.id,
+      ),
+      onSuccess: (value) {
+        carPartsForCloseUpShot.assignAll(value);
+      },
+    );
   }
 
   Future<void> getDirectionImage(int rangeId) async {
@@ -101,6 +122,8 @@ class DirectionDetailController extends BaseController {
         longShotImages.removeWhere((element) => element.imageId == imageId);
         middleShotImages.removeWhere((element) => element.imageId == imageId);
         closeUpShotImages.removeWhere((element) => element.imageId == imageId);
+        carPartsForCloseUpShot.clear();
+        await getCarPartsForCloseUpShot();
 
         ///
         if (Get.isRegistered<FolderDetailController>()) {
@@ -125,6 +148,9 @@ class DirectionDetailController extends BaseController {
         longShotImages.clear();
         middleShotImages.clear();
         closeUpShotImages.clear();
+
+        ///
+        carPartsForCloseUpShot.clear();
 
         ///
         if (Get.isRegistered<FolderDetailController>()) {

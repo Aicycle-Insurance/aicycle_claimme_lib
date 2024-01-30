@@ -50,7 +50,7 @@ class _FolderDetailPageState
     apiToken = widget.argument.apiToken;
     environment = widget.argument.environtment ?? Evn.production;
     locale = widget.argument.locale;
-    enableVersion2 = widget.argument.enableVersion2 ?? false;
+    enableVersion2 = widget.argument.enableVersion2 ?? true;
     controller.argument = widget.argument;
     // _callEngineSub = controller.damageResponseStream.stream.listen((p0) {
     //   if (p0 != null) {

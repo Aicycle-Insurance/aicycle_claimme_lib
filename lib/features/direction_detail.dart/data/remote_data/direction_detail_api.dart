@@ -13,7 +13,7 @@ class DirectionDetailAPI extends APIRequest {
           endpoint:
               Endpoint.getDirectionImageV1.replaceAll("{claimId}", claimId),
           method: HTTPMethod.get,
-          isLogResponse: true,
+          isLogResponse: false,
           query: {
             if (currentPage != null) "currentPage": currentPage.toString(),
             if (pageSize != null) "pageSize": pageSize.toString(),
@@ -34,7 +34,7 @@ class DirectionDetailAPI extends APIRequest {
           endpoint:
               Endpoint.getDirectionImageV2.replaceAll("{claimId}", claimId),
           method: HTTPMethod.get,
-          isLogResponse: true,
+          isLogResponse: false,
           query: {
             if (offset != null) "offset": offset.toString(),
             if (limit != null) "limit": limit.toString(),
@@ -62,5 +62,17 @@ class DirectionDetailAPI extends APIRequest {
   }) : super(
           endpoint: Endpoint.deleteImageById.replaceAll("{imageId}", imageId),
           method: HTTPMethod.delete,
+        );
+
+  ///
+  DirectionDetailAPI.getCarPartHasDamage({
+    required String claimId,
+    required String directionId,
+  }) : super(
+          endpoint:
+              Endpoint.getCarPartHasDamage.replaceAll("{claimId}", claimId),
+          method: HTTPMethod.get,
+          isLogResponse: true,
+          query: {"directionId": directionId},
         );
 }

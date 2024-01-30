@@ -8,6 +8,6 @@ class FolderDetailApi extends APIRequest {
           endpoint:
               Endpoint.getImageDirectionV2.replaceAll('{claimId}', claimId),
           method: HTTPMethod.get,
-          isLogResponse: true,
+          isLogResponse: false,
         );
 }

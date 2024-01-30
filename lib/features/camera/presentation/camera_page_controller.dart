@@ -16,6 +16,7 @@ import '../../../enum/app_state.dart';
 import '../../../generated/locales.g.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
 import '../../direction_detail.dart/domain/usecase/delete_image_by_id_usecase.dart';
+import '../../direction_detail.dart/domain/usecase/get_car_part_has_damage_usecase.dart';
 import '../../direction_detail.dart/presentation/direction_detail_controller.dart';
 import '../../folder_detail/presentation/folder_detail_controller.dart';
 import '../data/models/car_part_has_damage_model.dart';
@@ -26,10 +27,10 @@ import 'camera_page.dart';
 
 class CameraPageController extends BaseController
     with GetTickerProviderStateMixin {
-  final UploadImageUsecase uploadImageToS3Server =
-      Get.find<UploadImageUsecase>();
-  final CallEngineUsecase callEngineUsecase = Get.find<CallEngineUsecase>();
+  final UploadImageUsecase uploadImageToS3Server = Get.find();
+  final CallEngineUsecase callEngineUsecase = Get.find();
   final DeleteImageByIdUsecase deleteImageByIdUsecase = Get.find();
+  final GetCarPartHasDamageUsecase getCarPartHasDamageUsecase = Get.find();
 
   CameraController? cameraController;
   var isInActive = false.obs;
@@ -65,7 +66,7 @@ class CameraPageController extends BaseController
       imageRangeIds[currentTabIndex.value];
 
   ///
-  var carPartsForCloseUpShot = <Map<String, CarPartHasDamageModel>>{}.obs;
+  var carPartsForCloseUpShot = <CarPartHasDamageModel>[].obs;
 
   ///
   var longShotImages = <String>[].obs;
@@ -128,11 +129,16 @@ class CameraPageController extends BaseController
           .map((e) => e.imageUrl ?? e.url ?? '')
           .toList());
     }
-    if (argument?.initPositionIndex != null) {
-      onTabChanged(argument!.initPositionIndex!);
+    if (argument?.carPartHasDamage != null &&
+        argument!.carPartHasDamage!.isNotEmpty) {
+      carPartsForCloseUpShot.value.assignAll(argument!.carPartHasDamage!);
+      carPartOnSelected.value = carPartsForCloseUpShot.value.first;
     }
     if (argument?.oldImageId != null) {
       currentReplacedImageId.value = argument!.oldImageId ?? '';
+    }
+    if (argument?.initPositionIndex != null) {
+      onTabChanged(argument!.initPositionIndex!);
     }
   }
 
@@ -352,9 +358,14 @@ class CameraPageController extends BaseController
         showErrorDialog(true);
         showRetake(true);
       }
-    }, (r) {
+    }, (r) async {
+      await getCarPartsForCloseUpShot();
       isLoading(false);
-      if (r.errorCodeFromEngine == null || r.errorCodeFromEngine == 0) {
+      if (currentTabIndex.value == 2) {
+        updateDirection(r);
+        previewFile.value = null;
+        cameraController?.resumePreview();
+      } else if (r.errorCodeFromEngine == null || r.errorCodeFromEngine == 0) {
         updateDirection(r);
         status(
           BaseStatus(
@@ -399,6 +410,7 @@ class CameraPageController extends BaseController
         ///
         if (Get.isRegistered<DirectionDetailController>()) {
           Get.find<DirectionDetailController>().getDirectionImage(1);
+          Get.find<DirectionDetailController>().getCarPartsForCloseUpShot();
         }
         break;
       case 1:
@@ -410,6 +422,7 @@ class CameraPageController extends BaseController
         ///
         if (Get.isRegistered<DirectionDetailController>()) {
           Get.find<DirectionDetailController>().getDirectionImage(2);
+          Get.find<DirectionDetailController>().getCarPartsForCloseUpShot();
         }
         break;
       case 2:
@@ -495,7 +508,7 @@ class CameraPageController extends BaseController
     if (index == 2 && carPartsForCloseUpShot.isEmpty) {
       status(
         BaseStatus(
-          message: 'needValidImage',
+          message: LocaleKeys.needValidImage.trans,
           state: AppState.failed,
         ),
       );
@@ -511,5 +524,27 @@ class CameraPageController extends BaseController
       currentTabIndex(index);
       tabController.animateTo(index);
     }
+  }
+
+  var partLoading = false.obs;
+  Future<void> getCarPartsForCloseUpShot() async {
+    if (argument?.claimId == null) {
+      return;
+    }
+    partLoading(true);
+    processUsecaseResult(
+      result: await getCarPartHasDamageUsecase(
+        claimId: argument!.claimId,
+        partDirectionId: argument!.carPartDirectionEnum.id,
+      ),
+      onFail: (p0) => partLoading(false),
+      onSuccess: (value) {
+        partLoading(false);
+        carPartsForCloseUpShot.assignAll(value);
+        if (value.isNotEmpty) {
+          carPartOnSelected.value = value.first;
+        }
+      },
+    );
   }
 }

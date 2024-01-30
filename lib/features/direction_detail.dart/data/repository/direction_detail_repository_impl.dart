@@ -1,3 +1,4 @@
+import 'package:aicycle_claimme_lib/features/camera/data/models/car_part_has_damage_model.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../common/contants/direction_constant.dart';
@@ -75,6 +76,26 @@ class DirectionDetailRepositoryImpl implements DirectionDetailRepository {
         imageId: imageId,
       ).request();
       return const Right(true);
+    } catch (e) {
+      if (e is APIErrors) {
+        return Left(e);
+      } else {
+        return Left(FetchDataError(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<APIErrors, List<CarPartHasDamageModel>>> getCarPartHasDamage(
+      {required int partDirectionId, required String claimId}) async {
+    try {
+      final res = await DirectionDetailAPI.getCarPartHasDamage(
+        claimId: claimId,
+        directionId: partDirectionId.toString(),
+      ).request();
+      return Right(List<CarPartHasDamageModel>.from((res as List)
+          .map((e) => CarPartHasDamageModel.fromJson(e))
+          .toList()));
     } catch (e) {
       if (e is APIErrors) {
         return Left(e);

@@ -1,4 +1,5 @@
 import 'package:aicycle_claimme_lib/aicycle_claimme_lib.dart';
+import 'package:aicycle_claimme_lib/features/camera/data/models/car_part_has_damage_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,10 +15,18 @@ class GuideFrame extends StatelessWidget {
     required this.carPartDirectionEnum,
     required this.rangeShot,
     this.showDirectionInfo = true,
+    this.carPartsForCloseUpShot = const [],
+    this.onPartSelected,
+    this.currentPartSeleted,
   });
   final CarPartDirectionEnum carPartDirectionEnum;
   final String rangeShot;
   final bool showDirectionInfo;
+
+  ///
+  final List<CarPartHasDamageModel> carPartsForCloseUpShot;
+  final Function(CarPartHasDamageModel value)? onPartSelected;
+  final CarPartHasDamageModel? currentPartSeleted;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +81,9 @@ class GuideFrame extends StatelessWidget {
                 rangeShot: rangeShot,
                 carPartDirectionEnum: carPartDirectionEnum,
                 onAngleCallBack: currentDirection,
+                carPartHasDamage: carPartsForCloseUpShot,
+                onPartSelected: onPartSelected,
+                currentPartSeleted: currentPartSeleted,
               ),
             ),
         ],

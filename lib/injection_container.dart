@@ -9,6 +9,7 @@ import 'features/camera/domain/usecase/upload_image_usecase.dart';
 import 'features/direction_detail.dart/data/repository/direction_detail_repository_impl.dart';
 import 'features/direction_detail.dart/domain/usecase/delete_all_image_usecase.dart';
 import 'features/direction_detail.dart/domain/usecase/delete_image_by_id_usecase.dart';
+import 'features/direction_detail.dart/domain/usecase/get_car_part_has_damage_usecase.dart';
 import 'features/direction_detail.dart/domain/usecase/get_direction_image_usecase.dart';
 import 'features/folder_detail/data/repository/folder_detail_repository_impl.dart';
 import 'features/folder_detail/domain/usecase/get_image_direction_usecase.dart';
@@ -61,6 +62,11 @@ class InjectionContainer {
     );
     Get.lazyPut(
       () => DeleteImageByIdUsecase(Get.find<DirectionDetailRepositoryImpl>()),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () =>
+          GetCarPartHasDamageUsecase(Get.find<DirectionDetailRepositoryImpl>()),
       fenix: true,
     );
   }

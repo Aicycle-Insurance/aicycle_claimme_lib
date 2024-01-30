@@ -22,7 +22,7 @@ class CameraAPI extends APIRequest {
   }) : super(
           endpoint: Endpoint.callClaimMeEngine,
           method: HTTPMethod.post,
-          isLogResponse: true,
+          isLogResponse: false,
           isBaseResponse: false,
           body: {
             "claimId": claimId,
@@ -48,7 +48,7 @@ class CameraAPI extends APIRequest {
       : super(
           endpoint: Endpoint.getImageUploadUrl,
           method: HTTPMethod.post,
-          isLogResponse: true,
+          isLogResponse: false,
           body: {
             'filePaths': [serverFilePath]
           },
@@ -58,7 +58,7 @@ class CameraAPI extends APIRequest {
       : super(
             endpoint: Endpoint.validateUpload,
             method: HTTPMethod.post,
-            isLogResponse: true,
+            isLogResponse: false,
             body: {'filePath': serverFilePath});
 
   // CameraAPI.uploadImageToS3Server({required String localFilePath})

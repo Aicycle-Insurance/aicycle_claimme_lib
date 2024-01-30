@@ -14,7 +14,7 @@ class AicycleClaimMeApi extends APIRequest {
   }) : super(
             endpoint: Endpoint.claimFolders,
             method: HTTPMethod.post,
-            isLogResponse: true,
+            isLogResponse: false,
             body: {
               "claimName": folderName,
               "vehicleBrandId": vehicleBrandId,
@@ -34,7 +34,7 @@ class AicycleClaimMeApi extends APIRequest {
   }) : super(
             endpoint: Endpoint.claimFolders,
             method: HTTPMethod.get,
-            isLogResponse: true,
+            isLogResponse: false,
             query: {
               "externalClaimId": externalClaimId,
             });
