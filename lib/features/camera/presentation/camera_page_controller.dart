@@ -15,6 +15,8 @@ import '../../../common/utils.dart';
 import '../../../enum/app_state.dart';
 import '../../../generated/locales.g.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
+import '../../direction_detail.dart/domain/usecase/delete_image_by_id_usecase.dart';
+import '../../direction_detail.dart/presentation/direction_detail_controller.dart';
 import '../../folder_detail/presentation/folder_detail_controller.dart';
 import '../data/models/car_part_has_damage_model.dart';
 import '../data/models/damage_assessment_response.dart';
@@ -27,6 +29,7 @@ class CameraPageController extends BaseController
   final UploadImageUsecase uploadImageToS3Server =
       Get.find<UploadImageUsecase>();
   final CallEngineUsecase callEngineUsecase = Get.find<CallEngineUsecase>();
+  final DeleteImageByIdUsecase deleteImageByIdUsecase = Get.find();
 
   CameraController? cameraController;
   var isInActive = false.obs;
@@ -82,6 +85,9 @@ class CameraPageController extends BaseController
     }
   }
 
+  ///
+  var currentReplacedImageId = ''.obs;
+
   @override
   void onInit() {
     WidgetsBinding.instance.addObserver(this);
@@ -124,6 +130,9 @@ class CameraPageController extends BaseController
     }
     if (argument?.initPositionIndex != null) {
       onTabChanged(argument!.initPositionIndex!);
+    }
+    if (argument?.oldImageId != null) {
+      currentReplacedImageId.value = argument!.oldImageId ?? '';
     }
   }
 
@@ -308,6 +317,9 @@ class CameraPageController extends BaseController
           : '',
       timeAppUpload: timeAppUpload,
       utcTimeCreated: DateTime.now().toUtc().toIso8601String(),
+      oldImageId: currentReplacedImageId.value.isNotEmpty
+          ? currentReplacedImageId.value
+          : null,
     );
 
     callEngineRes.fold((l) {
@@ -383,14 +395,36 @@ class CameraPageController extends BaseController
     switch (currentTabIndex.value) {
       case 0:
         longShotImages.assignAll([response.result?.imgUrl ?? '']);
+
+        ///
+        if (Get.isRegistered<DirectionDetailController>()) {
+          Get.find<DirectionDetailController>().getDirectionImage(1);
+        }
         break;
       case 1:
         middleShotImages.add(response.result?.imgUrl ?? '');
+        if (currentReplacedImageId.value.isNotEmpty) {
+          middleShotImages.removeAt(0);
+        }
+
+        ///
+        if (Get.isRegistered<DirectionDetailController>()) {
+          Get.find<DirectionDetailController>().getDirectionImage(2);
+        }
         break;
       case 2:
         closeUpShotImages.add(response.result?.imgUrl ?? '');
+        if (currentReplacedImageId.value.isNotEmpty) {
+          closeUpShotImages.removeAt(0);
+        }
+
+        ///
+        if (Get.isRegistered<DirectionDetailController>()) {
+          Get.find<DirectionDetailController>().getDirectionImage(3);
+        }
         break;
     }
+    currentReplacedImageId.value = '';
 
     ///
     if (Get.isRegistered<FolderDetailController>()) {
@@ -418,7 +452,7 @@ class CameraPageController extends BaseController
         break;
       case 'save':
         if (cacheDamageResponse != null) {
-          // updateDirection(cacheDamageResponse);
+          updateDirection(cacheDamageResponse!);
         }
         status(BaseStatus(message: null, state: AppState.pop));
         damageAssessmentResponse.value = cacheDamageResponse;
@@ -427,10 +461,10 @@ class CameraPageController extends BaseController
         cameraController?.resumePreview();
         if (status.value.state == AppState.warning &&
             cacheDamageResponse != null) {
-          // await deleteImageByIdUsecase(cacheDamageResponse!.imageId.toString())
-          //     .then((value) => cacheDamageResponse = null);
+          await deleteImageByIdUsecase(
+                  imageId: cacheDamageResponse!.imageId.toString())
+              .then((value) => cacheDamageResponse = null);
         }
-        // localImageSize.value = null;
         previewFile.value = null;
         cacheValidationModel = {};
         status(BaseStatus(message: null, state: AppState.idle));
@@ -452,6 +486,12 @@ class CameraPageController extends BaseController
 
   void onTabChanged(int index) {
     damageAssessmentResponse.value = null;
+    currentReplacedImageId.value = '';
+    cacheValidationModel = {};
+    damageAssessmentResponse.value = null;
+    showErrorDialog(false);
+    cacheDamageResponse = null;
+    previewFile.value = null;
     if (index == 2 && carPartsForCloseUpShot.isEmpty) {
       status(
         BaseStatus(
@@ -471,32 +511,5 @@ class CameraPageController extends BaseController
       currentTabIndex(index);
       tabController.animateTo(index);
     }
-    // currentTabIndex(index);
-    // if (index == 2 && state.carPartsForCloseUpShot.isEmpty) {
-    //   emit(
-    //     state.copyWith(
-    //       status: BaseStateStatus.failed,
-    //       message: 'needValidImage'.tr(),
-    //       pageLoading: false,
-    //       previewFile: null,
-    //       currentTabIndex: 1,
-    //       cameraArgument: state.cameraArgument?.copyWith(rangeId: 2),
-    //     ),
-    //   );
-    //   _changeTab(1, tabController, emit);
-    // } else {
-    //   emit(
-    //     state.copyWith(
-    //       status: BaseStateStatus.idle,
-    //       showDrawingTool: false,
-    //       pageLoading: false,
-    //       message: null,
-    //       previewFile: null,
-    //       currentTabIndex: index,
-    //       cameraArgument: state.cameraArgument?.copyWith(rangeId: index + 1),
-    //     ),
-    //   );
-    //   tabController.animateTo(index);
-    // }
   }
 }

@@ -72,7 +72,7 @@ class CameraRepositoryImpl implements CameraRepository {
     required String position,
     required String direction,
     required String vehiclePartExcelId,
-    int? oldImageId,
+    String? oldImageId,
     double? timeAppUpload,
     String? resizePath,
     String? locationName,
