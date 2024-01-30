@@ -41,5 +41,12 @@
   "breakThrough": "Vỡ, thủng, rách",
   "dented": "Móp (bẹp)",
   "cracked": "Nứt (rạn)",
-  "scratches": "Trầy (xước)"
+  "scratches": "Trầy (xước)",
+  "addPhoto": "Thêm ảnh",
+  "isDeleting": "Đang xoá...",
+  "deleteAllImageConfirm": "Bạn có chắc chắn muốn xoá toàn bộ ảnh?",
+  "cancel": "Huỷ",
+  "delete": "Xoá",
+  "no": "Không",
+  "yes": "Có"
 }

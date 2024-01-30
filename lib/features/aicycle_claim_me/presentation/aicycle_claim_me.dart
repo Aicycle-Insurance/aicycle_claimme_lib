@@ -20,8 +20,9 @@ enum Evn {
   production,
 }
 
+bool? enableVersion2 = false;
 String? apiToken;
-Evn environtment = Evn.production;
+Evn environment = Evn.production;
 Locale? locale;
 List<CameraDescription> cameras = <CameraDescription>[];
 
@@ -29,6 +30,7 @@ class AiCycleClaimMeArgument {
   final String externalClaimId;
   final String apiToken;
   final Evn? environtment;
+  final bool? enableVersion2;
   final Locale? locale;
   final String? aicycleClaimId;
 
@@ -36,6 +38,7 @@ class AiCycleClaimMeArgument {
     required this.externalClaimId,
     required this.apiToken,
     this.environtment,
+    this.enableVersion2,
     this.locale,
     this.aicycleClaimId,
   });
@@ -69,7 +72,8 @@ class _AiCycleClaimMeState
     super.initState();
     controller.argument = widget.argument;
     apiToken = widget.argument.apiToken;
-    environtment = widget.argument.environtment ?? Evn.production;
+    environment = widget.argument.environtment ?? Evn.production;
+    enableVersion2 = widget.argument.enableVersion2 ?? false;
     locale = widget.argument.locale;
     controller.status.listen((state) {
       if (state.state == AppState.redirect) {

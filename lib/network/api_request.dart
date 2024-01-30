@@ -5,9 +5,9 @@ import 'endpoints.dart';
 enum HTTPMethod { get, post, delete, put, patch }
 
 class APIRequest {
-  String baseUrl = environtment == Evn.production
+  String baseUrl = environment == Evn.production
       ? BaseEndpoint.baseUrl
-      : environtment == Evn.stage
+      : environment == Evn.stage
           ? BaseEndpoint.stageBaseUrl
           : BaseEndpoint.devBaseUrl;
   String endpoint;

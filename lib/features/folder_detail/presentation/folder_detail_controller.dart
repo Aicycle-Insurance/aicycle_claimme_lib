@@ -24,7 +24,7 @@ class FolderDetailController extends BaseController {
     getImageDirection();
   }
 
-  void getImageDirection() async {
+  Future<void> getImageDirection() async {
     if (argument.aicycleClaimId == null) {
       return;
     }
@@ -38,6 +38,12 @@ class FolderDetailController extends BaseController {
   }
 
   void matchDirection(List<ImageDirectionModel> value) {
+    front.value = null;
+    leftFront.value = null;
+    rightFront.value = null;
+    leftBack.value = null;
+    back.value = null;
+    rightBack.value = null;
     for (ImageDirectionModel direction in value) {
       if (direction.directionSlug == CarPartDirectionEnum.front.excelId) {
         front.value = direction;

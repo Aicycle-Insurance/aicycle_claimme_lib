@@ -86,7 +86,7 @@ enum CarPartDirectionEnum {
       case "trai-sau-t8QgFO":
         return CarPartDirectionEnum.leftBack;
       case "trai-MyuVUE":
-        if (environtment == Evn.production) {
+        if (environment == Evn.production) {
           return CarPartDirectionEnum.leftProd;
         }
         return CarPartDirectionEnum.leftDev;

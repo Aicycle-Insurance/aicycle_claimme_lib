@@ -51,6 +51,17 @@ class LocaleKeys {
   static const close = 'close';
   static const straightFrame = 'straightFrame';
   static const d45Frame = 'd45Frame';
+  static const breakThrough = 'breakThrough';
+  static const dented = 'dented';
+  static const cracked = 'cracked';
+  static const scratches = 'scratches';
+  static const addPhoto = 'addPhoto';
+  static const isDeleting = 'isDeleting';
+  static const deleteAllImageConfirm = 'deleteAllImageConfirm';
+  static const cancel = 'cancel';
+  static const delete = 'delete';
+  static const no = 'no';
+  static const yes = 'yes';
 }
 
 class Locales {
@@ -94,6 +105,17 @@ class Locales {
     'close': '閉じる',
     'straightFrame': '直フレーム',
     'd45Frame': '45度フレーム',
+    'breakThrough': '破れ、穴、裂け',
+    'dented': 'へこみ',
+    'cracked': 'ひび割れ',
+    'scratches': '擦り傷',
+    'addPhoto': '画像を追加する',
+    'isDeleting': '削除中...',
+    'deleteAllImageConfirm': '本当に全ての写真を削除しますか？',
+    'cancel': 'キャンセル',
+    'delete': '削除',
+    'no': 'いいえ',
+    'yes': 'はい',
   };
   static const en_US = {
     'viewResult': 'Result',
@@ -135,6 +157,17 @@ class Locales {
     'close': 'Close',
     'straightFrame': 'Straight frame',
     'd45Frame': '45° angle frame',
+    'breakThrough': 'Break through',
+    'dented': 'Dented & Flatten car',
+    'cracked': 'Cracked',
+    'scratches': 'Scratches',
+    'addPhoto': 'Add more photos',
+    'isDeleting': 'Deleting...',
+    'deleteAllImageConfirm': 'Are you sure you want to delete all the photos?',
+    'cancel': 'Cancel',
+    'no': 'No',
+    'yes': 'Yes',
+    'delete': 'Delete',
   };
   static const vi_VN = {
     'viewResult': 'Xem kết quả',
@@ -177,5 +210,16 @@ class Locales {
     'close': 'Đóng',
     'straightFrame': 'Khung thẳng',
     'd45Frame': 'Khung 45°',
+    'breakThrough': 'Vỡ, thủng, rách',
+    'dented': 'Móp (bẹp)',
+    'cracked': 'Nứt (rạn)',
+    'scratches': 'Trầy (xước)',
+    'addPhoto': 'Thêm ảnh',
+    'isDeleting': 'Đang xoá...',
+    'deleteAllImageConfirm': 'Bạn có chắc chắn muốn xoá toàn bộ ảnh?',
+    'cancel': 'Huỷ',
+    'delete': 'Xoá',
+    'no': 'Không',
+    'yes': 'Có',
   };
 }

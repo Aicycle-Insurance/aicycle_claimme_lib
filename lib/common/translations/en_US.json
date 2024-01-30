@@ -41,5 +41,12 @@
   "breakThrough": "Break through",
   "dented": "Dented & Flatten car",
   "cracked": "Cracked",
-  "scratches": "Scratches"
+  "scratches": "Scratches",
+  "addPhoto": "Add more photos",
+  "isDeleting": "Deleting...",
+  "deleteAllImageConfirm": "Are you sure you want to delete all the photos?",
+  "cancel": "Cancel",
+  "no": "No",
+  "yes": "Yes",
+  "delete": "Delete"
 }

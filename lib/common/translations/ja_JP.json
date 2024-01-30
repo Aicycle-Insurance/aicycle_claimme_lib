@@ -41,5 +41,12 @@
   "breakThrough": "破れ、穴、裂け",
   "dented": "へこみ",
   "cracked": "ひび割れ",
-  "scratches": "擦り傷"
+  "scratches": "擦り傷",
+  "addPhoto": "画像を追加する",
+  "isDeleting": "削除中...",
+  "deleteAllImageConfirm": "本当に全ての写真を削除しますか？",
+  "cancel": "キャンセル",
+  "delete": "削除",
+  "no": "いいえ",
+  "yes": "はい"
 }

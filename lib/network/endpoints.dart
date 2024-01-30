@@ -23,4 +23,9 @@ abstract class Endpoint {
       '/v2/claimfolders/{claimId}/total-images-direction';
   static String get callClaimMeEngine => '/v2/claim-me/process';
   static String get callClaimMeEngineV1 => '/claimimages/triton-assessment';
+
+  ///
+  static String get getDirectionImageV1 => '/claimimages/all/{claimId}';
+  static String get getDirectionImageV2 => '/v2/claimfolders/{claimId}/images';
+  static String get deleteAllImage => '/claimimages/all/{claimId}';
 }

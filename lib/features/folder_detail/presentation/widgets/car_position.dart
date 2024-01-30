@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 
+import 'package:aicycle_claimme_lib/features/direction_detail.dart/presentation/direction_detail_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../../../aicycle_claimme_lib.dart';
@@ -43,7 +44,19 @@ class CarPosition extends StatelessWidget {
               ),
             ),
           );
-        } else {}
+        } else {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DirectionDetailPage(
+                argument: ClaimMeCameraArgument(
+                  carPartDirectionEnum: direction,
+                  carModelEnum: CarModelEnum.kiaMorning,
+                  claimId: claimFolderId,
+                ),
+              ),
+            ),
+          );
+        }
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
