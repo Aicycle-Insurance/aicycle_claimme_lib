@@ -3,7 +3,7 @@ import 'package:camera/camera.dart';
 import 'features/aicycle_claim_me/presentation/aicycle_claim_me.dart';
 import 'injection_container.dart';
 export 'features/aicycle_claim_me/presentation/aicycle_claim_me.dart'
-    hide apiToken, locale, environment, cameras;
+    hide apiToken, locale, environment, cameras, enableVersion2;
 
 class AICycle {
   static Future<void> initial({String? token}) async {

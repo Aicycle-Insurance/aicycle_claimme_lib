@@ -72,17 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.of(context).push(
                       MaterialPageRoute<void>(
                         builder: (BuildContext context) => AiCycleClaimMe(
-                          // onViewResultCallBack: (imagesResult) {
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //     const SnackBar(
-                          //       content: Text("return result"),
-                          //     ),
-                          //   );
-                          // },
                           argument: AiCycleClaimMeArgument(
                             externalClaimId: externalClaimIdController.text,
-                            apiToken: '56b40e4b-39d1-4115-aff4-acc8ff1f87d4',
-                            environtment: Evn.dev,
+                            apiToken: '',
+                            environtment: Evn.production,
                             locale: const Locale('vi', 'US'),
                           ),
                         ),
