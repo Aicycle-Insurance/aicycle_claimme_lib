@@ -209,7 +209,10 @@ class _CameraPageState extends BaseState<CameraPage, CameraPageController> {
                             controller.status().message != null) {
                           String message = controller.status().message ?? '';
                           if (controller.isConfidentLevelWarning.isTrue) {
-                            message = message.split('.').join('\n');
+                            RegExp numeric = RegExp(r'[0-9]');
+                            if (!message.contains(numeric)) {
+                              message = message.split('.').join('\n');
+                            }
                           }
                           return Center(
                             child: RotatedBox(

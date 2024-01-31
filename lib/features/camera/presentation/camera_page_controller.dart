@@ -142,6 +142,30 @@ class CameraPageController extends BaseController
     }
   }
 
+  var isPickingPhoto = false.obs;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    final CameraController? cameraCtrl = cameraController;
+    // App state changed before we got the chance to initialize.
+    if (cameraCtrl == null || !cameraCtrl.value.isInitialized) {
+      return;
+    }
+    if (state == AppLifecycleState.inactive && !isPickingPhoto.value) {
+      isInActive(true);
+      cameraCtrl.dispose();
+      update(['camera']);
+    } else if (state == AppLifecycleState.resumed && !isPickingPhoto.value) {
+      isInActive(false);
+      onNewCameraSelected(cameraCtrl.description);
+    }
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    cameraController?.dispose();
+  }
+
   Future<void> onNewCameraSelected(CameraDescription cameraDescription) async {
     isCameraLoading(true);
     final CameraController? oldController = cameraController;
@@ -183,8 +207,8 @@ class CameraPageController extends BaseController
 
   void switchFlashMode() async {
     if (flashMode() == FlashMode.off) {
-      await cameraController?.setFlashMode(FlashMode.auto);
-      flashMode.value = FlashMode.auto;
+      await cameraController?.setFlashMode(FlashMode.always);
+      flashMode.value = FlashMode.always;
     } else {
       await cameraController?.setFlashMode(FlashMode.off);
       flashMode.value = FlashMode.off;
@@ -221,6 +245,7 @@ class CameraPageController extends BaseController
         previewFile.value = resizeFile;
         isResizing.value = false;
         callEngine(resizeFile);
+        await cameraController?.resumePreview();
       }
     } else {
       await cameraController?.resumePreview();
@@ -230,10 +255,12 @@ class CameraPageController extends BaseController
   Future<void> onGalleryPick() async {
     if (previewFile.value == null) {
       isPortraitUpWhileTakePhoto(false);
+      isPickingPhoto(true);
       var pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery,
         imageQuality: 100,
       );
+      isPickingPhoto(false);
       if (pickedFile != null) {
         previewFile.value = pickedFile;
         isResizing.value = true;
@@ -379,7 +406,9 @@ class CameraPageController extends BaseController
         cacheDamageResponse = r;
 
         /// confident level thấp
-        if (r.errorCodeFromEngine == 66616) {
+        if (r.errorCodeFromEngine == 66616 ||
+            r.errorCodeFromEngine == 60006 ||
+            r.errorCodeFromEngine == 60007) {
           status(
             BaseStatus(
               message: r.message,
@@ -467,7 +496,7 @@ class CameraPageController extends BaseController
         if (cacheDamageResponse != null) {
           updateDirection(cacheDamageResponse!);
         }
-        status(BaseStatus(message: null, state: AppState.pop));
+        status(BaseStatus(message: null, state: AppState.idle));
         damageAssessmentResponse.value = cacheDamageResponse;
         break;
       case 'retake':
@@ -491,8 +520,7 @@ class CameraPageController extends BaseController
   void onNextTapped() {
     if (currentTabIndex.value == 0) {
       onTabChanged(1);
-    } else if (currentTabIndex.value == 1 &&
-        carPartsForCloseUpShot.isNotEmpty) {
+    } else if (currentTabIndex.value == 1) {
       onTabChanged(2);
     }
   }

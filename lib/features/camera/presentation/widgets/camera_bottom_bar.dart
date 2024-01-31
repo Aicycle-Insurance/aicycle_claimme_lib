@@ -69,9 +69,9 @@ class AiCameraBottomBar extends StatelessWidget {
                     turns: rotate,
                     duration: const Duration(milliseconds: 300),
                     child: Icon(
-                      flashMode?.name != 'auto'
+                      flashMode?.name != 'always'
                           ? Icons.flash_off_rounded
-                          : Icons.flash_auto_rounded,
+                          : Icons.flash_on_rounded,
                       color: Colors.black,
                       size: 28,
                     ),

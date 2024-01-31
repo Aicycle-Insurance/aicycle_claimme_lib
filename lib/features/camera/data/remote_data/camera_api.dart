@@ -22,7 +22,7 @@ class CameraAPI extends APIRequest {
   }) : super(
           endpoint: Endpoint.callClaimMeEngine,
           method: HTTPMethod.post,
-          isLogResponse: false,
+          isLogResponse: true,
           isBaseResponse: false,
           body: {
             "claimId": claimId,
