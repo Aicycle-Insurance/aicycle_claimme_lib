@@ -1,18 +1,17 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
-// import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 import '../../../aicycle_claimme_lib.dart';
 import '../../../common/base_widget.dart';
-// import '../../../common/c_button.dart';
+import '../../../common/c_button.dart';
 import '../../../common/c_loading_view.dart';
-// import '../../../common/extension/translation_ext.dart';
 import '../../../common/themes/c_colors.dart';
 import '../../../enum/car_part_direction.dart';
 import '../../../generated/assets.gen.dart';
-// import '../../../generated/locales.g.dart';
+import '../../../common/extension/translation_ext.dart';
+import '../../../generated/locales.g.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
 import 'folder_detail_controller.dart';
 import 'widgets/car_position.dart';
@@ -22,10 +21,11 @@ class FolderDetailPage extends StatefulWidget {
     super.key,
     this.hasAppBar,
     required this.argument,
+    this.onViewResultCallBack,
   });
 
   final bool? hasAppBar;
-  // final Function(List<BuyMeImage>? images)? onViewResultCallBack;
+  final Function(dynamic result)? onViewResultCallBack;
   // final Function(DamageAssessmentResponse?)? onCallEngineSuccessfully;
   final AiCycleClaimMeArgument argument;
 
@@ -185,17 +185,12 @@ class _FolderDetailPageState
                 bottom: 32,
               ),
               decoration: const BoxDecoration(color: Colors.white),
-              // child: Obx(
-              //   () => CButton(
-              //     isDisable: false,
-              //     onPressed: () {
-              //       // widget.onViewResultCallBack
-              //       //     ?.call(controller.imageInfo.value?.images);
-              //       // Navigator.pop(context);
-              //     },
-              //     title: LocaleKeys.viewResult.trans,
-              //   ),
-              // ),
+              child: CButton(
+                isDisable: false,
+                onPressed: () =>
+                    controller.getResult(widget.onViewResultCallBack),
+                title: LocaleKeys.viewResult.trans,
+              ),
             ),
           ],
         ),

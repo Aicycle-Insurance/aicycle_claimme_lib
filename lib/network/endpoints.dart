@@ -28,6 +28,7 @@ abstract class Endpoint {
   static String get getDirectionImageV1 => '/claimimages/all/{claimId}';
   static String get getDirectionImageV2 => '/v2/claimfolders/{claimId}/images';
   static String get deleteAllImage => '/claimimages/all/{claimId}';
+  static String get getResult => '/v2/claimfolders/{claimId}/image-result';
   static String get getCarPartHasDamage =>
       '/claimfolders/{claimId}/get-car-part-results';
 }

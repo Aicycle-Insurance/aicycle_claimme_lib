@@ -75,9 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           argument: AiCycleClaimMeArgument(
                             externalClaimId: externalClaimIdController.text,
                             apiToken: '',
-                            environtment: Evn.production,
-                            locale: const Locale('vi', 'US'),
+                            locale: const Locale('vi', 'VN'),
                           ),
+                          onViewResultCallBack: (result) {
+                            print(result);
+                          },
                         ),
                       ),
                     );

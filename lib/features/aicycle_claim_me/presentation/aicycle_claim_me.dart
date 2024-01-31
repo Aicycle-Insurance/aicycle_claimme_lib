@@ -48,10 +48,10 @@ class AiCycleClaimMe extends StatefulWidget {
   const AiCycleClaimMe({
     super.key,
     required this.argument,
-    // required this.onViewResultCallBack,
+    required this.onViewResultCallBack,
   });
   final AiCycleClaimMeArgument argument;
-  // final Function(List<ClaimMeImage>? imagesResult) onViewResultCallBack;
+  final Function(dynamic result)? onViewResultCallBack;
 
   @override
   State<AiCycleClaimMe> createState() => _AiCycleClaimMeState();
@@ -81,6 +81,7 @@ class _AiCycleClaimMeState
           MaterialPageRoute<void>(
             builder: (BuildContext context) => FolderDetailPage(
               argument: controller.argument,
+              onViewResultCallBack: widget.onViewResultCallBack,
             ),
           ),
         );

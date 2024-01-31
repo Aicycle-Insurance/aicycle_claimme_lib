@@ -13,6 +13,7 @@ import 'features/direction_detail.dart/domain/usecase/get_car_part_has_damage_us
 import 'features/direction_detail.dart/domain/usecase/get_direction_image_usecase.dart';
 import 'features/folder_detail/data/repository/folder_detail_repository_impl.dart';
 import 'features/folder_detail/domain/usecase/get_image_direction_usecase.dart';
+import 'features/folder_detail/domain/usecase/get_result_usecase.dart';
 
 class InjectionContainer {
   InjectionContainer._();
@@ -49,6 +50,10 @@ class InjectionContainer {
     );
     Get.lazyPut(
       () => GetImageDirectionUsecase(Get.find<FolderDetailRepositoryImpl>()),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => GetResultUsecase(Get.find<FolderDetailRepositoryImpl>()),
       fenix: true,
     );
     Get.lazyPut(

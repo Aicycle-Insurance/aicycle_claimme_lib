@@ -183,8 +183,8 @@ class CameraPageController extends BaseController
 
   void switchFlashMode() async {
     if (flashMode() == FlashMode.off) {
-      await cameraController?.setFlashMode(FlashMode.torch);
-      flashMode.value = FlashMode.torch;
+      await cameraController?.setFlashMode(FlashMode.auto);
+      flashMode.value = FlashMode.auto;
     } else {
       await cameraController?.setFlashMode(FlashMode.off);
       flashMode.value = FlashMode.off;

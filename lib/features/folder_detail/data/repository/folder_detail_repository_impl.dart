@@ -23,4 +23,19 @@ class FolderDetailRepositoryImpl implements FolderDetailRepository {
       }
     }
   }
+
+  @override
+  Future<Either<APIErrors, dynamic>> getResult(
+      {required String claimId}) async {
+    try {
+      final res = await FolderDetailApi.getImagesDirectionV2(claimId).request();
+      return Right(res);
+    } catch (e) {
+      if (e is APIErrors) {
+        return Left(e);
+      } else {
+        return Left(FetchDataError(e.toString()));
+      }
+    }
+  }
 }

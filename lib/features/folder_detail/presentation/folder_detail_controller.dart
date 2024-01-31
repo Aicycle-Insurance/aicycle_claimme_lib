@@ -5,9 +5,11 @@ import '../../../common/base_controller.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
 import '../data/models/image_direction_model.dart';
 import '../domain/usecase/get_image_direction_usecase.dart';
+import '../domain/usecase/get_result_usecase.dart';
 
 class FolderDetailController extends BaseController {
   final GetImageDirectionUsecase getImageDirectionUsecase = Get.find();
+  final GetResultUsecase getResultUsecase = Get.find();
   late AiCycleClaimMeArgument argument;
 
   // var imagesDirections = <ImageDirectionModel>[].obs;
@@ -63,5 +65,18 @@ class FolderDetailController extends BaseController {
         rightBack.value = direction;
       }
     }
+  }
+
+  Future<void> getResult(Function(dynamic)? resultCallBack) async {
+    if (argument.aicycleClaimId == null) {
+      return;
+    }
+    isLoading(true);
+    processUsecaseResult(
+      result: await getResultUsecase(argument.aicycleClaimId!),
+      onSuccess: (p0) {
+        resultCallBack?.call(p0);
+      },
+    );
   }
 }
