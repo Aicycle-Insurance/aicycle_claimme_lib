@@ -1,5 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +15,7 @@ import '../../../generated/assets.gen.dart';
 import '../../../common/extension/translation_ext.dart';
 import '../../../generated/locales.g.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
+import '../../camera/data/models/damage_assessment_response.dart';
 import 'folder_detail_controller.dart';
 import 'widgets/car_position.dart';
 
@@ -22,11 +25,12 @@ class FolderDetailPage extends StatefulWidget {
     this.hasAppBar,
     required this.argument,
     this.onViewResultCallBack,
+    this.onCallEngineSuccessfully,
   });
 
   final bool? hasAppBar;
   final Function(dynamic result)? onViewResultCallBack;
-  // final Function(DamageAssessmentResponse?)? onCallEngineSuccessfully;
+  final Function(DamageAssessmentResponse?)? onCallEngineSuccessfully;
   final AiCycleClaimMeArgument argument;
 
   @override
@@ -35,6 +39,7 @@ class FolderDetailPage extends StatefulWidget {
 
 class _FolderDetailPageState
     extends BaseState<FolderDetailPage, ClaimMeFolderDetailController> {
+  late final StreamSubscription callEngineSub;
   @override
   ClaimMeFolderDetailController provideController() {
     if (Get.isRegistered<ClaimMeFolderDetailController>()) {
@@ -52,11 +57,11 @@ class _FolderDetailPageState
     locale = widget.argument.locale;
     enableVersion2 = widget.argument.enableVersion2 ?? true;
     controller.argument = widget.argument;
-    // _callEngineSub = controller.damageResponseStream.stream.listen((p0) {
-    //   if (p0 != null) {
-    //     widget.onCallEngineSuccessfully?.call(p0);
-    //   }
-    // });
+    callEngineSub = controller.damageResponseStream.stream.listen((p0) {
+      if (p0 != null) {
+        widget.onCallEngineSuccessfully?.call(p0);
+      }
+    });
   }
 
   @override

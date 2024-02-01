@@ -474,6 +474,10 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     ///
     if (Get.isRegistered<ClaimMeFolderDetailController>()) {
       await Get.find<ClaimMeFolderDetailController>().getImageDirection();
+      Get.find<ClaimMeFolderDetailController>()
+          .damageResponseStream
+          .sink
+          .add(response);
     }
   }
 

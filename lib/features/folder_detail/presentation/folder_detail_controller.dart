@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:aicycle_claimme_lib/enum/car_part_direction.dart';
 import 'package:get/get.dart';
 
 import '../../../common/base_controller.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
+import '../../camera/data/models/damage_assessment_response.dart';
 import '../data/models/image_direction_model.dart';
 import '../domain/usecase/get_image_direction_usecase.dart';
 import '../domain/usecase/get_result_usecase.dart';
@@ -20,10 +23,19 @@ class ClaimMeFolderDetailController extends ClaimMeBaseController {
   var back = Rx<ImageDirectionModel?>(null);
   var rightBack = Rx<ImageDirectionModel?>(null);
 
+  final damageResponseStream =
+      StreamController<DamageAssessmentResponse?>.broadcast();
+
   @override
   void onReady() {
     super.onReady();
     getImageDirection();
+  }
+
+  @override
+  void onClose() {
+    damageResponseStream.close();
+    super.onClose();
   }
 
   Future<void> getImageDirection() async {
