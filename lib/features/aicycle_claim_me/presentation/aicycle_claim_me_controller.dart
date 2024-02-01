@@ -7,9 +7,9 @@ import '../domain/usecase/create_folder_usecase.dart';
 import '../domain/usecase/get_duplicate_folder_usecase.dart';
 import 'aicycle_claim_me.dart';
 
-class AiCycleClaimMeController extends BaseController {
-  final CreateFolderUsecase createFolderUsecase = Get.find();
-  final GetDuplicateFolderUsecase getDuplicateFolderUsecase = Get.find();
+class AiCycleClaimMeController extends ClaimMeBaseController {
+  final ClaimMeCreateFolderUsecase createFolderUsecase = Get.find();
+  final ClaimMeGetDuplicateFolderUsecase getDuplicateFolderUsecase = Get.find();
   late AiCycleClaimMeArgument argument;
   var claimFolder = Rx<ClaimFolderModel?>(null);
 

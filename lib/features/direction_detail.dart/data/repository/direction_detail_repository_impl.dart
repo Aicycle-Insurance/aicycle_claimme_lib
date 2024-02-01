@@ -9,7 +9,8 @@ import '../../domain/repository/direction_detail_repository.dart';
 import '../models/claim_image_model.dart';
 import '../remote_data/direction_detail_api.dart';
 
-class DirectionDetailRepositoryImpl implements DirectionDetailRepository {
+class ClaimMeDirectionDetailRepositoryImpl
+    implements DirectionDetailRepository {
   @override
   Future<Either<APIErrors, List<ClaimImageModel>>> getClaimImages({
     int? currentPage,

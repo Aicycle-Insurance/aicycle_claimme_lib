@@ -7,9 +7,9 @@ import '../data/models/image_direction_model.dart';
 import '../domain/usecase/get_image_direction_usecase.dart';
 import '../domain/usecase/get_result_usecase.dart';
 
-class FolderDetailController extends BaseController {
-  final GetImageDirectionUsecase getImageDirectionUsecase = Get.find();
-  final GetResultUsecase getResultUsecase = Get.find();
+class ClaimMeFolderDetailController extends ClaimMeBaseController {
+  final ClaimMeGetImageDirectionUsecase getImageDirectionUsecase = Get.find();
+  final ClaimMeGetResultUsecase getResultUsecase = Get.find();
   late AiCycleClaimMeArgument argument;
 
   // var imagesDirections = <ImageDirectionModel>[].obs;

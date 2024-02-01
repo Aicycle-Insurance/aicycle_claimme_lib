@@ -29,13 +29,13 @@ class DirectionDetailPage extends StatefulWidget {
 }
 
 class _DirectionDetailPageState
-    extends BaseState<DirectionDetailPage, DirectionDetailController> {
+    extends BaseState<DirectionDetailPage, ClaimMeDirectionDetailController> {
   @override
-  DirectionDetailController provideController() {
-    if (Get.isRegistered<DirectionDetailController>()) {
-      return Get.find<DirectionDetailController>();
+  ClaimMeDirectionDetailController provideController() {
+    if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
+      return Get.find<ClaimMeDirectionDetailController>();
     } else {
-      return Get.put(DirectionDetailController());
+      return Get.put(ClaimMeDirectionDetailController());
     }
   }
 
@@ -84,7 +84,7 @@ class _DirectionDetailPageState
           ),
         ],
       ),
-      body: LoadingView<DirectionDetailController>(
+      body: LoadingView<ClaimMeDirectionDetailController>(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           child: Column(

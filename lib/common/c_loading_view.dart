@@ -106,9 +106,10 @@ class LoadingView<T> extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         if (child != null) child!,
-        if (Get.isRegistered<T>(tag: tag) && (controller is BaseController))
+        if (Get.isRegistered<T>(tag: tag) &&
+            (controller is ClaimMeBaseController))
           Obx(() {
-            if ((controller as BaseController).isLoading.value) {
+            if ((controller as ClaimMeBaseController).isLoading.value) {
               Utils.dismissKeyboard();
               return loadingWidget;
             }

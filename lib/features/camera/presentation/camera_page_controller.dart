@@ -25,12 +25,13 @@ import '../domain/usecase/call_engine_usecase.dart';
 import '../domain/usecase/upload_image_usecase.dart';
 import 'camera_page.dart';
 
-class CameraPageController extends BaseController
+class ClaimMeCameraPageController extends ClaimMeBaseController
     with GetTickerProviderStateMixin {
-  final UploadImageUsecase uploadImageToS3Server = Get.find();
-  final CallEngineUsecase callEngineUsecase = Get.find();
-  final DeleteImageByIdUsecase deleteImageByIdUsecase = Get.find();
-  final GetCarPartHasDamageUsecase getCarPartHasDamageUsecase = Get.find();
+  final ClaimMeUploadImageUsecase uploadImageToS3Server = Get.find();
+  final ClaimMeCallEngineUsecase callEngineUsecase = Get.find();
+  final ClaimMeDeleteImageByIdUsecase deleteImageByIdUsecase = Get.find();
+  final ClaimMeGetCarPartHasDamageUsecase getCarPartHasDamageUsecase =
+      Get.find();
 
   CameraController? cameraController;
   var isInActive = false.obs;
@@ -437,9 +438,10 @@ class CameraPageController extends BaseController
         longShotImages.assignAll([response.result?.imgUrl ?? '']);
 
         ///
-        if (Get.isRegistered<DirectionDetailController>()) {
-          Get.find<DirectionDetailController>().getDirectionImage(1);
-          Get.find<DirectionDetailController>().getCarPartsForCloseUpShot();
+        if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
+          Get.find<ClaimMeDirectionDetailController>().getDirectionImage(1);
+          Get.find<ClaimMeDirectionDetailController>()
+              .getCarPartsForCloseUpShot();
         }
         break;
       case 1:
@@ -449,9 +451,10 @@ class CameraPageController extends BaseController
         }
 
         ///
-        if (Get.isRegistered<DirectionDetailController>()) {
-          Get.find<DirectionDetailController>().getDirectionImage(2);
-          Get.find<DirectionDetailController>().getCarPartsForCloseUpShot();
+        if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
+          Get.find<ClaimMeDirectionDetailController>().getDirectionImage(2);
+          Get.find<ClaimMeDirectionDetailController>()
+              .getCarPartsForCloseUpShot();
         }
         break;
       case 2:
@@ -461,16 +464,16 @@ class CameraPageController extends BaseController
         }
 
         ///
-        if (Get.isRegistered<DirectionDetailController>()) {
-          Get.find<DirectionDetailController>().getDirectionImage(3);
+        if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
+          Get.find<ClaimMeDirectionDetailController>().getDirectionImage(3);
         }
         break;
     }
     currentReplacedImageId.value = '';
 
     ///
-    if (Get.isRegistered<FolderDetailController>()) {
-      await Get.find<FolderDetailController>().getImageDirection();
+    if (Get.isRegistered<ClaimMeFolderDetailController>()) {
+      await Get.find<ClaimMeFolderDetailController>().getImageDirection();
     }
   }
 

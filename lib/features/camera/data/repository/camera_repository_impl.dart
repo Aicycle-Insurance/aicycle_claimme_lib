@@ -12,7 +12,7 @@ import '../models/get_upload_url_response.dart';
 import '../models/image_upload_response.dart';
 import '../remote_data/camera_api.dart';
 
-class CameraRepositoryImpl implements CameraRepository {
+class ClaimMeCameraRepositoryImpl implements CameraRepository {
   @override
   Future<Either<APIErrors, ImageUploadResponse>> uploadImageToS3Server(
       {required String localFilePath}) async {

@@ -4,9 +4,9 @@ import '../../../../network/api_error.dart';
 import '../../data/models/damage_assessment_response.dart';
 import '../repository/camera_repository.dart';
 
-class CallEngineUsecase {
+class ClaimMeCallEngineUsecase {
   final CameraRepository repository;
-  CallEngineUsecase(this.repository);
+  ClaimMeCallEngineUsecase(this.repository);
 
   Future<Either<APIErrors, DamageAssessmentResponse>> call({
     required String claimId,

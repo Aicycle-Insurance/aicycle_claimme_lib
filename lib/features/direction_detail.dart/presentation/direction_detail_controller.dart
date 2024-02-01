@@ -10,13 +10,14 @@ import '../domain/usecase/delete_image_by_id_usecase.dart';
 import '../domain/usecase/get_car_part_has_damage_usecase.dart';
 import '../domain/usecase/get_direction_image_usecase.dart';
 
-class DirectionDetailController extends BaseController {
+class ClaimMeDirectionDetailController extends ClaimMeBaseController {
   late final ClaimMeCameraArgument? argument;
   final GetDirectionImageDetailUsecase getDirectionImageDetailUsecase =
       Get.find();
-  final DeleteAllImageUsecase deleteAllImageUsecase = Get.find();
-  final DeleteImageByIdUsecase deleteImageByIdUsecase = Get.find();
-  final GetCarPartHasDamageUsecase getCarPartHasDamageUsecase = Get.find();
+  final ClaimMeDeleteAllImageUsecase deleteAllImageUsecase = Get.find();
+  final ClaimMeDeleteImageByIdUsecase deleteImageByIdUsecase = Get.find();
+  final ClaimMeGetCarPartHasDamageUsecase getCarPartHasDamageUsecase =
+      Get.find();
 
   var longShotImages = <ClaimImageModel>[].obs;
   var middleShotImages = <ClaimImageModel>[].obs;
@@ -126,8 +127,8 @@ class DirectionDetailController extends BaseController {
         await getCarPartsForCloseUpShot();
 
         ///
-        if (Get.isRegistered<FolderDetailController>()) {
-          await Get.find<FolderDetailController>().getImageDirection();
+        if (Get.isRegistered<ClaimMeFolderDetailController>()) {
+          await Get.find<ClaimMeFolderDetailController>().getImageDirection();
         }
       },
     );
@@ -153,8 +154,8 @@ class DirectionDetailController extends BaseController {
         carPartsForCloseUpShot.clear();
 
         ///
-        if (Get.isRegistered<FolderDetailController>()) {
-          await Get.find<FolderDetailController>().getImageDirection();
+        if (Get.isRegistered<ClaimMeFolderDetailController>()) {
+          await Get.find<ClaimMeFolderDetailController>().getImageDirection();
         }
       },
     );

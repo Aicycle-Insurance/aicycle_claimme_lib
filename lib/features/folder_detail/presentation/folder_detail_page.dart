@@ -34,13 +34,13 @@ class FolderDetailPage extends StatefulWidget {
 }
 
 class _FolderDetailPageState
-    extends BaseState<FolderDetailPage, FolderDetailController> {
+    extends BaseState<FolderDetailPage, ClaimMeFolderDetailController> {
   @override
-  FolderDetailController provideController() {
-    if (Get.isRegistered<FolderDetailController>()) {
-      return Get.find<FolderDetailController>();
+  ClaimMeFolderDetailController provideController() {
+    if (Get.isRegistered<ClaimMeFolderDetailController>()) {
+      return Get.find<ClaimMeFolderDetailController>();
     } else {
-      return Get.put(FolderDetailController());
+      return Get.put(ClaimMeFolderDetailController());
     }
   }
 
@@ -69,7 +69,7 @@ class _FolderDetailPageState
               elevation: 0.7,
             )
           : null,
-      body: LoadingView<FolderDetailController>(
+      body: LoadingView<ClaimMeFolderDetailController>(
         isCustomLoading: true,
         child: Column(
           children: [

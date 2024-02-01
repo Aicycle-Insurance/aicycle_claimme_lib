@@ -4,9 +4,9 @@ import '../../../../network/api_error.dart';
 import '../../data/models/image_upload_response.dart';
 import '../repository/camera_repository.dart';
 
-class UploadImageUsecase {
+class ClaimMeUploadImageUsecase {
   final CameraRepository repository;
-  UploadImageUsecase(this.repository);
+  ClaimMeUploadImageUsecase(this.repository);
 
   Future<Either<APIErrors, ImageUploadResponse>> call({
     required String localFilePath,

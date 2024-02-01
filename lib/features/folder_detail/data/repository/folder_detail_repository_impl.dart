@@ -7,7 +7,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../domain/repository/folder_detail_repository.dart';
 
-class FolderDetailRepositoryImpl implements FolderDetailRepository {
+class ClaimMeFolderDetailRepositoryImpl implements FolderDetailRepository {
   @override
   Future<Either<APIErrors, List<ImageDirectionModel>>> getImagesDirectionV2(
       {required String claimId}) async {
