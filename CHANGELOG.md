@@ -17,3 +17,11 @@
 ## 0.0.5
 
 * Add onCallEngineSuccessfully callback function
+
+## 0.0.6
+
+* Required image upload-location
+
+## 0.0.7
+
+* Just update version number

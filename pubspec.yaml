@@ -1,6 +1,6 @@
 name: aicycle_claimme_lib
 description: An AiCycle ClaimMe package.
-version: 0.0.5
+version: 0.0.7
 homepage: https://aicycle.ai/
 
 environment:
@@ -30,6 +30,10 @@ dependencies:
   sensors_plus: ^4.0.2
   top_snackbar_flutter: ^3.1.0
   shimmer: ^3.0.0
+  geolocator: ^11.0.0
+  latlong2: ^0.9.0
+  geocoding: ^2.2.0
+  exif: ^3.3.0
 
 dev_dependencies:
   flutter_test:

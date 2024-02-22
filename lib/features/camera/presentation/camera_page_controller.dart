@@ -1,5 +1,8 @@
 // ignore_for_file: invalid_use_of_protected_member
 
+import 'dart:io';
+
+import '../../../common/location_seveices.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -107,8 +110,11 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     super.onInit();
   }
 
+  late String? currentLocation;
+  String? imageLocation;
+  String? createdDateTime;
   @override
-  void onReady() {
+  void onReady() async {
     if (cameras.isEmpty) {
       status.value = BaseStatus(
         message: 'No camera found',
@@ -142,6 +148,9 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     if (argument?.initPositionIndex != null) {
       onTabChanged(argument!.initPositionIndex!);
     }
+    final currentPos = await LocationServices.getLocation();
+    currentLocation = await LocationServices.getLocationInfo(
+        currentPos?.latitude, currentPos?.longitude);
   }
 
   var isPickingPhoto = false.obs;
@@ -193,9 +202,6 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     });
     try {
       await cameraCtrl.initialize();
-      // if (Platform.isIOS) {
-      //   cameraCtrl.lockCaptureOrientation(DeviceOrientation.landscapeLeft);
-      // }
       isCameraLoading(false);
     } on CameraException catch (_) {
       isCameraLoading(false);
@@ -246,6 +252,10 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         );
         previewFile.value = resizeFile;
         isResizing.value = false;
+
+        ///
+        imageLocation = currentLocation;
+        createdDateTime = DateTime.now().toUtc().toIso8601String();
         callEngine(resizeFile);
         await cameraController?.resumePreview();
       }
@@ -255,9 +265,9 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
   }
 
   Future<void> onGalleryPick() async {
+    isPickingPhoto(true);
     if (previewFile.value == null) {
       isPortraitUpWhileTakePhoto(false);
-      isPickingPhoto(true);
       var pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery,
         imageQuality: 100,
@@ -273,6 +283,14 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         );
         previewFile.value = resizeFile;
         isResizing.value = false;
+
+        ///
+        imageLocation = await LocationServices.getLocationOfImage(
+          File(resizeFile.path),
+          getDateTimeCallBack: (date) {
+            createdDateTime = date.toUtc().toIso8601String();
+          },
+        );
         await callEngine(resizeFile);
       }
     }
@@ -351,7 +369,9 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
           ? carPartOnSelected.value?.vehiclePartExcelId ?? ''
           : '',
       timeAppUpload: timeAppUpload,
-      utcTimeCreated: DateTime.now().toUtc().toIso8601String(),
+      utcTimeCreated: createdDateTime,
+      uploadLocation: currentLocation,
+      locationName: imageLocation,
       oldImageId: currentReplacedImageId.value.isNotEmpty
           ? currentReplacedImageId.value
           : null,
