@@ -25,3 +25,7 @@
 ## 0.0.7
 
 * Just update version number
+
+## 0.0.8
+
+* Bug fixes and improvements
