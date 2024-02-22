@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
+import '../../../common/contants/warning_code_from_engine.dart';
 import '../../../common/extension/translation_ext.dart';
 import '../../../common/base_controller.dart';
 import '../../../common/contants/direction_constant.dart';
@@ -407,9 +408,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         cacheDamageResponse = r;
 
         /// confident level thấp
-        if (r.errorCodeFromEngine == 66616 ||
-            r.errorCodeFromEngine == 60006 ||
-            r.errorCodeFromEngine == 60007) {
+        if (warningCodeFromEngine.contains(r.errorCodeFromEngine)) {
           status(
             BaseStatus(
               message: r.message,
