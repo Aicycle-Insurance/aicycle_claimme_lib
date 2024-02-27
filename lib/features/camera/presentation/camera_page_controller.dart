@@ -110,7 +110,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     super.onInit();
   }
 
-  late String? currentLocation;
+  String? currentLocation;
   String? imageLocation;
   String? createdDateTime;
   @override
