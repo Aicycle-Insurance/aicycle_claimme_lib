@@ -33,3 +33,7 @@
 ## 0.0.9
 
 * Bug fixes and improvements
+
+## 0.1.0
+
+* Fix icon color
