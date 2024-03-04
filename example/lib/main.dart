@@ -77,9 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             apiToken: '',
                             locale: const Locale('vi', 'VN'),
                           ),
-                          onViewResultCallBack: (result) {
-                            print(result);
-                          },
+                          onViewResultCallBack: (result) {},
                         ),
                       ),
                     );

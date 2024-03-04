@@ -54,6 +54,7 @@ class _DirectionDetailPageState
         elevation: 0.7,
         automaticallyImplyLeading: true,
         centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           widget.argument.carPartDirectionEnum.title,
           style: CTextStyles.base.ink500Color.s16.w500(),
