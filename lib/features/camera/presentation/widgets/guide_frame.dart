@@ -59,13 +59,15 @@ class GuideFrame extends StatelessWidget {
                   child: SizedBox(
                     height: 32,
                     width: screenWidth / 2,
-                    child: Slider.adaptive(
-                      min: 0.5,
-                      max: 1,
-                      activeColor: Colors.white,
-                      inactiveColor: Colors.white38,
-                      value: scaleImageValue.value,
-                      onChanged: scaleImageValue,
+                    child: Obx(
+                      () => Slider.adaptive(
+                        min: 0.5,
+                        max: 1,
+                        activeColor: Colors.white,
+                        inactiveColor: Colors.white38,
+                        value: scaleImageValue.value,
+                        onChanged: scaleImageValue,
+                      ),
                     ),
                   ),
                 ),
