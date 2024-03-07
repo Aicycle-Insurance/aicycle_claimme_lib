@@ -310,7 +310,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
           isLoading(false);
           status(
             BaseStatus(
-              message: l.message.toString(),
+              message: '${l.code.toString()}: ${l.details.toString()}',
               state: AppState.customError,
             ),
           );
@@ -384,14 +384,14 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       if (l.errorCodeFromEngine != null) {
         status(
           BaseStatus(
-            message: l.message.toString(),
+            message: '${l.code.toString()}: ${l.details.toString()}',
             state: AppState.customError,
           ),
         );
         showErrorDialog(true);
         status(
           BaseStatus(
-            message: l.message.toString(),
+            message: '${l.code.toString()}: ${l.details.toString()}',
             state: AppState.customError,
           ),
         );
@@ -400,7 +400,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       } else {
         status(
           BaseStatus(
-            message: l.message.toString(),
+            message: '${l.code.toString()}: ${l.details.toString()}',
             state: AppState.customError,
           ),
         );

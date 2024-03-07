@@ -41,3 +41,7 @@
 ## 0.1.1
 
 * Fix guide frame slider
+
+## 0.1.2
+
+* Fix bugs and update error message

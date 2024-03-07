@@ -39,7 +39,7 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
         } else {
           isLoading(false);
           status.value = BaseStatus(
-            message: l.message,
+            message: '${l.code.toString()}: ${l.details.toString()}',
             state: AppState.pop,
           );
         }
@@ -69,7 +69,7 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
       (l) {
         isLoading(false);
         status.value = BaseStatus(
-          message: l.message,
+          message: '${l.code.toString()}: ${l.details.toString()}',
           state: AppState.pop,
         );
       },
