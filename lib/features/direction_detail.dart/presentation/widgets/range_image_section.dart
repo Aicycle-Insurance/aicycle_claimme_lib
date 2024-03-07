@@ -211,21 +211,21 @@ class ImageContainer extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      if (!hideRetake)
-                        GestureDetector(
-                          onTap: onRetake,
-                          child: Container(
-                            padding: const EdgeInsets.all(4),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.black54,
-                            ),
-                            child: const Icon(
-                              Icons.camera_alt_rounded,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
+                      // if (!hideRetake)
+                      //   GestureDetector(
+                      //     onTap: onRetake,
+                      //     child: Container(
+                      //       padding: const EdgeInsets.all(4),
+                      //       decoration: const BoxDecoration(
+                      //         shape: BoxShape.circle,
+                      //         color: Colors.black54,
+                      //       ),
+                      //       child: const Icon(
+                      //         Icons.camera_alt_rounded,
+                      //         color: Colors.white,
+                      //       ),
+                      //     ),
+                      //   ),
                     ],
                   ),
                 ),
