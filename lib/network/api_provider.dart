@@ -82,6 +82,9 @@ class APIProvider {
         case DioExceptionType.connectionError:
           throw NoInternetError();
         case DioExceptionType.unknown:
+          if (_.message?.toLowerCase().contains('connection abort') == true) {
+            throw NoInternetError('Connection aborted');
+          }
           throw FetchDataError(
             _.message,
             code: _.error,
