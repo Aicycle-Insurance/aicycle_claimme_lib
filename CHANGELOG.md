@@ -45,3 +45,7 @@
 ## 0.1.2
 
 * Fix bugs and update error message
+
+## 0.1.3
+
+* Update dev and stage baseURL 
