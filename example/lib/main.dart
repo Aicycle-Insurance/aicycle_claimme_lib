@@ -74,8 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         builder: (BuildContext context) => AiCycleClaimMe(
                           argument: AiCycleClaimMeArgument(
                             externalClaimId: externalClaimIdController.text,
-                            apiToken: '',
+                            apiToken: '08d69558-c19f-4ea5-87ab-b8d7ad4d1c80',
                             locale: const Locale('vi', 'VN'),
+                            environtment: Evn.stage,
                           ),
                           onViewResultCallBack: (result) {},
                         ),

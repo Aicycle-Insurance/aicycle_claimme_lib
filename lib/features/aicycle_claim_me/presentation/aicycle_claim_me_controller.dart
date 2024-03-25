@@ -1,25 +1,55 @@
 import 'package:get/get.dart';
 
 import '../../../common/base_controller.dart';
+import '../../../common/logger.dart';
 import '../../../enum/app_state.dart';
 import '../data/model/claim_folder_model.dart';
+import '../data/model/user_info_model.dart';
 import '../domain/usecase/create_folder_usecase.dart';
 import '../domain/usecase/get_duplicate_folder_usecase.dart';
+import '../domain/usecase/get_user_info_usecase.dart';
 import 'aicycle_claim_me.dart';
 
 class AiCycleClaimMeController extends ClaimMeBaseController {
   final ClaimMeCreateFolderUsecase createFolderUsecase = Get.find();
   final ClaimMeGetDuplicateFolderUsecase getDuplicateFolderUsecase = Get.find();
+  final GetUserInfoUsecase getUserInfoUsecase = Get.find();
   late AiCycleClaimMeArgument argument;
   var claimFolder = Rx<ClaimFolderModel?>(null);
 
+  static const organizations = {
+    61: "Bảo Long",
+    68: "Fuse",
+    16: "VIC",
+    6: "CMC",
+    8: "DoVenture",
+    12: "Nextrans",
+    7: "MIC",
+    62: "AAA",
+    182: "VNI",
+    65: "Cathay",
+    230: "MK Vision",
+    238: "AICycleTrial",
+    2: "VBI",
+    3: "AICycle",
+    14: "PJICO",
+    113: "Xuân Thành",
+    1: "PTI",
+    9: "Anonymous",
+    21: "SETA",
+    5: "OPES",
+    15: "PVI",
+    4: "ESCS",
+  };
+
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    createFolder();
+    await getUserInfo();
+    await createFolder();
   }
 
-  void createFolder() async {
+  Future createFolder() async {
     isLoading(true);
     final res = await createFolderUsecase(
       externalClaimId: argument.externalClaimId,
@@ -87,6 +117,16 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
           state: AppState.redirect,
         );
         claimFolder.value = r;
+      },
+    );
+  }
+
+  Future getUserInfo() async {
+    isLoading(true);
+    processUsecaseResult<UserInfo>(
+      result: await getUserInfoUsecase(),
+      onSuccess: (p0) {
+        logger.i(p0.toJson());
       },
     );
   }

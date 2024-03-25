@@ -21,6 +21,7 @@ enum Evn {
 }
 
 bool? enableVersion2 = true;
+bool? isAICycle = true;
 String? apiToken;
 Evn environment = Evn.production;
 Locale? locale;
@@ -33,6 +34,7 @@ class AiCycleClaimMeArgument {
   final bool? enableVersion2;
   final Locale? locale;
   final String? aicycleClaimId;
+  final bool? isAICycle;
 
   AiCycleClaimMeArgument({
     required this.externalClaimId,
@@ -41,6 +43,7 @@ class AiCycleClaimMeArgument {
     this.enableVersion2,
     this.locale,
     this.aicycleClaimId,
+    this.isAICycle,
   });
 }
 
@@ -75,6 +78,8 @@ class _AiCycleClaimMeState
     environment = widget.argument.environtment ?? Evn.production;
     enableVersion2 = widget.argument.enableVersion2 ?? true;
     locale = widget.argument.locale;
+    isAICycle = widget.argument.isAICycle ?? true;
+
     controller.status.listen((state) {
       if (state.state == AppState.redirect) {
         Navigator.of(context).pushReplacement(

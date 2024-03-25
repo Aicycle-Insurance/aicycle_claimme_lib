@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../network/api_error.dart';
 import '../../data/model/claim_folder_model.dart';
+import '../../data/model/user_info_model.dart';
 
 abstract class AiCycleClaimMeRepository {
   Future<Either<APIErrors, ClaimFolderModel>> createFolder({
@@ -18,4 +19,5 @@ abstract class AiCycleClaimMeRepository {
   Future<Either<APIErrors, ClaimFolderModel>> getDuplicateFolder({
     required String externalClaimId,
   });
+  Future<Either<APIErrors, UserInfo>> getUserInfo();
 }

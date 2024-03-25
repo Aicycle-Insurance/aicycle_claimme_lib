@@ -56,7 +56,9 @@ class _FolderDetailPageState
     environment = widget.argument.environtment ?? Evn.production;
     locale = widget.argument.locale;
     enableVersion2 = widget.argument.enableVersion2 ?? true;
+    isAICycle = widget.argument.isAICycle ?? true;
     controller.argument = widget.argument;
+
     callEngineSub = controller.damageResponseStream.stream.listen((p0) {
       if (p0 != null) {
         widget.onCallEngineSuccessfully?.call(p0);
