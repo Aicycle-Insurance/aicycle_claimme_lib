@@ -260,10 +260,10 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         imageLocation = currentLocation;
         createdDateTime = DateTime.now().toUtc().toIso8601String();
         callEngine(resizeFile);
-        logger.i('Save photo: $savePhotoAfterShot');
+        print('Save photo: $savePhotoAfterShot');
         if (savePhotoAfterShot == true) {
           final res = await ImageGallerySaver.saveFile(resizeFile.path);
-          logger.i('Save photo: ${res.toString()}');
+          print('Save photo: ${res.toString()}');
         }
         await cameraController?.resumePreview();
       }
