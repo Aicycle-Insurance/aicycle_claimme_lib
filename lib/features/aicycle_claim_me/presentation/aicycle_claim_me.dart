@@ -21,7 +21,10 @@ enum Evn {
 }
 
 bool? enableVersion2 = true;
+bool? isAICycle = true;
+bool? savePhotoAfterShot = false;
 String? apiToken;
+String? xApplication;
 Evn environment = Evn.production;
 Locale? locale;
 List<CameraDescription> cameras = <CameraDescription>[];
@@ -29,18 +32,24 @@ List<CameraDescription> cameras = <CameraDescription>[];
 class AiCycleClaimMeArgument {
   final String externalClaimId;
   final String apiToken;
+  final String? xApplication;
   final Evn? environtment;
   final bool? enableVersion2;
+  final bool? savePhotoAfterShot;
   final Locale? locale;
   final String? aicycleClaimId;
+  final bool? isAICycle;
 
   AiCycleClaimMeArgument({
     required this.externalClaimId,
     required this.apiToken,
     this.environtment,
     this.enableVersion2,
+    this.savePhotoAfterShot,
     this.locale,
     this.aicycleClaimId,
+    this.isAICycle,
+    this.xApplication,
   });
 }
 
@@ -72,9 +81,13 @@ class _AiCycleClaimMeState
     super.initState();
     controller.argument = widget.argument;
     apiToken = widget.argument.apiToken;
+    xApplication = widget.argument.xApplication;
+    savePhotoAfterShot = widget.argument.savePhotoAfterShot;
     environment = widget.argument.environtment ?? Evn.production;
     enableVersion2 = widget.argument.enableVersion2 ?? true;
     locale = widget.argument.locale;
+    isAICycle = widget.argument.isAICycle ?? true;
+
     controller.status.listen((state) {
       if (state.state == AppState.redirect) {
         Navigator.of(context).pushReplacement(

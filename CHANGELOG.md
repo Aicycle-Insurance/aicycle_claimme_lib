@@ -48,4 +48,12 @@
 
 ## 0.1.3
 
-* Update dev and stage baseURL 
+* Update dev and stage baseURL
+
+## 0.1.4
+
+* Update UI components
+
+## 0.1.5
+
+* Integrate gallery saver

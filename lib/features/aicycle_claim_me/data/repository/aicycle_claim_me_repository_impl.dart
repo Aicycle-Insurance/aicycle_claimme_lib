@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import '../../../../network/api_error.dart';
 import '../../domain/repository/aicycle_claim_me_repository.dart';
 import '../model/claim_folder_model.dart';
+import '../model/user_info_model.dart';
 import '../remote_data/aicycle_claim_me_api.dart';
 
 class AicycleClaimMeRepositoryImpl implements AiCycleClaimMeRepository {
@@ -49,6 +50,20 @@ class AicycleClaimMeRepositoryImpl implements AiCycleClaimMeRepository {
         externalClaimId: externalClaimId,
       ).request();
       return Right(ClaimFolderModel.fromJson(res[0]));
+    } catch (e) {
+      if (e is APIErrors) {
+        return Left(e);
+      } else {
+        return Left(FetchDataError(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<APIErrors, UserInfo>> getUserInfo() async {
+    try {
+      final res = await AicycleClaimMeApi.getUserInfo().request();
+      return Right(UserInfo.fromJson(res));
     } catch (e) {
       if (e is APIErrors) {
         return Left(e);

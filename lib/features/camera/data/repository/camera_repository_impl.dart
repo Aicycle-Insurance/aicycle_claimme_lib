@@ -35,7 +35,7 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
           uploadEndpoint,
           data: File(localFilePath).openRead(),
           options: Options(
-            contentType: "multiple/form-data",
+            // contentType: "multiple/form-data",
             headers: {
               "Content-Length": File(localFilePath).lengthSync(),
             },

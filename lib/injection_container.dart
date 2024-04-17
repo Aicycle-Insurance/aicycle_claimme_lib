@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'features/aicycle_claim_me/data/repository/aicycle_claim_me_repository_impl.dart';
 import 'features/aicycle_claim_me/domain/usecase/create_folder_usecase.dart';
 import 'features/aicycle_claim_me/domain/usecase/get_duplicate_folder_usecase.dart';
+import 'features/aicycle_claim_me/domain/usecase/get_user_info_usecase.dart';
 import 'features/camera/data/repository/camera_repository_impl.dart';
 import 'features/camera/domain/usecase/call_engine_usecase.dart';
 import 'features/camera/domain/usecase/upload_image_usecase.dart';
@@ -93,6 +94,10 @@ class InjectionContainer {
     Get.lazyPut(
       () => ClaimMeGetDuplicateFolderUsecase(
           Get.find<AicycleClaimMeRepositoryImpl>()),
+      fenix: true,
+    );
+    Get.lazyPut(
+      () => GetUserInfoUsecase(Get.find<AicycleClaimMeRepositoryImpl>()),
       fenix: true,
     );
   }
