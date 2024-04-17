@@ -57,3 +57,7 @@
 ## 0.1.5
 
 * Integrate gallery saver
+
+## 0.1.5
+
+* bugfix
