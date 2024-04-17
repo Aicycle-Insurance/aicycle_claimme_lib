@@ -48,4 +48,8 @@
 
 ## 0.1.3
 
-* Update dev and stage baseURL 
+* Update dev and stage baseURL
+
+## 0.1.4
+
+* Update UI components
