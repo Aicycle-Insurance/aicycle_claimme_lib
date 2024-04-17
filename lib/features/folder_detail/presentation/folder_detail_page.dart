@@ -54,6 +54,7 @@ class _FolderDetailPageState
     super.initState();
     apiToken = widget.argument.apiToken;
     xApplication = widget.argument.xApplication;
+    savePhotoAfterShot = widget.argument.savePhotoAfterShot;
     environment = widget.argument.environtment ?? Evn.production;
     locale = widget.argument.locale;
     enableVersion2 = widget.argument.enableVersion2 ?? true;

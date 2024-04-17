@@ -22,6 +22,7 @@ enum Evn {
 
 bool? enableVersion2 = true;
 bool? isAICycle = true;
+bool? savePhotoAfterShot = false;
 String? apiToken;
 String? xApplication;
 Evn environment = Evn.production;
@@ -34,6 +35,7 @@ class AiCycleClaimMeArgument {
   final String? xApplication;
   final Evn? environtment;
   final bool? enableVersion2;
+  final bool? savePhotoAfterShot;
   final Locale? locale;
   final String? aicycleClaimId;
   final bool? isAICycle;
@@ -43,6 +45,7 @@ class AiCycleClaimMeArgument {
     required this.apiToken,
     this.environtment,
     this.enableVersion2,
+    this.savePhotoAfterShot,
     this.locale,
     this.aicycleClaimId,
     this.isAICycle,
@@ -79,6 +82,7 @@ class _AiCycleClaimMeState
     controller.argument = widget.argument;
     apiToken = widget.argument.apiToken;
     xApplication = widget.argument.xApplication;
+    savePhotoAfterShot = widget.argument.savePhotoAfterShot;
     environment = widget.argument.environtment ?? Evn.production;
     enableVersion2 = widget.argument.enableVersion2 ?? true;
     locale = widget.argument.locale;
