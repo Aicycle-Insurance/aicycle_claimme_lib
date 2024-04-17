@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:aicycle_claimme_lib/common/logger.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 import '../../../common/location_seveices.dart';
@@ -260,7 +261,8 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         createdDateTime = DateTime.now().toUtc().toIso8601String();
         callEngine(resizeFile);
         if (savePhotoAfterShot == true) {
-          await ImageGallerySaver.saveFile(resizeFile.path);
+          final res = await ImageGallerySaver.saveFile(resizeFile.path);
+          logger.i('Save photo: ${res.toString()}');
         }
         await cameraController?.resumePreview();
       }
