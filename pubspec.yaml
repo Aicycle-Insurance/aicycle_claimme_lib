@@ -1,6 +1,6 @@
 name: aicycle_claimme_lib
 description: An AiCycle ClaimMe package.
-version: 0.1.6
+version: 0.1.7
 homepage: https://aicycle.ai/
 
 environment:

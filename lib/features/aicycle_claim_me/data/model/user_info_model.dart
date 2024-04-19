@@ -1,3 +1,4 @@
+import 'package:aicycle_claimme_lib/features/aicycle_claim_me/data/model/kvp_model.dart';
 import 'package:equatable/equatable.dart';
 
 class Profile extends Equatable {
@@ -163,7 +164,7 @@ class Organizations extends Equatable {
   final String? state;
   final String? postalCode;
   final String? websiteUrl;
-  final dynamic kvp;
+  final Kvp? kvp;
 
   const Organizations({
     this.organizationId,
@@ -195,7 +196,9 @@ class Organizations extends Equatable {
       state: json['state']?.toString(),
       postalCode: json['postalCode']?.toString(),
       websiteUrl: json['websiteUrl']?.toString(),
-      kvp: json['kvp'],
+      kvp: json['kvp'] == null
+          ? null
+          : Kvp.fromJson(Map<String, dynamic>.from(json['kvp'])),
     );
   }
 
@@ -228,7 +231,7 @@ class Organizations extends Equatable {
     String? state,
     String? postalCode,
     String? websiteUrl,
-    dynamic kvp,
+    Kvp? kvp,
   }) {
     return Organizations(
       organizationId: organizationId ?? this.organizationId,

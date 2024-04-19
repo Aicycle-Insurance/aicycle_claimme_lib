@@ -95,10 +95,10 @@ class AICycleClaimMeSetting extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (bgImage != null) 'bgImage': bgImage,
-        if (bgColor != null) 'bgColor': bgColor,
-        if (customCarImage != null) 'customCarImage': customCarImage,
-        if (carDirections != null) 'carDirections': carDirections,
+        'bgImage': bgImage,
+        'bgColor': bgColor,
+        'customCarImage': customCarImage,
+        'carDirections': carDirections?.map((e) => e.toJson()).toList(),
       };
 
   AICycleClaimMeSetting copyWith({

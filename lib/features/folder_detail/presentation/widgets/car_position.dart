@@ -19,11 +19,19 @@ class CarPosition extends StatelessWidget {
   final String claimFolderId;
   final CarPartDirectionEnum direction;
   final ImageDirectionModel? imageDirectionModel;
+  final double? width;
+  final double? height;
+  final double? borderRadius;
+  final String? customDirectionName;
   const CarPosition({
     super.key,
     required this.direction,
     required this.claimFolderId,
     this.imageDirectionModel,
+    this.width,
+    this.height,
+    this.borderRadius,
+    this.customDirectionName,
   });
 
   @override
@@ -62,10 +70,10 @@ class CarPosition extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            height: 64,
-            width: 64,
+            height: height ?? 64,
+            width: width ?? 64,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(borderRadius ?? 16),
               color: Colors.white,
               image: imageDirectionModel?.thumbnail == null
                   ? null
@@ -144,7 +152,7 @@ class CarPosition extends StatelessWidget {
             ),
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             child: Text(
-              direction.title,
+              customDirectionName ?? direction.title,
               textAlign: TextAlign.center,
               style: CTextStyles.base.s12.setColor(CColors.inkA500),
             ),

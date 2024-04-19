@@ -1,7 +1,7 @@
+import 'package:aicycle_claimme_lib/features/aicycle_claim_me/data/model/setting_model.dart';
 import 'package:get/get.dart';
 
 import '../../../common/base_controller.dart';
-import '../../../common/logger.dart';
 import '../../../enum/app_state.dart';
 import '../data/model/claim_folder_model.dart';
 import '../data/model/user_info_model.dart';
@@ -14,7 +14,9 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
   final ClaimMeCreateFolderUsecase createFolderUsecase = Get.find();
   final ClaimMeGetDuplicateFolderUsecase getDuplicateFolderUsecase = Get.find();
   final GetUserInfoUsecase getUserInfoUsecase = Get.find();
+
   late AiCycleClaimMeArgument argument;
+  late AICycleClaimMeSetting? uiSettings;
   var claimFolder = Rx<ClaimFolderModel?>(null);
 
   static const organizations = {
@@ -126,7 +128,10 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
     processUsecaseResult<UserInfo>(
       result: await getUserInfoUsecase(),
       onSuccess: (p0) {
-        logger.i(p0.toJson());
+        if (p0.data?.organizations != null &&
+            p0.data!.organizations!.isNotEmpty) {
+          uiSettings = p0.data!.organizations!.first.kvp?.sdk;
+        }
       },
     );
   }

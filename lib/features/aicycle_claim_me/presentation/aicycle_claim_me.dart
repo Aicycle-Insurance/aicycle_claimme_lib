@@ -95,6 +95,7 @@ class _AiCycleClaimMeState
             builder: (BuildContext context) => FolderDetailPage(
               argument: controller.argument,
               onViewResultCallBack: widget.onViewResultCallBack,
+              uiSettings: controller.uiSettings?.toJson(),
             ),
           ),
         );
