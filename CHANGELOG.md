@@ -65,3 +65,7 @@
 ## 0.1.7
 
 * Update dynamic UI
+
+## 0.1.8
+
+* bugfix
