@@ -165,18 +165,14 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     }
     if (state == AppLifecycleState.inactive && !isPickingPhoto.value) {
       isInActive(true);
+      flashMode.value = FlashMode.off;
+      cameraCtrl.setFlashMode(FlashMode.off);
       cameraCtrl.dispose();
       update(['camera']);
     } else if (state == AppLifecycleState.resumed && !isPickingPhoto.value) {
       isInActive(false);
       onNewCameraSelected(cameraCtrl.description);
     }
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-    cameraController?.dispose();
   }
 
   Future<void> onNewCameraSelected(CameraDescription cameraDescription) async {
@@ -605,5 +601,12 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         }
       },
     );
+  }
+
+  @override
+  void onClose() async {
+    await cameraController?.setFlashMode(FlashMode.off);
+    cameraController?.dispose();
+    super.onClose();
   }
 }
