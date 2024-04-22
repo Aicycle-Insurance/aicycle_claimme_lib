@@ -58,6 +58,9 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
       if (e is APIErrors) {
         return Left(e);
       } else {
+        if (e.toString().toLowerCase().contains('connection')) {
+          return Left(NoInternetError('Connection aborted'));
+        }
         return Left(FetchDataError(e.toString()));
       }
     }
