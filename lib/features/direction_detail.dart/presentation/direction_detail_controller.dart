@@ -129,6 +129,10 @@ class ClaimMeDirectionDetailController extends ClaimMeBaseController {
         ///
         if (Get.isRegistered<ClaimMeFolderDetailController>()) {
           await Get.find<ClaimMeFolderDetailController>().getImageDirection();
+          Get.find<ClaimMeFolderDetailController>()
+              .deleteImageResponseStream
+              .sink
+              .add(true);
         }
       },
     );
@@ -156,6 +160,10 @@ class ClaimMeDirectionDetailController extends ClaimMeBaseController {
         ///
         if (Get.isRegistered<ClaimMeFolderDetailController>()) {
           await Get.find<ClaimMeFolderDetailController>().getImageDirection();
+          Get.find<ClaimMeFolderDetailController>()
+              .deleteImageResponseStream
+              .sink
+              .add(true);
         }
       },
     );

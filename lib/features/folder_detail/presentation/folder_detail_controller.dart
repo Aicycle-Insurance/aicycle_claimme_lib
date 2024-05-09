@@ -25,6 +25,7 @@ class ClaimMeFolderDetailController extends ClaimMeBaseController {
 
   final damageResponseStream =
       StreamController<DamageAssessmentResponse?>.broadcast();
+  final deleteImageResponseStream = StreamController<bool?>.broadcast();
 
   @override
   void onReady() {
@@ -35,6 +36,7 @@ class ClaimMeFolderDetailController extends ClaimMeBaseController {
   @override
   void onClose() {
     damageResponseStream.close();
+    deleteImageResponseStream.close();
     super.onClose();
   }
 

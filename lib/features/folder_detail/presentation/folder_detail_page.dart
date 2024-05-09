@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:aicycle_claimme_lib/common/color_utils.dart';
 import 'package:aicycle_claimme_lib/features/aicycle_claim_me/data/model/setting_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../aicycle_claimme_lib.dart';
@@ -18,7 +17,6 @@ import '../../../generated/assets.gen.dart';
 import '../../../common/extension/translation_ext.dart';
 import '../../../generated/locales.g.dart';
 import '../../aicycle_claim_me/presentation/aicycle_claim_me.dart';
-import '../../camera/data/models/damage_assessment_response.dart';
 import 'folder_detail_controller.dart';
 import 'widgets/car_position.dart';
 
@@ -28,13 +26,13 @@ class FolderDetailPage extends StatefulWidget {
     this.hasAppBar,
     required this.argument,
     this.onViewResultCallBack,
-    this.onCallEngineSuccessfully,
+    this.onResultChanged,
     this.uiSettings,
   });
 
   final bool? hasAppBar;
   final Function(dynamic result)? onViewResultCallBack;
-  final Function(DamageAssessmentResponse?)? onCallEngineSuccessfully;
+  final Function()? onResultChanged;
   final AiCycleClaimMeArgument argument;
   final Map<String, dynamic>? uiSettings;
 
@@ -45,6 +43,7 @@ class FolderDetailPage extends StatefulWidget {
 class _FolderDetailPageState
     extends BaseState<FolderDetailPage, ClaimMeFolderDetailController> {
   late final StreamSubscription callEngineSub;
+  late final StreamSubscription deleteImageSub;
 
   ///
   late final AICycleClaimMeSetting? settings;
@@ -79,7 +78,14 @@ class _FolderDetailPageState
 
     callEngineSub = controller.damageResponseStream.stream.listen((p0) {
       if (p0 != null) {
-        widget.onCallEngineSuccessfully?.call(p0);
+        widget.onResultChanged?.call();
+      }
+    });
+
+    ///
+    deleteImageSub = controller.deleteImageResponseStream.stream.listen((p0) {
+      if (p0 == true) {
+        widget.onResultChanged?.call();
       }
     });
 
