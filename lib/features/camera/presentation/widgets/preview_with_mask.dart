@@ -24,6 +24,7 @@ class PreviewWithMask extends StatelessWidget {
     required this.onYesTapped,
     required this.onNoTapped,
     this.retake,
+    this.maskSplitted = false,
   });
 
   final XFile file;
@@ -31,6 +32,7 @@ class PreviewWithMask extends StatelessWidget {
   final Function() onYesTapped;
   final Function() onNoTapped;
   final Function()? retake;
+  final bool? maskSplitted;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -43,13 +45,11 @@ class PreviewWithMask extends StatelessWidget {
       var imWidth = damageAssessmentModel!.imgSize?[0]?.toDouble() ?? 1920.0;
       var imHeight = damageAssessmentModel!.imgSize?[1]?.toDouble() ?? 1080.0;
       for (var mask in damageAssessmentModel!.carDamages!) {
-        if (!cachedDamageType.contains(mask.classUuid ?? mask.damageKey)) {
-          cachedDamageType.add(mask.classUuid ?? mask.damageKey ?? '0');
-          var currentDamageType = damageTypes.firstWhereOrNull(
-            (element) =>
-                element.damageTypeGuid == mask.classUuid ||
-                element.damageTypeSlugId == mask.damageKey,
-          );
+        if (!cachedDamageType.contains(mask.maskPath)) {
+          cachedDamageType.add(mask.maskPath ?? '0');
+          var currentDamageType = damageTypes.firstWhereOrNull((element) =>
+              element.damageTypeGuid == mask.classUuid ||
+              element.damageTypeSlugId == mask.damageKey);
           var color =
               ColorUtils.colorFromHex(currentDamageType?.damageTypeColor)
                   .withOpacity(0.3);
