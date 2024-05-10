@@ -49,7 +49,11 @@ abstract class ClaimMeBaseController extends FullLifeCycleController {
             state: AppState.failed,
           );
         } else {
-          if (error.details.toString().toLowerCase().contains('connection')) {
+          if (error.details.toString().toLowerCase().contains('connection') ||
+              error.details
+                  .toString()
+                  .toLowerCase()
+                  .contains('can\'t assign requested address')) {
             status.value = BaseStatus(
               message: 'Connection aborted',
               state: AppState.failed,
