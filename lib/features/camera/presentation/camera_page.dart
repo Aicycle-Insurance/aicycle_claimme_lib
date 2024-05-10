@@ -143,6 +143,8 @@ class _CameraPageState
                               children: [
                                 PreviewWithMask(
                                   file: controller.previewFile.value!,
+                                  imageUrl: controller.damageAssessmentResponse
+                                      .value?.result?.imgUrl,
                                   damageAssessmentModel: controller
                                       .damageAssessmentResponse.value?.result,
                                   onYesTapped: controller.onNextTapped,
@@ -194,7 +196,7 @@ class _CameraPageState
                                   controller.currentAnggle?['name'] ?? '',
                               carPartsForCloseUpShot:
                                   controller.carPartsForCloseUpShot.value,
-                              onPartSelected: controller.carPartOnSelected,
+                              onPartSelected: controller.carPartOnSelected.call,
                               currentPartSeleted:
                                   controller.carPartOnSelected.value,
                             ),

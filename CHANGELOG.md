@@ -73,3 +73,11 @@
 ## 0.1.9
 
 * Bugfix and improvements
+
+## 0.2.0
+
+* Bugfix and improvements
+
+## 0.2.1
+
+* Bugfix and improvements

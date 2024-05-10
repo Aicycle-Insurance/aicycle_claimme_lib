@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,11 @@ class PreviewWithMask extends StatelessWidget {
     required this.onNoTapped,
     this.retake,
     this.maskSplitted = false,
+    this.imageUrl,
   });
 
   final XFile file;
+  final String? imageUrl;
   final DamageAssessmentModel? damageAssessmentModel;
   final Function() onYesTapped;
   final Function() onNoTapped;
@@ -91,10 +94,20 @@ class PreviewWithMask extends StatelessWidget {
               fit: BoxFit.contain,
               child: Stack(
                 children: [
-                  Image.file(
-                    File(file.path),
-                    fit: BoxFit.contain,
-                  ),
+                  if (imageUrl != null)
+                    CachedNetworkImage(
+                      imageUrl: imageUrl!,
+                      fit: BoxFit.contain,
+                      placeholder: (context, url) => Transform.scale(
+                        scale: 0.1,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    )
+                  else
+                    Image.file(
+                      File(file.path),
+                      fit: BoxFit.contain,
+                    ),
                   ...masks,
                 ],
               ),
