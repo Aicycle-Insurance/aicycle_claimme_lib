@@ -81,3 +81,7 @@
 ## 0.2.1
 
 * Bugfix and improvements
+
+## 0.2.2
+
+* Bugfix and improvements
