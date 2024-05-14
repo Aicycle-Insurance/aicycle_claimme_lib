@@ -42,11 +42,16 @@ class PreviewWithMask extends StatelessWidget {
     var masks = <Widget>[];
     var cachedDamageType = <String>[];
     // var listInitDamageModel = <DamageModel>[];
+    double imWidth = 1920.0;
+    double imHeight = 1080.0;
+
+    if (damageAssessmentModel != null) {
+      imWidth = damageAssessmentModel!.imgSize?[0]?.toDouble() ?? 1920.0;
+      imHeight = damageAssessmentModel!.imgSize?[1]?.toDouble() ?? 1080.0;
+    }
 
     if (damageAssessmentModel != null &&
         damageAssessmentModel!.carDamages != null) {
-      var imWidth = damageAssessmentModel!.imgSize?[0]?.toDouble() ?? 1920.0;
-      var imHeight = damageAssessmentModel!.imgSize?[1]?.toDouble() ?? 1080.0;
       for (var mask in damageAssessmentModel!.carDamages!) {
         if (!cachedDamageType.contains(mask.maskPath)) {
           cachedDamageType.add(mask.maskPath ?? '0');
@@ -96,11 +101,16 @@ class PreviewWithMask extends StatelessWidget {
                 children: [
                   if (imageUrl != null)
                     CachedNetworkImage(
+                      width: imWidth,
+                      height: imHeight,
                       imageUrl: imageUrl!,
-                      fit: BoxFit.contain,
-                      placeholder: (context, url) => Transform.scale(
-                        scale: 0.1,
-                        child: const CircularProgressIndicator(),
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) => const SizedBox(
+                        height: 54,
+                        width: 54,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
                     )
                   else
