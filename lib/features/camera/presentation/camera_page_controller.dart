@@ -461,7 +461,8 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
           Get.find<ClaimMeDirectionDetailController>().getDirectionImage(1);
           Get.find<ClaimMeDirectionDetailController>()
-              .getCarPartsForCloseUpShot();
+              .carPartsForCloseUpShot
+              .assignAll(carPartsForCloseUpShot.value);
         }
         break;
       case 1:
@@ -474,7 +475,8 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
           Get.find<ClaimMeDirectionDetailController>().getDirectionImage(2);
           Get.find<ClaimMeDirectionDetailController>()
-              .getCarPartsForCloseUpShot();
+              .carPartsForCloseUpShot
+              .assignAll(carPartsForCloseUpShot.value);
         }
         break;
       case 2:

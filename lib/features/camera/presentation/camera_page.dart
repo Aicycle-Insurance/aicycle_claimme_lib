@@ -308,7 +308,19 @@ class _CameraPageState
       tabs: [
         Tab(text: LocaleKeys.longShot.trans),
         Tab(text: LocaleKeys.middleShot.trans),
-        Tab(text: LocaleKeys.closeUpShot.trans),
+        Obx(
+          () => Tab(
+            text: controller.partLoading.isFalse
+                ? LocaleKeys.closeUpShot.trans
+                : null,
+            child: controller.partLoading.isTrue
+                ? const CupertinoActivityIndicator(
+                    color: CColors.inkA100,
+                    radius: 6,
+                  )
+                : null,
+          ),
+        ),
       ],
     );
   }
