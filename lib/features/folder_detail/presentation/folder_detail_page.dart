@@ -28,10 +28,12 @@ class FolderDetailPage extends StatefulWidget {
     this.onViewResultCallBack,
     this.onResultChanged,
     this.uiSettings,
+    this.onError,
   });
 
   final bool? hasAppBar;
   final Function(dynamic result)? onViewResultCallBack;
+  final Function(dynamic error)? onError;
   final Function()? onResultChanged;
   final AiCycleClaimMeArgument argument;
   final Map<String, dynamic>? uiSettings;
@@ -44,6 +46,7 @@ class _FolderDetailPageState
     extends BaseState<FolderDetailPage, ClaimMeFolderDetailController> {
   late final StreamSubscription callEngineSub;
   late final StreamSubscription deleteImageSub;
+  late final StreamSubscription errorSub;
 
   ///
   late final AICycleClaimMeSetting? settings;
@@ -89,6 +92,13 @@ class _FolderDetailPageState
       }
     });
 
+    ///
+    errorSub = controller.receiveErrorStream.stream.listen((p0) {
+      if (p0 != null) {
+        widget.onError?.call(p0);
+      }
+    });
+
     /// get settings
     if (widget.uiSettings != null) {
       try {
@@ -127,6 +137,14 @@ class _FolderDetailPageState
         leftBackSetting = null;
       }
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    callEngineSub.cancel();
+    deleteImageSub.cancel();
+    errorSub.cancel();
   }
 
   @override

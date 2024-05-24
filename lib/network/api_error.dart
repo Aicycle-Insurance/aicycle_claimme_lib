@@ -30,12 +30,11 @@ abstract class APIErrors implements Exception {
 }
 
 class FetchDataError extends APIErrors {
-  FetchDataError(String? details, {dynamic code, int? errorCodeFromEngine})
+  FetchDataError(String? details, {dynamic code, super.errorCodeFromEngine})
       : super(
           code: code ?? "Fetch data error",
           message: details ?? "Fetch data error",
           details: details ?? "Fetch data error",
-          errorCodeFromEngine: errorCodeFromEngine,
         );
 }
 
@@ -49,12 +48,11 @@ class NoInternetError extends APIErrors {
 }
 
 class BadRequestError extends APIErrors {
-  BadRequestError(String? details, {dynamic code, int? errorCodeFromEngine})
+  BadRequestError(String? details, {dynamic code, super.errorCodeFromEngine})
       : super(
           code: code ?? "Bad request",
           message: "Bad request",
           details: details ?? "Bad request",
-          errorCodeFromEngine: errorCodeFromEngine,
         );
 }
 

@@ -85,3 +85,15 @@
 ## 0.2.2
 
 * Bugfix and improvements
+
+## 0.2.3
+
+* Bugfix and improvements
+
+## 0.2.4
+
+* Update error handling
+
+## 0.2.5
+
+* Handle performance issues
