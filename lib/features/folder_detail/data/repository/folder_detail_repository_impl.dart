@@ -28,7 +28,7 @@ class ClaimMeFolderDetailRepositoryImpl implements FolderDetailRepository {
   Future<Either<APIErrors, dynamic>> getResult(
       {required String claimId}) async {
     try {
-      final res = await FolderDetailApi.getImagesDirectionV2(claimId).request();
+      final res = await FolderDetailApi.getResult(claimId).request();
       return Right(res);
     } catch (e) {
       if (e is APIErrors) {

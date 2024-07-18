@@ -97,3 +97,7 @@
 ## 0.2.5
 
 * Handle performance issues
+
+## 0.2.6
+
+* Bugfix and improvements
