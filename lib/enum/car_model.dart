@@ -6,6 +6,25 @@ enum CarModelEnum {
   toyotaCross,
   mazdaCX5,
   toyotaVios,
+  truck;
+
+  factory CarModelEnum.fromId(num? id) {
+    switch (id) {
+      case 1:
+        return CarModelEnum.kiaMorning;
+      case 3:
+        return CarModelEnum.toyotaInnova;
+      case 4:
+        return CarModelEnum.toyotaCross;
+      case 5:
+        return CarModelEnum.toyotaVios;
+      case 6:
+      case 7:
+        return CarModelEnum.truck;
+      default:
+        return CarModelEnum.kiaMorning;
+    }
+  }
 }
 
 extension CarModelEnumExt on CarModelEnum {
@@ -26,6 +45,9 @@ extension CarModelEnumExt on CarModelEnum {
         break;
       case CarModelEnum.toyotaVios:
         result = 'assets/images/sedan_${directionEnum.name}.png';
+        break;
+      case CarModelEnum.truck:
+        result = '';
         break;
     }
     return result;

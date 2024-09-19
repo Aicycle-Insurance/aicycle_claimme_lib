@@ -206,6 +206,7 @@ class _FolderDetailPageState
                               child: Obx(
                                 () => CarPosition(
                                   direction: CarPartDirectionEnum.front,
+                                  vehicleTypeId: widget.argument.vehicleTypeId,
                                   claimFolderId:
                                       widget.argument.aicycleClaimId ??
                                           widget.argument.externalClaimId,
@@ -227,6 +228,8 @@ class _FolderDetailPageState
                                 child: Obx(
                                   () => CarPosition(
                                     direction: CarPartDirectionEnum.rightFront,
+                                    vehicleTypeId:
+                                        widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
                                             widget.argument.externalClaimId,
@@ -252,6 +255,8 @@ class _FolderDetailPageState
                                 child: Obx(
                                   () => CarPosition(
                                     direction: CarPartDirectionEnum.leftFront,
+                                    vehicleTypeId:
+                                        widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
                                             widget.argument.externalClaimId,
@@ -276,6 +281,8 @@ class _FolderDetailPageState
                                 child: Obx(
                                   () => CarPosition(
                                     direction: CarPartDirectionEnum.leftBack,
+                                    vehicleTypeId:
+                                        widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
                                             widget.argument.externalClaimId,
@@ -299,6 +306,8 @@ class _FolderDetailPageState
                                 child: Obx(
                                   () => CarPosition(
                                     direction: CarPartDirectionEnum.rightBack,
+                                    vehicleTypeId:
+                                        widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
                                             widget.argument.externalClaimId,
@@ -321,6 +330,7 @@ class _FolderDetailPageState
                               child: Obx(
                                 () => CarPosition(
                                   direction: CarPartDirectionEnum.back,
+                                  vehicleTypeId: widget.argument.vehicleTypeId,
                                   claimFolderId:
                                       widget.argument.aicycleClaimId ??
                                           widget.argument.externalClaimId,

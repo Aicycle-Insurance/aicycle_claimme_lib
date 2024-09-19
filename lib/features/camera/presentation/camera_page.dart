@@ -192,6 +192,7 @@ class _CameraPageState
                             () => GuideFrame(
                               carPartDirectionEnum:
                                   widget.argument.carPartDirectionEnum,
+                              carModel: widget.argument.carModelEnum,
                               rangeShot:
                                   controller.currentAnggle?['name'] ?? '',
                               carPartsForCloseUpShot:

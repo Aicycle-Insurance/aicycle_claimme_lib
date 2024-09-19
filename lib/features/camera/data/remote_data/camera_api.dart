@@ -19,6 +19,7 @@ class CameraAPI extends APIRequest {
     String? locationName,
     String? uploadLocation,
     String? utcTimeCreated,
+    bool? isTruck,
   }) : super(
           endpoint: Endpoint.callClaimMeEngine,
           method: HTTPMethod.post,
@@ -30,8 +31,6 @@ class CameraAPI extends APIRequest {
             "filePath": filePath,
             "position": position,
             "direction": direction,
-            // "imageRangeId": positionIds.indexOf(position) + 1,
-            // "partDirectionId": CarPartDirectionEnum.fromExcelId(direction).id,
             "vehiclePartExcelId": vehiclePartExcelId,
             if (oldImageId != null) "oldImageId": oldImageId,
             "timeAppUpload": timeAppUpload,
@@ -40,7 +39,7 @@ class CameraAPI extends APIRequest {
             "requestedTime": utcTimeCreated,
             "uploadLocation": uploadLocation,
             "isValidate": true,
-            // "isClaim": true,
+            if (isTruck == true) "vehicleType": "truck",
           },
         );
 

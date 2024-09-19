@@ -39,6 +39,7 @@ class AiCycleClaimMeArgument {
   final Locale? locale;
   final String? aicycleClaimId;
   final bool? isAICycle;
+  final num? vehicleTypeId;
 
   AiCycleClaimMeArgument({
     required this.externalClaimId,
@@ -50,6 +51,7 @@ class AiCycleClaimMeArgument {
     this.aicycleClaimId,
     this.isAICycle,
     this.xApplication,
+    this.vehicleTypeId,
   });
 }
 

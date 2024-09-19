@@ -23,6 +23,7 @@ class CarPosition extends StatelessWidget {
   final double? height;
   final double? borderRadius;
   final String? customDirectionName;
+  final num? vehicleTypeId;
   const CarPosition({
     super.key,
     required this.direction,
@@ -32,6 +33,7 @@ class CarPosition extends StatelessWidget {
     this.height,
     this.borderRadius,
     this.customDirectionName,
+    this.vehicleTypeId,
   });
 
   @override
@@ -46,7 +48,7 @@ class CarPosition extends StatelessWidget {
               builder: (context) => CameraPage(
                 argument: ClaimMeCameraArgument(
                   carPartDirectionEnum: direction,
-                  carModelEnum: CarModelEnum.kiaMorning,
+                  carModelEnum: CarModelEnum.fromId(vehicleTypeId),
                   claimId: claimFolderId,
                 ),
               ),

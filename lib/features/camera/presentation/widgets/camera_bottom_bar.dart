@@ -24,8 +24,7 @@ class AiCameraBottomBar extends StatelessWidget {
   final DeviceOrientation? orientation;
 
   static const double _bottomBarHeight = 100;
-  static const noImage =
-      'https://www.oyostatejudiciary.oy.gov.ng/wp-content/uploads/2022/04/360_F_434728286_OWQQvAFoXZLdGHlObozsolNeuSxhpr84.jpg';
+  static const noImage = 'https://dyta7vmv7sqle.cloudfront.net/noImage.jpg';
 
   @override
   Widget build(BuildContext context) {

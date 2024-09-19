@@ -8,7 +8,7 @@ abstract class BaseEndpoint {
 }
 
 abstract class Endpoint {
-  static String get callEngine => '/v2/buy-me/process';
+  // static String get callEngine => '/v2/buy-me/process';
   static String get checkIsOneCar => '/insurance/checkCar/{claimId}';
   static String get getImageUploadUrl => '/images/url';
   static String get validateUpload => '/claimimages/validate';

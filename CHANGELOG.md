@@ -101,3 +101,7 @@
 ## 0.2.6
 
 * Bugfix and improvements
+
+## 0.2.6
+
+* support truck on stage

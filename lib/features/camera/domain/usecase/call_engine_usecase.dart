@@ -21,6 +21,7 @@ class ClaimMeCallEngineUsecase {
     String? locationName,
     String? uploadLocation,
     String? utcTimeCreated,
+    bool? isTruck,
   }) async {
     return repository.callAiEngineAfterTakePhotoV2(
       claimId: claimId,
@@ -35,6 +36,7 @@ class ClaimMeCallEngineUsecase {
       timeAppUpload: timeAppUpload,
       uploadLocation: uploadLocation,
       utcTimeCreated: utcTimeCreated,
+      isTruck: isTruck,
     );
   }
 }

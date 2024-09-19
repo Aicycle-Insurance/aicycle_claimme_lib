@@ -85,6 +85,7 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
     String? locationName,
     String? uploadLocation,
     String? utcTimeCreated,
+    bool? isTruck,
   }) async {
     try {
       final res = await CameraAPI.callEngineV2(
@@ -100,6 +101,7 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
         timeAppUpload: timeAppUpload,
         uploadLocation: uploadLocation,
         utcTimeCreated: utcTimeCreated,
+        isTruck: isTruck,
       ).request();
       return Right(DamageAssessmentResponse.fromJson(res));
     } catch (e) {

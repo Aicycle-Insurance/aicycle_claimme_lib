@@ -19,6 +19,7 @@ abstract class CameraRepository {
     String? locationName,
     String? uploadLocation,
     String? utcTimeCreated,
+    bool? isTruck,
   });
 
   Future<Either<APIErrors, ImageUploadResponse>> uploadImageToS3Server({

@@ -18,10 +18,12 @@ class GuideFrame extends StatelessWidget {
     this.carPartsForCloseUpShot = const [],
     this.onPartSelected,
     this.currentPartSeleted,
+    this.carModel,
   });
   final CarPartDirectionEnum carPartDirectionEnum;
   final String rangeShot;
   final bool showDirectionInfo;
+  final CarModelEnum? carModel;
 
   ///
   final List<CarPartHasDamageModel> carPartsForCloseUpShot;
@@ -37,42 +39,45 @@ class GuideFrame extends StatelessWidget {
       quarterTurns: 1,
       child: Stack(
         children: [
-          if (rangeShot == LocaleKeys.longShot.trans) ...[
+          if (rangeShot == LocaleKeys.longShot.trans && carModel != null) ...[
             Center(
               child: Obx(
                 () => Transform.scale(
                   scale: scaleImageValue.value,
                   child: Image.asset(
-                    CarModelEnum.kiaMorning.imagePath(currentDirection.value),
+                    carModel!.imagePath(currentDirection.value),
                     fit: BoxFit.cover,
                     package: packageName,
+                    errorBuilder: (context, error, stackTrace) =>
+                        const SizedBox.shrink(),
                   ),
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: RotatedBox(
-                  quarterTurns: 0,
-                  child: SizedBox(
-                    height: 32,
-                    width: screenWidth / 2,
-                    child: Obx(
-                      () => Slider.adaptive(
-                        min: 0.5,
-                        max: 1,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white38,
-                        value: scaleImageValue.value,
-                        onChanged: scaleImageValue,
+            if (carModel != CarModelEnum.truck)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 16),
+                  child: RotatedBox(
+                    quarterTurns: 0,
+                    child: SizedBox(
+                      height: 32,
+                      width: screenWidth / 2,
+                      child: Obx(
+                        () => Slider.adaptive(
+                          min: 0.5,
+                          max: 1,
+                          activeColor: Colors.white,
+                          inactiveColor: Colors.white38,
+                          value: scaleImageValue.value,
+                          onChanged: scaleImageValue.call,
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
           if (showDirectionInfo)
             Positioned(

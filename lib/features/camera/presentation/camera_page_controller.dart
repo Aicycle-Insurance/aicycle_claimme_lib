@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:aicycle_claimme_lib/enum/car_model.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 
 import '../../../common/location_seveices.dart';
@@ -376,6 +377,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       oldImageId: currentReplacedImageId.value.isNotEmpty
           ? currentReplacedImageId.value
           : null,
+      isTruck: argument?.carModelEnum == CarModelEnum.truck,
     );
 
     callEngineRes.fold((l) {
