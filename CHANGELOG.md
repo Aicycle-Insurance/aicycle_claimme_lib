@@ -105,3 +105,7 @@
 ## 0.2.6
 
 * support truck on stage
+
+## 0.2.8
+
+* Update api version

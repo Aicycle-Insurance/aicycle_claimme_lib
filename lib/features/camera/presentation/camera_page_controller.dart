@@ -3,7 +3,7 @@
 import 'dart:io';
 
 import 'package:aicycle_claimme_lib/enum/car_model.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:saver_gallery/saver_gallery.dart';
 
 import '../../../common/location_seveices.dart';
 import 'package:camera/camera.dart';
@@ -257,7 +257,11 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         createdDateTime = DateTime.now().toUtc().toIso8601String();
         callEngine(resizeFile);
         if (savePhotoAfterShot == true) {
-          await ImageGallerySaver.saveFile(resizeFile.path);
+          await SaverGallery.saveImage(
+            await resizeFile.readAsBytes(),
+            name: resizeFile.name,
+            androidExistNotSave: true,
+          );
         }
         await cameraController?.resumePreview();
       }
