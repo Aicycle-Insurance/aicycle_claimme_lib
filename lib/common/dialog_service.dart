@@ -26,9 +26,7 @@ class DialogService {
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           insetPadding: isLandscape
               ? EdgeInsets.symmetric(
                   horizontal: (screenWidth - 210) / 2,
@@ -79,9 +77,7 @@ class DialogService {
       barrierDismissible: barrierDismissible,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           insetPadding: isLandscape
               ? EdgeInsets.symmetric(
                   horizontal: (screenWidth - 172) / 2,
@@ -145,9 +141,7 @@ class _DialogWidgetState extends State<_DialogWidget> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -155,13 +149,12 @@ class _DialogWidgetState extends State<_DialogWidget> {
               ? Text(
                   widget.description ?? "",
                   textAlign: TextAlign.center,
-                  style: widget.descriptionTextStyle ??
+                  style:
+                      widget.descriptionTextStyle ??
                       CTextStyles.base.s14.w300(),
                 )
               : const SizedBox.shrink(),
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           IntrinsicHeight(
             child: Row(
               children: [
@@ -176,14 +169,13 @@ class _DialogWidgetState extends State<_DialogWidget> {
                     },
                     borderRadius: widget.borderRadius ?? 2,
                     textColor: CColors.primaryA500,
-                    textStyle: widget.leftButtonTextStyle ??
+                    textStyle:
+                        widget.leftButtonTextStyle ??
                         CTextStyles.base.s14.w300(),
                   ),
                 ),
                 widget.rightButtonText != null
-                    ? const SizedBox(
-                        width: 16,
-                      )
+                    ? const SizedBox(width: 16)
                     : const SizedBox.shrink(),
                 widget.rightButtonText != null
                     ? Expanded(
@@ -195,7 +187,8 @@ class _DialogWidgetState extends State<_DialogWidget> {
                             Navigator.pop(context);
                           },
                           borderRadius: widget.borderRadius ?? 2,
-                          textStyle: widget.rightButtonTextStyle ??
+                          textStyle:
+                              widget.rightButtonTextStyle ??
                               CTextStyles.base.s14.w300(),
                         ),
                       )
@@ -243,9 +236,7 @@ class _DialogWidget2State extends State<_DialogWidget2> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

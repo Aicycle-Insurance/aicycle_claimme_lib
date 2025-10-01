@@ -105,7 +105,7 @@ class CarPosition extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: Colors.black.withOpacity(0.85),
+                            color: Colors.black..withValues(alpha: 0.85),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,

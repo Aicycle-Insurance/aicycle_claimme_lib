@@ -18,10 +18,7 @@ import 'direction_detail_controller.dart';
 import 'widgets/range_image_section.dart';
 
 class DirectionDetailPage extends StatefulWidget {
-  const DirectionDetailPage({
-    super.key,
-    required this.argument,
-  });
+  const DirectionDetailPage({super.key, required this.argument});
   final ClaimMeCameraArgument argument;
 
   @override

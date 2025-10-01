@@ -28,9 +28,9 @@ class ClaimMeFolderDetailController extends ClaimMeBaseController {
   final deleteImageResponseStream = StreamController<bool?>.broadcast();
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    getImageDirection();
+    await getImageDirection();
   }
 
   @override

@@ -20,11 +20,10 @@ class CarPartHasDamageModel extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (vehiclePartExcelId != null)
-          'vehiclePartExcelId': vehiclePartExcelId,
-        if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
-        if (totalCloseImages != null) 'totalCloseImages': totalCloseImages,
-      };
+    if (vehiclePartExcelId != null) 'vehiclePartExcelId': vehiclePartExcelId,
+    if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
+    if (totalCloseImages != null) 'totalCloseImages': totalCloseImages,
+  };
 
   CarPartHasDamageModel copyWith({
     String? vehiclePartExcelId,
@@ -40,10 +39,6 @@ class CarPartHasDamageModel extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      vehiclePartExcelId,
-      vehiclePartName,
-      totalCloseImages,
-    ];
+    return [vehiclePartExcelId, vehiclePartName, totalCloseImages];
   }
 }

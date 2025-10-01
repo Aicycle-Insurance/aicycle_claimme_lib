@@ -9,13 +9,14 @@ import '../../../../common/themes/c_colors.dart';
 import '../../../../common/themes/c_textstyle.dart';
 
 class CameraAppBarTitle extends StatelessWidget {
-  const CameraAppBarTitle(
-      {super.key,
-      required this.onPop,
-      required this.carPartDirectionEnum,
-      required this.onGalleryPicker,
-      this.title,
-      this.orientation = DeviceOrientation.portraitUp});
+  const CameraAppBarTitle({
+    super.key,
+    required this.onPop,
+    required this.carPartDirectionEnum,
+    required this.onGalleryPicker,
+    this.title,
+    this.orientation = DeviceOrientation.portraitUp,
+  });
   final Function() onPop;
   final CarPartDirectionEnum carPartDirectionEnum;
   final Function() onGalleryPicker;

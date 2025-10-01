@@ -87,7 +87,7 @@ class GuideFrame extends StatelessWidget {
               child: DirectionInfoLayer(
                 rangeShot: rangeShot,
                 carPartDirectionEnum: carPartDirectionEnum,
-                onAngleCallBack: currentDirection,
+                onAngleCallBack: currentDirection.call,
                 carPartHasDamage: carPartsForCloseUpShot,
                 onPartSelected: onPartSelected,
                 currentPartSeleted: currentPartSeleted,

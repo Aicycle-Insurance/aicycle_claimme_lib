@@ -16,9 +16,7 @@ abstract class DirectionDetailRepository {
     int? partDirectionId,
     required String claimId,
   });
-  Future<Either<APIErrors, bool>> deleteImageById({
-    required String imageId,
-  });
+  Future<Either<APIErrors, bool>> deleteImageById({required String imageId});
 
   Future<Either<APIErrors, List<CarPartHasDamageModel>>> getCarPartHasDamage({
     required int partDirectionId,

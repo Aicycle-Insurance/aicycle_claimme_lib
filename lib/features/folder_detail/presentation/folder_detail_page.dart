@@ -49,13 +49,13 @@ class _FolderDetailPageState
   late final StreamSubscription errorSub;
 
   ///
-  late final AICycleClaimMeSetting? settings;
-  late final CarDirectionSetting? frontSetting;
-  late final CarDirectionSetting? rightFrontSetting;
-  late final CarDirectionSetting? leftFrontSetting;
-  late final CarDirectionSetting? backSetting;
-  late final CarDirectionSetting? rightBackSetting;
-  late final CarDirectionSetting? leftBackSetting;
+  AICycleClaimMeSetting? settings;
+  CarDirectionSetting? frontSetting;
+  CarDirectionSetting? rightFrontSetting;
+  CarDirectionSetting? leftFrontSetting;
+  CarDirectionSetting? backSetting;
+  CarDirectionSetting? rightBackSetting;
+  CarDirectionSetting? leftBackSetting;
 
   ///
   @override
@@ -105,28 +105,40 @@ class _FolderDetailPageState
         settings = AICycleClaimMeSetting.fromJson(widget.uiSettings!);
 
         ///
-        frontSetting = settings?.carDirections?.firstWhere((element) =>
-            element.directionSlug == CarPartDirectionEnum.front.excelId);
+        frontSetting = settings?.carDirections?.firstWhere(
+          (element) =>
+              element.directionSlug == CarPartDirectionEnum.front.excelId,
+        );
 
         ///
-        rightFrontSetting = settings?.carDirections?.firstWhere((element) =>
-            element.directionSlug == CarPartDirectionEnum.rightFront.excelId);
+        rightFrontSetting = settings?.carDirections?.firstWhere(
+          (element) =>
+              element.directionSlug == CarPartDirectionEnum.rightFront.excelId,
+        );
 
         ///
-        leftFrontSetting = settings?.carDirections?.firstWhere((element) =>
-            element.directionSlug == CarPartDirectionEnum.leftFront.excelId);
+        leftFrontSetting = settings?.carDirections?.firstWhere(
+          (element) =>
+              element.directionSlug == CarPartDirectionEnum.leftFront.excelId,
+        );
 
         ///
-        backSetting = settings?.carDirections?.firstWhere((element) =>
-            element.directionSlug == CarPartDirectionEnum.back.excelId);
+        backSetting = settings?.carDirections?.firstWhere(
+          (element) =>
+              element.directionSlug == CarPartDirectionEnum.back.excelId,
+        );
 
         ///
-        rightBackSetting = settings?.carDirections?.firstWhere((element) =>
-            element.directionSlug == CarPartDirectionEnum.rightBack.excelId);
+        rightBackSetting = settings?.carDirections?.firstWhere(
+          (element) =>
+              element.directionSlug == CarPartDirectionEnum.rightBack.excelId,
+        );
 
         ///
-        leftBackSetting = settings?.carDirections?.firstWhere((element) =>
-            element.directionSlug == CarPartDirectionEnum.leftBack.excelId);
+        leftBackSetting = settings?.carDirections?.firstWhere(
+          (element) =>
+              element.directionSlug == CarPartDirectionEnum.leftBack.excelId,
+        );
       } catch (e) {
         settings = null;
         frontSetting = null;
@@ -166,10 +178,7 @@ class _FolderDetailPageState
               ? Colors.transparent
               : ColorUtils.colorFromHex(settings?.bgColor ?? '#FFFFFF'),
           appBar: (widget.hasAppBar ?? true)
-              ? AppBar(
-                  backgroundColor: CColors.white,
-                  elevation: 0.7,
-                )
+              ? AppBar(backgroundColor: CColors.white, elevation: 0.7)
               : null,
           body: LoadingView<ClaimMeFolderDetailController>(
             isCustomLoading: true,
@@ -209,12 +218,12 @@ class _FolderDetailPageState
                                   vehicleTypeId: widget.argument.vehicleTypeId,
                                   claimFolderId:
                                       widget.argument.aicycleClaimId ??
-                                          widget.argument.externalClaimId,
+                                      widget.argument.externalClaimId,
                                   imageDirectionModel: controller.front.value,
                                   customDirectionName:
                                       frontSetting!.directionName,
-                                  borderRadius:
-                                      frontSetting!.borderRadius?.toDouble(),
+                                  borderRadius: frontSetting!.borderRadius
+                                      ?.toDouble(),
                                   height: frontSetting!.height?.toDouble(),
                                   width: frontSetting!.width?.toDouble(),
                                 ),
@@ -232,7 +241,7 @@ class _FolderDetailPageState
                                         widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
-                                            widget.argument.externalClaimId,
+                                        widget.argument.externalClaimId,
                                     imageDirectionModel:
                                         controller.rightFront.value,
                                     customDirectionName:
@@ -240,8 +249,8 @@ class _FolderDetailPageState
                                     borderRadius: rightFrontSetting!
                                         .borderRadius
                                         ?.toDouble(),
-                                    height:
-                                        rightFrontSetting!.height?.toDouble(),
+                                    height: rightFrontSetting!.height
+                                        ?.toDouble(),
                                     width: rightFrontSetting!.width?.toDouble(),
                                   ),
                                 ),
@@ -259,15 +268,15 @@ class _FolderDetailPageState
                                         widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
-                                            widget.argument.externalClaimId,
+                                        widget.argument.externalClaimId,
                                     imageDirectionModel:
                                         controller.leftFront.value,
                                     customDirectionName:
                                         leftFrontSetting!.directionName,
                                     borderRadius: leftFrontSetting!.borderRadius
                                         ?.toDouble(),
-                                    height:
-                                        leftFrontSetting!.height?.toDouble(),
+                                    height: leftFrontSetting!.height
+                                        ?.toDouble(),
                                     width: leftFrontSetting!.width?.toDouble(),
                                   ),
                                 ),
@@ -285,7 +294,7 @@ class _FolderDetailPageState
                                         widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
-                                            widget.argument.externalClaimId,
+                                        widget.argument.externalClaimId,
                                     imageDirectionModel:
                                         controller.leftBack.value,
                                     customDirectionName:
@@ -310,15 +319,15 @@ class _FolderDetailPageState
                                         widget.argument.vehicleTypeId,
                                     claimFolderId:
                                         widget.argument.aicycleClaimId ??
-                                            widget.argument.externalClaimId,
+                                        widget.argument.externalClaimId,
                                     imageDirectionModel:
                                         controller.rightBack.value,
                                     customDirectionName:
                                         rightBackSetting!.directionName,
                                     borderRadius: rightBackSetting!.borderRadius
                                         ?.toDouble(),
-                                    height:
-                                        rightBackSetting!.height?.toDouble(),
+                                    height: rightBackSetting!.height
+                                        ?.toDouble(),
                                     width: rightBackSetting!.width?.toDouble(),
                                   ),
                                 ),
@@ -333,12 +342,12 @@ class _FolderDetailPageState
                                   vehicleTypeId: widget.argument.vehicleTypeId,
                                   claimFolderId:
                                       widget.argument.aicycleClaimId ??
-                                          widget.argument.externalClaimId,
+                                      widget.argument.externalClaimId,
                                   imageDirectionModel: controller.back.value,
                                   customDirectionName:
                                       backSetting!.directionName,
-                                  borderRadius:
-                                      backSetting!.borderRadius?.toDouble(),
+                                  borderRadius: backSetting!.borderRadius
+                                      ?.toDouble(),
                                   height: backSetting!.height?.toDouble(),
                                   width: backSetting!.width?.toDouble(),
                                 ),

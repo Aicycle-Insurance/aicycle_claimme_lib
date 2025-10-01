@@ -5,11 +5,7 @@ class Urls extends Equatable {
   final String? uploadUrl;
   final String? filePath;
 
-  const Urls({
-    this.fetchUrl,
-    this.uploadUrl,
-    this.filePath,
-  });
+  const Urls({this.fetchUrl, this.uploadUrl, this.filePath});
 
   factory Urls.fromJson(Map<String, dynamic> json) {
     return Urls(
@@ -20,16 +16,12 @@ class Urls extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (fetchUrl != null) 'fetchUrl': fetchUrl,
-        if (uploadUrl != null) 'uploadUrl': uploadUrl,
-        if (filePath != null) 'filePath': filePath,
-      };
+    if (fetchUrl != null) 'fetchUrl': fetchUrl,
+    if (uploadUrl != null) 'uploadUrl': uploadUrl,
+    if (filePath != null) 'filePath': filePath,
+  };
 
-  Urls copyWith({
-    String? fetchUrl,
-    String? uploadUrl,
-    String? filePath,
-  }) {
+  Urls copyWith({String? fetchUrl, String? uploadUrl, String? filePath}) {
     return Urls(
       fetchUrl: fetchUrl ?? this.fetchUrl,
       uploadUrl: uploadUrl ?? this.uploadUrl,
@@ -39,11 +31,7 @@ class Urls extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      fetchUrl,
-      uploadUrl,
-      filePath,
-    ];
+    return [fetchUrl, uploadUrl, filePath];
   }
 }
 
@@ -52,11 +40,7 @@ class GetUploadUrlResponse extends Equatable {
   final String? message;
   final String? status;
 
-  const GetUploadUrlResponse({
-    this.urls,
-    this.message,
-    this.status,
-  });
+  const GetUploadUrlResponse({this.urls, this.message, this.status});
 
   factory GetUploadUrlResponse.fromJson(Map<String, dynamic> json) {
     return GetUploadUrlResponse(
@@ -69,10 +53,10 @@ class GetUploadUrlResponse extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (urls != null) 'urls': urls,
-        if (message != null) 'message': message,
-        if (status != null) 'status': status,
-      };
+    if (urls != null) 'urls': urls?.map((e) => e.toJson()).toList(),
+    if (message != null) 'message': message,
+    if (status != null) 'status': status,
+  };
 
   GetUploadUrlResponse copyWith({
     List<Urls>? urls,
@@ -88,10 +72,6 @@ class GetUploadUrlResponse extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      urls,
-      message,
-      status,
-    ];
+    return [urls, message, status];
   }
 }

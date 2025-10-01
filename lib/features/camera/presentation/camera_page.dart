@@ -79,8 +79,11 @@ class _CameraPageState
     final screenHeight = MediaQuery.of(context).size.height;
     return Theme(
       data: ThemeData(useMaterial3: false),
-      child: WillPopScope(
-        onWillPop: () => onWillPop(context),
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) {
+          onWillPop(context);
+        },
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -114,9 +117,11 @@ class _CameraPageState
                     ),
                   );
                 }
-                final frameAspectRatio = MediaQuery.of(context).size.width /
+                final frameAspectRatio =
+                    MediaQuery.of(context).size.width /
                     (MediaQuery.of(context).size.height - kToolbarHeight);
-                final scale = 1 /
+                final scale =
+                    1 /
                     (controller.cameraController!.value.aspectRatio *
                         frameAspectRatio);
 
@@ -126,9 +131,7 @@ class _CameraPageState
                     Center(
                       child: Transform.scale(
                         scale: scale,
-                        child: CameraPreview(
-                          controller.cameraController!,
-                        ),
+                        child: CameraPreview(controller.cameraController!),
                       ),
                     ),
 
@@ -143,15 +146,21 @@ class _CameraPageState
                               children: [
                                 PreviewWithMask(
                                   file: controller.previewFile.value!,
-                                  imageUrl: controller.damageAssessmentResponse
-                                      .value?.result?.imgUrl,
+                                  imageUrl: controller
+                                      .damageAssessmentResponse
+                                      .value
+                                      ?.result
+                                      ?.imgUrl,
                                   damageAssessmentModel: controller
-                                      .damageAssessmentResponse.value?.result,
+                                      .damageAssessmentResponse
+                                      .value
+                                      ?.result,
                                   onYesTapped: controller.onNextTapped,
                                   onNoTapped: controller.onNextTapped,
                                   retake: controller.showRetake()
-                                      ? () => controller
-                                          .engineWarningHandle('retake')
+                                      ? () => controller.engineWarningHandle(
+                                          'retake',
+                                        )
                                       : null,
                                 ),
 
@@ -171,7 +180,9 @@ class _CameraPageState
                                           Text(
                                             LocaleKeys.compressing.trans,
                                             style: CTextStyles
-                                                .base.whiteColor.s14
+                                                .base
+                                                .whiteColor
+                                                .s14
                                                 .w500(),
                                           ),
                                           const LinearProgressIndicator(),
@@ -207,67 +218,61 @@ class _CameraPageState
                     }),
 
                     /// warning
-                    Obx(
-                      () {
-                        if (controller.status().state == AppState.warning &&
-                            controller.status().message != null) {
-                          String message = controller.status().message ?? '';
-                          if (controller.isConfidentLevelWarning.isTrue) {
-                            RegExp numeric = RegExp(r'[0-9]');
-                            if (!message.contains(numeric)) {
-                              message = message.split('.').join('\n');
-                            }
+                    Obx(() {
+                      if (controller.status().state == AppState.warning &&
+                          controller.status().message != null) {
+                        String message = controller.status().message ?? '';
+                        if (controller.isConfidentLevelWarning.isTrue) {
+                          RegExp numeric = RegExp(r'[0-9]');
+                          if (!message.contains(numeric)) {
+                            message = message.split('.').join('\n');
                           }
-                          return Center(
-                            child: RotatedBox(
-                              quarterTurns: 1,
-                              child: WarningDialog(
-                                description: message,
-                                leftButtonText: controller
-                                            .cacheDamageResponse !=
-                                        null
-                                    ? controller.isConfidentLevelWarning.isTrue
+                        }
+                        return Center(
+                          child: RotatedBox(
+                            quarterTurns: 1,
+                            child: WarningDialog(
+                              description: message,
+                              leftButtonText:
+                                  controller.cacheDamageResponse != null
+                                  ? controller.isConfidentLevelWarning.isTrue
                                         ? LocaleKeys.next.trans
                                         : LocaleKeys.save.trans
-                                    : LocaleKeys.next.trans,
-                                leftPressed: () =>
-                                    controller.cacheDamageResponse != null
-                                        ? controller.engineWarningHandle('save')
-                                        : controller
-                                            .engineWarningHandle('next'),
-                                rightPressed: () =>
-                                    controller.engineWarningHandle('retake'),
-                              ),
+                                  : LocaleKeys.next.trans,
+                              leftPressed: () =>
+                                  controller.cacheDamageResponse != null
+                                  ? controller.engineWarningHandle('save')
+                                  : controller.engineWarningHandle('next'),
+                              rightPressed: () =>
+                                  controller.engineWarningHandle('retake'),
                             ),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
 
                     /// error
-                    Obx(
-                      () {
-                        if (controller.status().state == AppState.customError &&
-                            controller.showErrorDialog.isTrue &&
-                            controller.status().message != null) {
-                          final message = controller.status().message;
-                          return Center(
-                            child: RotatedBox(
-                              quarterTurns: 1,
-                              child: ErrorDialog(
-                                retake: () =>
-                                    controller.engineWarningHandle('retake'),
-                                description: LocaleKeys.error.trans,
-                                subDescription: LocaleKeys.reason.trans
-                                    .replaceAll('@message', message ?? '...'),
-                              ),
+                    Obx(() {
+                      if (controller.status().state == AppState.customError &&
+                          controller.showErrorDialog.isTrue &&
+                          controller.status().message != null) {
+                        final message = controller.status().message;
+                        return Center(
+                          child: RotatedBox(
+                            quarterTurns: 1,
+                            child: ErrorDialog(
+                              retake: () =>
+                                  controller.engineWarningHandle('retake'),
+                              description: LocaleKeys.error.trans,
+                              subDescription: LocaleKeys.reason.trans
+                                  .replaceAll('@message', message ?? '...'),
                             ),
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    }),
 
                     /// bottom bar
                     Align(
@@ -287,7 +292,7 @@ class _CameraPageState
                               : const SizedBox.shrink(),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 );
               },
@@ -327,10 +332,7 @@ class _CameraPageState
   }
 
   Future<bool> onWillPop(BuildContext context) async {
-    Navigator.pop(
-      context,
-      '',
-    );
+    Navigator.pop(context, '');
     return false;
   }
 }

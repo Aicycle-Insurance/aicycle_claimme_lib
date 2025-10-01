@@ -43,18 +43,17 @@ class PartsMasks extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (masksPath != null) 'masksPath': masksPath,
-        if (boxes != null) 'boxes': boxes,
-        if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
-        if (vehicleColor != null) 'vehicleColor': vehicleColor,
-        if (scores != null) 'scores': scores,
-        if (location != null) 'location': location,
-        if (imageId != null) 'imageId': imageId,
-        if (vehiclePartExcelId != null)
-          'vehiclePartExcelId': vehiclePartExcelId,
-        if (maskUrl != null) 'maskUrl': maskUrl,
-        if (isPart != null) 'isPart': isPart,
-      };
+    if (masksPath != null) 'masksPath': masksPath,
+    if (boxes != null) 'boxes': boxes,
+    if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
+    if (vehicleColor != null) 'vehicleColor': vehicleColor,
+    if (scores != null) 'scores': scores,
+    if (location != null) 'location': location,
+    if (imageId != null) 'imageId': imageId,
+    if (vehiclePartExcelId != null) 'vehiclePartExcelId': vehiclePartExcelId,
+    if (maskUrl != null) 'maskUrl': maskUrl,
+    if (isPart != null) 'isPart': isPart,
+  };
 
   PartsMasks copyWith({
     String? masksPath,
@@ -103,10 +102,7 @@ class DamagePart extends Equatable {
   final String? vehiclePartName;
   final String? vehiclePartExcelId;
 
-  const DamagePart({
-    this.vehiclePartName,
-    this.vehiclePartExcelId,
-  });
+  const DamagePart({this.vehiclePartName, this.vehiclePartExcelId});
 
   factory DamagePart.fromJson(Map<String, dynamic> json) {
     return DamagePart(
@@ -116,15 +112,11 @@ class DamagePart extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
-        if (vehiclePartExcelId != null)
-          'vehiclePartExcelId': vehiclePartExcelId,
-      };
+    if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
+    if (vehiclePartExcelId != null) 'vehiclePartExcelId': vehiclePartExcelId,
+  };
 
-  DamagePart copyWith({
-    String? vehiclePartName,
-    String? vehiclePartExcelId,
-  }) {
+  DamagePart copyWith({String? vehiclePartName, String? vehiclePartExcelId}) {
     return DamagePart(
       vehiclePartName: vehiclePartName ?? this.vehiclePartName,
       vehiclePartExcelId: vehiclePartExcelId ?? this.vehiclePartExcelId,
@@ -133,10 +125,7 @@ class DamagePart extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      vehiclePartName,
-      vehiclePartExcelId,
-    ];
+    return [vehiclePartName, vehiclePartExcelId];
   }
 }
 
@@ -180,16 +169,16 @@ class DamageMasks extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (maskPath != null) 'maskPath': maskPath,
-        if (maskUrl != null) 'maskUrl': maskUrl,
-        if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
-        if (damageTypeUuid != null) 'damageTypeUuid': damageTypeUuid,
-        if (damageTypeName != null) 'damageTypeName': damageTypeName,
-        if (damageTypeColor != null) 'damageTypeColor': damageTypeColor,
-        if (boxes != null) 'boxes': boxes,
-        if (isPart != null) 'isPart': isPart,
-        if (userCreated != null) 'userCreated': userCreated,
-      };
+    if (maskPath != null) 'maskPath': maskPath,
+    if (maskUrl != null) 'maskUrl': maskUrl,
+    if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
+    if (damageTypeUuid != null) 'damageTypeUuid': damageTypeUuid,
+    if (damageTypeName != null) 'damageTypeName': damageTypeName,
+    if (damageTypeColor != null) 'damageTypeColor': damageTypeColor,
+    if (boxes != null) 'boxes': boxes,
+    if (isPart != null) 'isPart': isPart,
+    if (userCreated != null) 'userCreated': userCreated,
+  };
 
   DamageMasks copyWith({
     String? maskPath,
@@ -280,19 +269,19 @@ class DamageDetail extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (filePath != null) 'filePath': filePath,
-        if (url != null) 'url': url,
-        if (damageTypeName != null) 'damageTypeName': damageTypeName,
-        if (damageTypeColor != null) 'damageTypeColor': damageTypeColor,
-        if (damageUuid != null) 'damageUuid': damageUuid,
-        if (boxes != null) 'boxes': boxes,
-        if (damageArea != null) 'damageArea': damageArea,
-        if (damagePercentage != null) 'damagePercentage': damagePercentage,
-        if (damageId != null) 'damageId': damageId,
-        if (imageDuplicateId != null) 'imageDuplicateId': imageDuplicateId,
-        if (parentClaimId != null) 'parentClaimId': parentClaimId,
-        if (damageDuplicateId != null) 'damageDuplicateId': damageDuplicateId,
-      };
+    if (filePath != null) 'filePath': filePath,
+    if (url != null) 'url': url,
+    if (damageTypeName != null) 'damageTypeName': damageTypeName,
+    if (damageTypeColor != null) 'damageTypeColor': damageTypeColor,
+    if (damageUuid != null) 'damageUuid': damageUuid,
+    if (boxes != null) 'boxes': boxes,
+    if (damageArea != null) 'damageArea': damageArea,
+    if (damagePercentage != null) 'damagePercentage': damagePercentage,
+    if (damageId != null) 'damageId': damageId,
+    if (imageDuplicateId != null) 'imageDuplicateId': imageDuplicateId,
+    if (parentClaimId != null) 'parentClaimId': parentClaimId,
+    if (damageDuplicateId != null) 'damageDuplicateId': damageDuplicateId,
+  };
 
   DamageDetail copyWith({
     String? filePath,
@@ -378,24 +367,24 @@ class DamageInfo extends Equatable {
       location: json['location']?.toString(),
       damageDetail: json['damageDetail'] is List
           ? json['damageDetail']
-              .map<DamageDetail>((e) => DamageDetail.fromJson(e))
-              .toList()
+                .map<DamageDetail>((e) => DamageDetail.fromJson(e))
+                .toList()
           : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
-        if (vehiclePartExcelId != null)
-          'vehiclePartExcelId': vehiclePartExcelId,
-        if (price != null) 'price': price,
-        if (laborCost != null) 'laborCost': laborCost,
-        if (totalCost != null) 'totalCost': totalCost,
-        if (repairPlan != null) 'repairPlan': repairPlan,
-        if (area != null) 'area': area,
-        if (location != null) 'location': location,
-        if (damageDetail != null) 'damageDetail': damageDetail,
-      };
+    if (vehiclePartName != null) 'vehiclePartName': vehiclePartName,
+    if (vehiclePartExcelId != null) 'vehiclePartExcelId': vehiclePartExcelId,
+    if (price != null) 'price': price,
+    if (laborCost != null) 'laborCost': laborCost,
+    if (totalCost != null) 'totalCost': totalCost,
+    if (repairPlan != null) 'repairPlan': repairPlan,
+    if (area != null) 'area': area,
+    if (location != null) 'location': location,
+    if (damageDetail != null)
+      'damageDetail': damageDetail?.map((e) => e.toJson()).toList(),
+  };
 
   DamageInfo copyWith({
     String? vehiclePartName,
@@ -506,8 +495,8 @@ class ClaimImageModel extends Equatable {
       resizePath: json['resizePath']?.toString(),
       imageSize: json['imageSize'] is List
           ? json['imageSize']
-              .map<num?>((e) => num.tryParse(e.toString()))
-              .toList()
+                .map<num?>((e) => num.tryParse(e.toString()))
+                .toList()
           : null,
       imageRange: json['imageRange']?.toString(),
       damageExist: json['damageExist'].toString().contains('true'),
@@ -529,56 +518,61 @@ class ClaimImageModel extends Equatable {
       processStatus: json['processStatus']?.toString(),
       partsMasks: json['partsMasks'] is List
           ? json['partsMasks']
-              .map<PartsMasks>((e) => PartsMasks.fromJson(e))
-              .toList()
+                .map<PartsMasks>((e) => PartsMasks.fromJson(e))
+                .toList()
           : null,
       damagePart: json['damagePart'] is List
           ? json['damagePart']
-              .map<DamagePart>((e) => DamagePart.fromJson(e))
-              .toList()
+                .map<DamagePart>((e) => DamagePart.fromJson(e))
+                .toList()
           : null,
       damageMasks: json['damageMasks'] is List
           ? json['damageMasks']
-              .map<DamageMasks>((e) => DamageMasks.fromJson(e))
-              .toList()
+                .map<DamageMasks>((e) => DamageMasks.fromJson(e))
+                .toList()
           : null,
       damageInfo: json['damageInfo'] is List
           ? json['damageInfo']
-              .map<DamageInfo>((e) => DamageInfo.fromJson(e))
-              .toList()
+                .map<DamageInfo>((e) => DamageInfo.fromJson(e))
+                .toList()
           : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        if (imageName != null) 'imageName': imageName,
-        if (imageId != null) 'imageId': imageId,
-        if (claimId != null) 'claimId': claimId,
-        if (url != null) 'url': url,
-        if (imageUrl != null) 'imageUrl': imageUrl,
-        if (resizePath != null) 'resizePath': resizePath,
-        if (imageSize != null) 'imageSize': imageSize,
-        if (imageRange != null) 'imageRange': imageRange,
-        if (damageExist != null) 'damageExist': damageExist,
-        if (directionName != null) 'directionName': directionName,
-        if (imageRangeName != null) 'imageRangeName': imageRangeName,
-        if (location != null) 'location': location,
-        if (requestedTime != null) 'requestedTime': requestedTime,
-        if (uploadedTime != null) 'uploadedTime': uploadedTime,
-        if (uploadLocation != null) 'uploadLocation': uploadLocation,
-        if (timeProcess != null) 'timeProcess': timeProcess,
-        if (timeAppUpload != null) 'timeAppUpload': timeAppUpload,
-        if (errorNote != null) 'errorNote': errorNote,
-        if (errorType != null) 'errorType': errorType,
-        if (imageRangeId != null) 'imageRangeId': imageRangeId,
-        if (filePath != null) 'filePath': filePath,
-        if (traceId != null) 'traceId': traceId,
-        if (processStatus != null) 'processStatus': processStatus,
-        if (partsMasks != null) 'partsMasks': partsMasks,
-        if (damagePart != null) 'damagePart': damagePart,
-        if (damageMasks != null) 'damageMasks': damageMasks,
-        if (damageInfo != null) 'damageInfo': damageInfo,
-      };
+    if (imageName != null) 'imageName': imageName,
+    if (imageId != null) 'imageId': imageId,
+    if (claimId != null) 'claimId': claimId,
+    if (url != null) 'url': url,
+    if (imageUrl != null) 'imageUrl': imageUrl,
+    if (resizePath != null) 'resizePath': resizePath,
+    if (imageSize != null) 'imageSize': imageSize,
+    if (imageRange != null) 'imageRange': imageRange,
+    if (damageExist != null) 'damageExist': damageExist,
+    if (directionName != null) 'directionName': directionName,
+    if (imageRangeName != null) 'imageRangeName': imageRangeName,
+    if (location != null) 'location': location,
+    if (requestedTime != null) 'requestedTime': requestedTime,
+    if (uploadedTime != null) 'uploadedTime': uploadedTime,
+    if (uploadLocation != null) 'uploadLocation': uploadLocation,
+    if (timeProcess != null) 'timeProcess': timeProcess,
+    if (timeAppUpload != null) 'timeAppUpload': timeAppUpload,
+    if (errorNote != null) 'errorNote': errorNote,
+    if (errorType != null)
+      'errorType': errorType?.map((e) => e.toJson()).toList(),
+    if (imageRangeId != null) 'imageRangeId': imageRangeId,
+    if (filePath != null) 'filePath': filePath,
+    if (traceId != null) 'traceId': traceId,
+    if (processStatus != null) 'processStatus': processStatus,
+    if (partsMasks != null)
+      'partsMasks': partsMasks?.map((e) => e.toJson()).toList(),
+    if (damagePart != null)
+      'damagePart': damagePart?.map((e) => e.toJson()).toList(),
+    if (damageMasks != null)
+      'damageMasks': damageMasks?.map((e) => e.toJson()).toList(),
+    if (damageInfo != null)
+      'damageInfo': damageInfo?.map((e) => e.toJson()).toList(),
+  };
 
   ClaimImageModel copyWith({
     String? imageName,

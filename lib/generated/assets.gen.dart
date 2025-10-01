@@ -65,18 +65,18 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
-        icAdd,
-        icCamera,
-        icCheck,
-        icCheckCircle,
-        icCheckFilled,
-        icErrorFilled,
-        icInfoFilledCopy,
-        icInfoFilled,
-        icPhoto,
-        icWarning,
-        icWarningFilled
-      ];
+    icAdd,
+    icCamera,
+    icCheck,
+    icCheckCircle,
+    icCheckFilled,
+    icErrorFilled,
+    icInfoFilledCopy,
+    icInfoFilled,
+    icPhoto,
+    icWarning,
+    icWarningFilled,
+  ];
 }
 
 class $AssetsImagesGen {
@@ -222,42 +222,42 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
-        car,
-        hatchbackBack,
-        hatchbackD45LeftBack,
-        hatchbackD45LeftFront,
-        hatchbackD45RightBack,
-        hatchbackD45RightFront,
-        hatchbackFront,
-        hatchbackLeftBack,
-        hatchbackLeftFront,
-        hatchbackRightBack,
-        hatchbackRightFront,
-        icFrameOff,
-        icFrameOn,
-        imgBuyme,
-        logo,
-        sedanBack,
-        sedanD45LeftBack,
-        sedanD45LeftFront,
-        sedanD45RightBack,
-        sedanD45RightFront,
-        sedanFront,
-        sedanLeftBack,
-        sedanLeftFront,
-        sedanRightBack,
-        sedanRightFront,
-        suvBack,
-        suvD45LeftBack,
-        suvD45LeftFront,
-        suvD45RightBack,
-        suvD45RightFront,
-        suvFront,
-        suvLeftBack,
-        suvLeftFront,
-        suvRightBack,
-        suvRightFront
-      ];
+    car,
+    hatchbackBack,
+    hatchbackD45LeftBack,
+    hatchbackD45LeftFront,
+    hatchbackD45RightBack,
+    hatchbackD45RightFront,
+    hatchbackFront,
+    hatchbackLeftBack,
+    hatchbackLeftFront,
+    hatchbackRightBack,
+    hatchbackRightFront,
+    icFrameOff,
+    icFrameOn,
+    imgBuyme,
+    logo,
+    sedanBack,
+    sedanD45LeftBack,
+    sedanD45LeftFront,
+    sedanD45RightBack,
+    sedanD45RightFront,
+    sedanFront,
+    sedanLeftBack,
+    sedanLeftFront,
+    sedanRightBack,
+    sedanRightFront,
+    suvBack,
+    suvD45LeftBack,
+    suvD45LeftFront,
+    suvD45RightBack,
+    suvD45RightFront,
+    suvFront,
+    suvLeftBack,
+    suvLeftFront,
+    suvRightBack,
+    suvRightFront,
+  ];
 }
 
 class Assets {
@@ -326,15 +326,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   String get path => _assetName;

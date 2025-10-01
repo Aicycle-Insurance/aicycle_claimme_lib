@@ -29,13 +29,13 @@ class DamageTypeModel extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (damageTypeNameKey != null) 'damageTypeNameKey': damageTypeNameKey,
-        if (damageTypeGuid != null) 'damageTypeGuid': damageTypeGuid,
-        if (damageTypeColor != null) 'damageTypeColor': damageTypeColor,
-        if (createdDate != null) 'createdDate': createdDate,
-        if (damageTypeId != null) 'damageTypeId': damageTypeId,
-        if (damageTypeSlugId != null) 'damageTypeSlugId': damageTypeSlugId,
-      };
+    if (damageTypeNameKey != null) 'damageTypeNameKey': damageTypeNameKey,
+    if (damageTypeGuid != null) 'damageTypeGuid': damageTypeGuid,
+    if (damageTypeColor != null) 'damageTypeColor': damageTypeColor,
+    if (createdDate != null) 'createdDate': createdDate,
+    if (damageTypeId != null) 'damageTypeId': damageTypeId,
+    if (damageTypeSlugId != null) 'damageTypeSlugId': damageTypeSlugId,
+  };
 
   DamageTypeModel copyWith({
     String? damageTypeNameKey,

@@ -31,27 +31,29 @@ class ExtraInfor extends Equatable {
       carModel: json['carModel']?.toString() ?? json['car_model']?.toString(),
       carColor: (json['carColor'] ?? json['car_color']) is List
           ? (json['carColor'] ?? json['car_color'])
-              .map<num?>((e) => num.tryParse(e.toString()))
-              .toList()
+                .map<num?>((e) => num.tryParse(e.toString()))
+                .toList()
           : null,
-      imageDirection: json['imageDirection']?.toString() ??
+      imageDirection:
+          json['imageDirection']?.toString() ??
           json['image_direction']?.toString(),
-      imagePosition: json['imagePosition']?.toString() ??
+      imagePosition:
+          json['imagePosition']?.toString() ??
           json['image_position']?.toString(),
       carShape: json['carShape']?.toString() ?? json['car_shape']?.toString(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        if (plateNumber != null) 'plateNumber': plateNumber,
-        if (chassisNumber != null) 'chassisNumber': chassisNumber,
-        if (carCompany != null) 'carCompany': carCompany,
-        if (carModel != null) 'carModel': carModel,
-        if (carColor != null) 'carColor': carColor,
-        if (imageDirection != null) 'imageDirection': imageDirection,
-        if (imagePosition != null) 'imagePosition': imagePosition,
-        if (carShape != null) 'carShape': carShape,
-      };
+    if (plateNumber != null) 'plateNumber': plateNumber,
+    if (chassisNumber != null) 'chassisNumber': chassisNumber,
+    if (carCompany != null) 'carCompany': carCompany,
+    if (carModel != null) 'carModel': carModel,
+    if (carColor != null) 'carColor': carColor,
+    if (imageDirection != null) 'imageDirection': imageDirection,
+    if (imagePosition != null) 'imagePosition': imagePosition,
+    if (carShape != null) 'carShape': carShape,
+  };
 
   ExtraInfor copyWith({
     String? plateNumber,
@@ -116,8 +118,8 @@ class CarDamage extends Equatable {
       score: num.tryParse(json['score'].toString()),
       box: json['box'] is List
           ? json['box']
-              .map<num>((e) => num.tryParse(e.toString()) ?? 0)
-              .toList()
+                .map<num>((e) => num.tryParse(e.toString()) ?? 0)
+                .toList()
           : null,
       maskPath: json['maskPath']?.toString() ?? json['mask_path']?.toString(),
       isPart: (json['isPart'] ?? json['is_part'])?.toString().contains('true'),
@@ -131,15 +133,15 @@ class CarDamage extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (score != null) 'score': score,
-        if (box != null) 'box': box,
-        if (maskPath != null) 'maskPath': maskPath,
-        if (isPart != null) 'isPart': isPart,
-        if (maskUrl != null) 'maskUrl': maskUrl,
-        if (className != null) 'name': className,
-        if (damageKey != null) 'damageKey': damageKey,
-        if (classUuid != null) 'classUuid': classUuid,
-      };
+    if (score != null) 'score': score,
+    if (box != null) 'box': box,
+    if (maskPath != null) 'maskPath': maskPath,
+    if (isPart != null) 'isPart': isPart,
+    if (maskUrl != null) 'maskUrl': maskUrl,
+    if (className != null) 'name': className,
+    if (damageKey != null) 'damageKey': damageKey,
+    if (classUuid != null) 'classUuid': classUuid,
+  };
 
   CarDamage copyWith({
     num? score,
@@ -238,9 +240,11 @@ class Damage extends Equatable {
           : null,
       classUuid:
           json['classUuid']?.toString() ?? json['class_uuid']?.toString(),
-      damageTypeColor: json['damageTypeColor']?.toString() ??
+      damageTypeColor:
+          json['damageTypeColor']?.toString() ??
           json['damage_type_color']?.toString(),
-      damageTypeName: json['damageTypeName']?.toString() ??
+      damageTypeName:
+          json['damageTypeName']?.toString() ??
           json['damage_type_name']?.toString(),
       imageId: json['imageId']?.toString(),
       isMaskDuplicate: json['isMaskDuplicate']?.toString().contains('true'),
@@ -249,16 +253,16 @@ class Damage extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (score != null) 'score': score,
-        if (box != null) 'box': box,
-        if (maskPath != null) 'maskPath': maskPath,
-        if (isPart != null) 'isPart': isPart,
-        if (overlapRate != null) 'overlapRate': overlapRate,
-        if (className != null) 'name': className,
-        if (damageKey != null) 'damageKey': damageKey,
-        if (damageColor != null) 'damageColor': damageColor,
-        if (maskUrl != null) 'maskUrl': maskUrl,
-      };
+    if (score != null) 'score': score,
+    if (box != null) 'box': box,
+    if (maskPath != null) 'maskPath': maskPath,
+    if (isPart != null) 'isPart': isPart,
+    if (overlapRate != null) 'overlapRate': overlapRate,
+    if (className != null) 'name': className,
+    if (damageKey != null) 'damageKey': damageKey,
+    if (damageColor != null) 'damageColor': damageColor,
+    if (maskUrl != null) 'maskUrl': maskUrl,
+  };
 
   Damage copyWith({
     num? score,
@@ -359,7 +363,8 @@ class CarParts extends Equatable {
           : null,
       maskPath: json['maskPath']?.toString() ?? json['mask_path']?.toString(),
       isPart: (json['isPart'] ?? json['is_part'])?.toString().contains('true'),
-      partDirection: json['partDirection']?.toString() ??
+      partDirection:
+          json['partDirection']?.toString() ??
           json['part_direction']?.toString(),
       damages: json['damages'] is List
           ? json['damages'].map<Damage>((e) => Damage.fromJson(e)).toList()
@@ -371,7 +376,8 @@ class CarParts extends Equatable {
           json['maskColor']?.toString() ?? json['mask_color']?.toString(),
       position: json['position']?.toString(),
       maskUrl: json['maskUrl']?.toString() ?? json['mask_url']?.toString(),
-      carPartColor: json['carPartColor']?.toString() ??
+      carPartColor:
+          json['carPartColor']?.toString() ??
           json['car_part_color']?.toString(),
       carPartName:
           json['carPartName']?.toString() ?? json['car_part_name']?.toString(),
@@ -384,18 +390,18 @@ class CarParts extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (score != null) 'score': score,
-        if (box != null) 'box': box,
-        if (maskPath != null) 'maskPath': maskPath,
-        if (isPart != null) 'isPart': isPart,
-        if (partDirection != null) 'partDirection': partDirection,
-        if (damages != null) 'damages': damages,
-        if (carPartKey != null) 'carPartKey': carPartKey,
-        if (className != null) 'name': className,
-        if (maskColor != null) 'maskColor': maskColor,
-        if (position != null) 'position': position,
-        if (maskUrl != null) 'maskUrl': maskUrl,
-      };
+    if (score != null) 'score': score,
+    if (box != null) 'box': box,
+    if (maskPath != null) 'maskPath': maskPath,
+    if (isPart != null) 'isPart': isPart,
+    if (partDirection != null) 'partDirection': partDirection,
+    if (damages != null) 'damages': damages?.map((e) => e.toJson()).toList(),
+    if (carPartKey != null) 'carPartKey': carPartKey,
+    if (className != null) 'name': className,
+    if (maskColor != null) 'maskColor': maskColor,
+    if (position != null) 'position': position,
+    if (maskUrl != null) 'maskUrl': maskUrl,
+  };
 
   CarParts copyWith({
     num? score,
@@ -481,8 +487,8 @@ class DamageAssessmentModel extends Equatable {
     return DamageAssessmentModel(
       imgSize: (json['imgSize'] ?? json['img_size']) is List
           ? (json['imgSize'] ?? json['img_size'])
-              .map<int?>((e) => int.tryParse(e.toString()))
-              .toList()
+                .map<int?>((e) => int.tryParse(e.toString()))
+                .toList()
           : null,
       imgUrl: json['imgUrl']?.toString() ?? json['img_url']?.toString(),
       imgDrawName:
@@ -492,32 +498,31 @@ class DamageAssessmentModel extends Equatable {
       extraInfor: json['extraInfor'] != null
           ? ExtraInfor.fromJson(Map<String, dynamic>.from(json['extraInfor']))
           : json['extra_infor'] != null
-              ? ExtraInfor.fromJson(
-                  Map<String, dynamic>.from(json['extra_infor']),
-                )
-              : null,
+          ? ExtraInfor.fromJson(Map<String, dynamic>.from(json['extra_infor']))
+          : null,
       carDamages: (json['damages'] ?? json['car_damages']) is List
           ? (json['damages'] ?? json['car_damages'])
-              .map<CarDamage>((e) => CarDamage.fromJson(e))
-              .toList()
+                .map<CarDamage>((e) => CarDamage.fromJson(e))
+                .toList()
           : null,
       carParts: (json['carParts'] ?? json['car_parts']) is List
           ? (json['carParts'] ?? json['car_parts'])
-              .map<CarParts>((e) => CarParts.fromJson(e))
-              .toList()
+                .map<CarParts>((e) => CarParts.fromJson(e))
+                .toList()
           : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        if (imgSize != null) 'imgSize': imgSize,
-        if (imgUrl != null) 'imgUrl': imgUrl,
-        if (imgDrawName != null) 'imgDrawName': imgDrawName,
-        if (imgDrawUrl != null) 'imgDrawUrl': imgDrawUrl,
-        if (extraInfor != null) 'extraInfor': extraInfor,
-        if (carDamages != null) 'damages': carDamages,
-        if (carParts != null) 'carParts': carParts,
-      };
+    if (imgSize != null) 'imgSize': imgSize,
+    if (imgUrl != null) 'imgUrl': imgUrl,
+    if (imgDrawName != null) 'imgDrawName': imgDrawName,
+    if (imgDrawUrl != null) 'imgDrawUrl': imgDrawUrl,
+    if (extraInfor != null) 'extraInfor': extraInfor?.toJson(),
+    if (carDamages != null)
+      'damages': carDamages?.map((e) => e.toJson()).toList(),
+    if (carParts != null) 'carParts': carParts?.map((e) => e.toJson()).toList(),
+  };
 
   DamageAssessmentModel copyWith({
     List<int?>? imgSize,
@@ -583,27 +588,26 @@ class DamageAssessmentResponse extends Equatable {
       result: json['result'] == null
           ? null
           : json['result'] is List
-              ? json['result'][0] != null
-                  ? DamageAssessmentModel.fromJson(
-                      Map<String, dynamic>.from(json['result'][0]),
-                    )
-                  : null
-              : DamageAssessmentModel.fromJson(
-                  Map<String, dynamic>.from(json['result']),
-                ),
+          ? json['result'][0] != null
+                ? DamageAssessmentModel.fromJson(
+                    Map<String, dynamic>.from(json['result'][0]),
+                  )
+                : null
+          : DamageAssessmentModel.fromJson(
+              Map<String, dynamic>.from(json['result']),
+            ),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        if (status != null) 'status': status,
-        if (isPhotoValid != null) 'isPhotoValid': isPhotoValid,
-        if (traceId != null) 'traceId': traceId,
-        if (errorCodeFromEngine != null)
-          'errorCodeFromEngine': errorCodeFromEngine,
-        if (message != null) 'message': message,
-        if (imageId != null) 'imageId': imageId,
-        if (result != null) 'result': result,
-      };
+    if (status != null) 'status': status,
+    if (isPhotoValid != null) 'isPhotoValid': isPhotoValid,
+    if (traceId != null) 'traceId': traceId,
+    if (errorCodeFromEngine != null) 'errorCodeFromEngine': errorCodeFromEngine,
+    if (message != null) 'message': message,
+    if (imageId != null) 'imageId': imageId,
+    if (result != null) 'result': result?.toJson(),
+  };
 
   DamageAssessmentResponse copyWith({
     String? status,

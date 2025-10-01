@@ -9,12 +9,16 @@ import '../../domain/repository/folder_detail_repository.dart';
 
 class ClaimMeFolderDetailRepositoryImpl implements FolderDetailRepository {
   @override
-  Future<Either<APIErrors, List<ImageDirectionModel>>> getImagesDirectionV2(
-      {required String claimId}) async {
+  Future<Either<APIErrors, List<ImageDirectionModel>>> getImagesDirectionV2({
+    required String claimId,
+  }) async {
     try {
       final res = await FolderDetailApi.getImagesDirectionV2(claimId).request();
-      return Right(List<ImageDirectionModel>.from(
-          (res as List).map((e) => ImageDirectionModel.fromJson(e)).toList()));
+      return Right(
+        List<ImageDirectionModel>.from(
+          (res as List).map((e) => ImageDirectionModel.fromJson(e)).toList(),
+        ),
+      );
     } catch (e) {
       if (e is APIErrors) {
         return Left(e);
@@ -25,8 +29,9 @@ class ClaimMeFolderDetailRepositoryImpl implements FolderDetailRepository {
   }
 
   @override
-  Future<Either<APIErrors, dynamic>> getResult(
-      {required String claimId}) async {
+  Future<Either<APIErrors, dynamic>> getResult({
+    required String claimId,
+  }) async {
     try {
       final res = await FolderDetailApi.getResult(claimId).request();
       return Right(res);

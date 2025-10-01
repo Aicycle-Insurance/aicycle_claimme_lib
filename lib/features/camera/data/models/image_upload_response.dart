@@ -26,12 +26,12 @@ class ImageUploadResponse extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (claimImageIsValid != null) 'claimImageIsValid': claimImageIsValid,
-        if (filePath != null) 'filePath': filePath,
-        if (imageUrl != null) 'imageUrl': imageUrl,
-        if (message != null) 'message': message,
-        if (level != null) 'level': level,
-      };
+    if (claimImageIsValid != null) 'claimImageIsValid': claimImageIsValid,
+    if (filePath != null) 'filePath': filePath,
+    if (imageUrl != null) 'imageUrl': imageUrl,
+    if (message != null) 'message': message,
+    if (level != null) 'level': level,
+  };
 
   ImageUploadResponse copyWith({
     bool? claimImageIsValid,
@@ -51,12 +51,6 @@ class ImageUploadResponse extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      claimImageIsValid,
-      filePath,
-      imageUrl,
-      message,
-      level,
-    ];
+    return [claimImageIsValid, filePath, imageUrl, message, level];
   }
 }

@@ -8,8 +8,8 @@ class APIRequest {
   String baseUrl = environment == Evn.production
       ? BaseEndpoint.baseUrl
       : environment == Evn.stage
-          ? BaseEndpoint.stageBaseUrl
-          : BaseEndpoint.devBaseUrl;
+      ? BaseEndpoint.stageBaseUrl
+      : BaseEndpoint.devBaseUrl;
   String endpoint;
   String contentType;
   HTTPMethod method;

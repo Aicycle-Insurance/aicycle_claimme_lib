@@ -56,7 +56,7 @@ class RangeImageSection extends StatelessWidget {
             if (rangeId != 1)
               CupertinoButton(
                 padding: EdgeInsets.zero,
-                minSize: 0,
+                minimumSize: Size(0, 0),
                 onPressed: () => onTakePhoto?.call(null),
                 child: Material(
                   color: Colors.transparent,
@@ -88,7 +88,8 @@ class RangeImageSection extends StatelessWidget {
           mainAxisSpacing: 8,
           children: isLoading == true
               ? [1, 2]
-                  .map((e) => Shimmer.fromColors(
+                    .map(
+                      (e) => Shimmer.fromColors(
                         baseColor: Colors.black12,
                         highlightColor: Colors.white,
                         child: Container(
@@ -99,28 +100,25 @@ class RangeImageSection extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                      ))
-                  .toList()
-              : images.isNotEmpty
-                  ? images.map((e) {
-                      return ImageContainer(
-                        imageUrl: e.url,
-                        isDeleting: deletingList.contains(e.imageId),
-                        onDelete: () {
-                          onDeleteImage?.call(e.imageId ?? '');
-                        },
-                        onRetake: () => onTakePhoto?.call(e.imageId.toString()),
-                        // onRetake: () => _pushToCamera(
-                        //   rangeId: rangeId,
-                        //   oldImageId: int.tryParse(e.imageId.toString()),
-                        // ),
-                      );
-                    }).toList()
-                  : [
-                      ImageContainer(
-                        onRetake: () => onTakePhoto?.call(null),
                       ),
-                    ],
+                    )
+                    .toList()
+              : images.isNotEmpty
+              ? images.map((e) {
+                  return ImageContainer(
+                    imageUrl: e.url,
+                    isDeleting: deletingList.contains(e.imageId),
+                    onDelete: () {
+                      onDeleteImage?.call(e.imageId ?? '');
+                    },
+                    onRetake: () => onTakePhoto?.call(e.imageId.toString()),
+                    // onRetake: () => _pushToCamera(
+                    //   rangeId: rangeId,
+                    //   oldImageId: int.tryParse(e.imageId.toString()),
+                    // ),
+                  );
+                }).toList()
+              : [ImageContainer(onRetake: () => onTakePhoto?.call(null))],
         ),
       ],
     );
@@ -151,10 +149,7 @@ class ImageContainer extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(
-              color: CColors.primaryA500,
-              width: 2,
-            ),
+            border: Border.all(color: CColors.primaryA500, width: 2),
           ),
           child: const Center(
             child: Icon(

@@ -6,11 +6,7 @@ import '../repository/direction_detail_repository.dart';
 class ClaimMeDeleteImageByIdUsecase {
   final DirectionDetailRepository repository;
   ClaimMeDeleteImageByIdUsecase(this.repository);
-  Future<Either<APIErrors, bool>> call({
-    required String imageId,
-  }) async {
-    return repository.deleteImageById(
-      imageId: imageId,
-    );
+  Future<Either<APIErrors, bool>> call({required String imageId}) async {
+    return repository.deleteImageById(imageId: imageId);
   }
 }
