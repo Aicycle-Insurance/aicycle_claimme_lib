@@ -560,20 +560,22 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     showErrorDialog(false);
     cacheDamageResponse = null;
     previewFile.value = null;
-    if (index == 2 && carPartsForCloseUpShot.isEmpty) {
-      status(
-        BaseStatus(
-          message: LocaleKeys.needValidImage.trans,
-          state: AppState.failed,
-        ),
-      );
-      onTabChanged(1);
-    } else {
-      status(BaseStatus(message: '', state: AppState.idle));
-      previewFile.value = null;
-      currentTabIndex(index);
-      tabController.animateTo(index);
-    }
+    status(BaseStatus(message: '', state: AppState.idle));
+
+    // if (index == 2 && carPartsForCloseUpShot.isEmpty) {
+    //   status(
+    //     BaseStatus(
+    //       message: LocaleKeys.needValidImage.trans,
+    //       state: AppState.failed,
+    //     ),
+    //   );
+    //   onTabChanged(1);
+    // } else {
+    //   status(BaseStatus(message: '', state: AppState.idle));
+    //   previewFile.value = null;
+    //   currentTabIndex(index);
+    //   tabController.animateTo(index);
+    // }
   }
 
   var partLoading = false.obs;

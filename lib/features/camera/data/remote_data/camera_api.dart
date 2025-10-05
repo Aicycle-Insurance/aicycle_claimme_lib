@@ -39,7 +39,8 @@ class CameraAPI extends APIRequest {
            "requestedTime": utcTimeCreated,
            "uploadLocation": uploadLocation,
            "isValidate": true,
-           if (isTruck == true) "vehicleType": "truck",
+           /// Updated at Oct 5th, 2025 for PVI
+           if (isTruck == true) "vehicleType": "car",
          },
        );
 

@@ -1,3 +1,6 @@
+## 0.3.1
+- Update camera logic and vehicleType
+
 ## 0.3.0
 - Update and refactor code
 

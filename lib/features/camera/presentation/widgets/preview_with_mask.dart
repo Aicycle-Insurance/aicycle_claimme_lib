@@ -209,7 +209,7 @@ class PreviewWithMask extends StatelessWidget {
                 CupertinoButton(
                   padding: EdgeInsets.zero,
                   minimumSize: Size(0, 0),
-                  onPressed: onNoTapped,
+                  onPressed: onYesTapped,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
