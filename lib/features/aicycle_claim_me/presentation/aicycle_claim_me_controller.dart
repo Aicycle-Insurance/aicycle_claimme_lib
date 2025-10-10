@@ -83,6 +83,11 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
           aicycleClaimId: r.claimId,
           environtment: argument.environtment,
           locale: argument.locale,
+          xApplication: argument.xApplication,
+          enableVersion2: argument.enableVersion2,
+          savePhotoAfterShot: argument.savePhotoAfterShot,
+          isAICycle: argument.isAICycle,
+          vehicleTypeId: argument.vehicleTypeId,
         );
         isLoading(false);
         status.value = BaseStatus(message: null, state: AppState.redirect);
@@ -110,6 +115,11 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
           aicycleClaimId: r.claimId,
           environtment: argument.environtment,
           locale: argument.locale,
+          xApplication: argument.xApplication,
+          enableVersion2: argument.enableVersion2,
+          savePhotoAfterShot: argument.savePhotoAfterShot,
+          isAICycle: argument.isAICycle,
+          vehicleTypeId: argument.vehicleTypeId,
         );
         isLoading(false);
         status.value = BaseStatus(message: null, state: AppState.redirect);
