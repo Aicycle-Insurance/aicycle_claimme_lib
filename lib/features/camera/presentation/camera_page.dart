@@ -81,9 +81,6 @@ class _CameraPageState
       data: ThemeData(useMaterial3: false),
       child: PopScope(
         canPop: false,
-        onPopInvokedWithResult: (didPop, result) {
-          onWillPop(context);
-        },
         child: Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,

@@ -1,3 +1,6 @@
+## 0.3.4
+- Fix camera pop and switch tab logic
+
 ## 0.3.3
 - Fix bugs
 
