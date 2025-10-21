@@ -545,11 +545,18 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
   }
 
   void onNextTapped() {
-    if (currentTabIndex.value == 0) {
-      onTabChanged(1);
-    } else if (currentTabIndex.value == 1) {
-      onTabChanged(2);
-    }
+    damageAssessmentResponse.value = null;
+    currentReplacedImageId.value = '';
+    cacheValidationModel = {};
+    damageAssessmentResponse.value = null;
+    showErrorDialog(false);
+    cacheDamageResponse = null;
+    previewFile.value = null;
+    // if (currentTabIndex.value == 0) {
+    //   onTabChanged(1);
+    // } else if (currentTabIndex.value == 1) {
+    //   onTabChanged(2);
+    // }
   }
 
   void onTabChanged(int index) {
@@ -560,22 +567,21 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     showErrorDialog(false);
     cacheDamageResponse = null;
     previewFile.value = null;
-    status(BaseStatus(message: '', state: AppState.idle));
-
-    // if (index == 2 && carPartsForCloseUpShot.isEmpty) {
-    //   status(
-    //     BaseStatus(
-    //       message: LocaleKeys.needValidImage.trans,
-    //       state: AppState.failed,
-    //     ),
-    //   );
-    //   onTabChanged(1);
-    // } else {
-    //   status(BaseStatus(message: '', state: AppState.idle));
-    //   previewFile.value = null;
-    //   currentTabIndex(index);
-    //   tabController.animateTo(index);
-    // }
+    // status(BaseStatus(message: '', state: AppState.idle));
+    if (index == 2 && carPartsForCloseUpShot.isEmpty) {
+      status(
+        BaseStatus(
+          message: LocaleKeys.needValidImage.trans,
+          state: AppState.failed,
+        ),
+      );
+      onTabChanged(1);
+    } else {
+      status(BaseStatus(message: '', state: AppState.idle));
+      previewFile.value = null;
+      currentTabIndex(index);
+      tabController.animateTo(index);
+    }
   }
 
   var partLoading = false.obs;
