@@ -133,9 +133,10 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
     processUsecaseResult<UserInfoResponse>(
       result: await getUserInfoUsecase(),
       onSuccess: (p0) {
-        if (p0.data?.userInfo?.organizations != null &&
-            p0.data!.userInfo!.organizations!.isNotEmpty) {
-          uiSettings = p0.data!.userInfo!.organizations!.first.kvp?.sdk;
+        user = p0;
+        if (p0.data?.organizations != null &&
+            p0.data!.organizations!.isNotEmpty) {
+          uiSettings = p0.data!.organizations!.first.kvp?.sdk;
         }
       },
     );

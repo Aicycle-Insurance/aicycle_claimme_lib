@@ -226,6 +226,7 @@ class _FolderDetailPageState
                                       ?.toDouble(),
                                   height: frontSetting!.height?.toDouble(),
                                   width: frontSetting!.width?.toDouble(),
+                                  hideCloseUpShot: controller.hideCloseUpShot,
                                 ),
                               ),
                             ),
@@ -252,6 +253,7 @@ class _FolderDetailPageState
                                     height: rightFrontSetting!.height
                                         ?.toDouble(),
                                     width: rightFrontSetting!.width?.toDouble(),
+                                    hideCloseUpShot: controller.hideCloseUpShot,
                                   ),
                                 ),
                               ),
@@ -278,6 +280,7 @@ class _FolderDetailPageState
                                     height: leftFrontSetting!.height
                                         ?.toDouble(),
                                     width: leftFrontSetting!.width?.toDouble(),
+                                    hideCloseUpShot: controller.hideCloseUpShot,
                                   ),
                                 ),
                               ),
@@ -303,6 +306,7 @@ class _FolderDetailPageState
                                         ?.toDouble(),
                                     height: leftBackSetting!.height?.toDouble(),
                                     width: leftBackSetting!.width?.toDouble(),
+                                    hideCloseUpShot: controller.hideCloseUpShot,
                                   ),
                                 ),
                               ),
@@ -329,6 +333,7 @@ class _FolderDetailPageState
                                     height: rightBackSetting!.height
                                         ?.toDouble(),
                                     width: rightBackSetting!.width?.toDouble(),
+                                    hideCloseUpShot: controller.hideCloseUpShot,
                                   ),
                                 ),
                               ),
@@ -350,6 +355,7 @@ class _FolderDetailPageState
                                       ?.toDouble(),
                                   height: backSetting!.height?.toDouble(),
                                   width: backSetting!.width?.toDouble(),
+                                  hideCloseUpShot: controller.hideCloseUpShot,
                                 ),
                               ),
                             ),

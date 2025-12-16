@@ -111,6 +111,8 @@ class Settings extends Equatable {
   final bool? enableClaimMeClassifyResult;
   final bool? enableCheckSameCarWhenCallEngine;
   final bool? enableInspectionTaploDirection;
+  final bool? disableClosePhoto;
+  final bool? disableSelectCarShape;
 
   const Settings({
     this.timeTokenExpire,
@@ -124,6 +126,8 @@ class Settings extends Equatable {
     this.enableClaimMeClassifyResult,
     this.enableCheckSameCarWhenCallEngine,
     this.enableInspectionTaploDirection,
+    this.disableClosePhoto,
+    this.disableSelectCarShape,
   });
 
   factory Settings.fromJson(Map<String, dynamic> json) {
@@ -157,6 +161,10 @@ class Settings extends Equatable {
       enableInspectionTaploDirection: json['enableInspectionTaploDirection']
           .toString()
           .contains('true'),
+      disableClosePhoto: json['disableClosePhoto'].toString().contains('true'),
+      disableSelectCarShape: json['disableSelectCarShape'].toString().contains(
+        'true',
+      ),
     );
   }
 
@@ -177,6 +185,9 @@ class Settings extends Equatable {
       'enableCheckSameCarWhenCallEngine': enableCheckSameCarWhenCallEngine,
     if (enableInspectionTaploDirection != null)
       'enableInspectionTaploDirection': enableInspectionTaploDirection,
+    if (disableClosePhoto != null) 'disableClosePhoto': disableClosePhoto,
+    if (disableSelectCarShape != null)
+      'disableSelectCarShape': disableSelectCarShape,
   };
 
   Settings copyWith({
@@ -191,6 +202,8 @@ class Settings extends Equatable {
     bool? enableClaimMeClassifyResult,
     bool? enableCheckSameCarWhenCallEngine,
     bool? enableInspectionTaploDirection,
+    bool? disableClosePhoto,
+    bool? disableSelectCarShape,
   }) {
     return Settings(
       timeTokenExpire: timeTokenExpire ?? this.timeTokenExpire,
@@ -209,6 +222,9 @@ class Settings extends Equatable {
           this.enableCheckSameCarWhenCallEngine,
       enableInspectionTaploDirection:
           enableInspectionTaploDirection ?? this.enableInspectionTaploDirection,
+      disableClosePhoto: disableClosePhoto ?? this.disableClosePhoto,
+      disableSelectCarShape:
+          disableSelectCarShape ?? this.disableSelectCarShape,
     );
   }
 
@@ -226,6 +242,8 @@ class Settings extends Equatable {
       enableClaimMeClassifyResult,
       enableCheckSameCarWhenCallEngine,
       enableInspectionTaploDirection,
+      disableClosePhoto,
+      disableSelectCarShape,
     ];
   }
 }
@@ -1018,7 +1036,7 @@ class Data extends Equatable {
 
 class UserInfoResponse extends Equatable {
   final String? tokenType;
-  final Data? data;
+  final UserInfo? data;
 
   const UserInfoResponse({this.tokenType, this.data});
 
@@ -1027,7 +1045,10 @@ class UserInfoResponse extends Equatable {
       tokenType: json['tokenType']?.toString(),
       data: json['data'] == null
           ? null
-          : Data.fromJson(Map<String, dynamic>.from(json['data'])),
+          : UserInfo.fromJson(Map<String, dynamic>.from(json['data'])),
+      // data: json['data'] == null
+      //     ? null
+      //     : Data.fromJson(Map<String, dynamic>.from(json['data'])),
     );
   }
 
@@ -1036,7 +1057,7 @@ class UserInfoResponse extends Equatable {
     if (data != null) 'data': data?.toJson(),
   };
 
-  UserInfoResponse copyWith({String? tokenType, Data? data}) {
+  UserInfoResponse copyWith({String? tokenType, UserInfo? data}) {
     return UserInfoResponse(
       tokenType: tokenType ?? this.tokenType,
       data: data ?? this.data,

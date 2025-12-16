@@ -41,24 +41,26 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       Get.find();
 
   CameraController? cameraController;
-  var isInActive = false.obs;
-  var isCameraLoading = false.obs;
+  final isInActive = false.obs;
+  final isCameraLoading = false.obs;
   ClaimMeCameraArgument? argument;
-  late final TabController tabController;
-  var flashMode = Rx<FlashMode>(FlashMode.off);
-  var previewFile = Rx<XFile?>(null);
-  var isResizing = false.obs;
+  TabController? tabController;
+  final flashMode = Rx<FlashMode>(FlashMode.off);
+  final previewFile = Rx<XFile?>(null);
+  final isResizing = false.obs;
 
   late Stream<DeviceOrientation> sensorStream;
-  var currentOrientation = Rx<DeviceOrientation>(DeviceOrientation.portraitUp);
+  final currentOrientation = Rx<DeviceOrientation>(
+    DeviceOrientation.portraitUp,
+  );
 
-  var showRetake = false.obs;
-  var showErrorDialog = false.obs;
-  var currentTabIndex = 0.obs;
-  var carPartOnSelected = Rx<CarPartHasDamageModel?>(null);
-  var isConfidentLevelWarning = false.obs;
-  var damageAssessmentResponse = Rx<DamageAssessmentResponse?>(null);
-  var isPortraitUpWhileTakePhoto = false.obs;
+  final showRetake = false.obs;
+  final showErrorDialog = false.obs;
+  final currentTabIndex = 0.obs;
+  final carPartOnSelected = Rx<CarPartHasDamageModel?>(null);
+  final isConfidentLevelWarning = false.obs;
+  final damageAssessmentResponse = Rx<DamageAssessmentResponse?>(null);
+  final isPortraitUpWhileTakePhoto = false.obs;
 
   ///
   DamageAssessmentResponse? cacheDamageResponse;
@@ -74,12 +76,12 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       imageRangeIds[currentTabIndex.value];
 
   ///
-  var carPartsForCloseUpShot = <CarPartHasDamageModel>[].obs;
+  final carPartsForCloseUpShot = <CarPartHasDamageModel>[].obs;
 
   ///
-  var longShotImages = <String>[].obs;
-  var middleShotImages = <String>[].obs;
-  var closeUpShotImages = <String>[].obs;
+  final longShotImages = <String>[].obs;
+  final middleShotImages = <String>[].obs;
+  final closeUpShotImages = <String>[].obs;
 
   List<String> get currentImageList {
     switch (currentTabIndex.value) {
@@ -95,12 +97,11 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
   }
 
   ///
-  var currentReplacedImageId = ''.obs;
+  final currentReplacedImageId = ''.obs;
 
   @override
   void onInit() {
     WidgetsBinding.instance.addObserver(this);
-    tabController = TabController(length: 3, vsync: this);
     if (cameras.isNotEmpty) {
       onNewCameraSelected(cameras[0]);
     }
@@ -182,6 +183,14 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       isInActive(false);
       onNewCameraSelected(cameraCtrl.description);
     }
+  }
+
+  void setUpTab() {
+    tabController?.dispose();
+    tabController = TabController(
+      length: argument?.hideCloseUpShot != true ? 3 : 2,
+      vsync: this,
+    );
   }
 
   Future<void> onNewCameraSelected(CameraDescription cameraDescription) async {
@@ -580,7 +589,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       status(BaseStatus(message: '', state: AppState.idle));
       previewFile.value = null;
       currentTabIndex(index);
-      tabController.animateTo(index);
+      tabController?.animateTo(index);
     }
   }
 

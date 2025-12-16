@@ -1,3 +1,6 @@
+## 0.3.5
+- Update user settings
+
 ## 0.3.4
 - Fix camera pop and switch tab logic
 
