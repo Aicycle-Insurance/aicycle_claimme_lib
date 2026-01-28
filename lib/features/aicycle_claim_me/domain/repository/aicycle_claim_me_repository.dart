@@ -19,5 +19,5 @@ abstract class AiCycleClaimMeRepository {
   Future<Either<APIErrors, ClaimFolderModel>> getDuplicateFolder({
     required String externalClaimId,
   });
-  Future<Either<APIErrors, UserInfo>> getUserInfo();
+  Future<Either<APIErrors, UserInfoResponse>> getUserInfo();
 }

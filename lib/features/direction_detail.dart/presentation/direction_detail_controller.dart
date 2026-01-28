@@ -19,15 +19,15 @@ class ClaimMeDirectionDetailController extends ClaimMeBaseController {
   final ClaimMeGetCarPartHasDamageUsecase getCarPartHasDamageUsecase =
       Get.find();
 
-  var longShotImages = <ClaimImageModel>[].obs;
-  var middleShotImages = <ClaimImageModel>[].obs;
-  var closeUpShotImages = <ClaimImageModel>[].obs;
+  final longShotImages = <ClaimImageModel>[].obs;
+  final middleShotImages = <ClaimImageModel>[].obs;
+  final closeUpShotImages = <ClaimImageModel>[].obs;
 
-  var longLoading = false.obs;
-  var middleLoading = false.obs;
-  var closeUpLoading = false.obs;
+  final longLoading = false.obs;
+  final middleLoading = false.obs;
+  final closeUpLoading = false.obs;
 
-  var deletingList = <String>[].obs;
+  final deletingList = <String>[].obs;
   List<CarPartHasDamageModel> carPartsForCloseUpShot = [];
 
   @override

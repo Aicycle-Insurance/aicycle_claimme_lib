@@ -39,7 +39,7 @@ class CameraAPI extends APIRequest {
             "requestedTime": utcTimeCreated,
             "uploadLocation": uploadLocation,
             "isValidate": true,
-            if (isTruck == true) "vehicleType": "truck",
+            if (isTruck == true) "vehicleType": "car",
           },
         );
 

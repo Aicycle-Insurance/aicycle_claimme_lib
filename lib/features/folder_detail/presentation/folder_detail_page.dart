@@ -49,13 +49,13 @@ class _FolderDetailPageState
   late final StreamSubscription errorSub;
 
   ///
-  late final AICycleClaimMeSetting? settings;
-  late final CarDirectionSetting? frontSetting;
-  late final CarDirectionSetting? rightFrontSetting;
-  late final CarDirectionSetting? leftFrontSetting;
-  late final CarDirectionSetting? backSetting;
-  late final CarDirectionSetting? rightBackSetting;
-  late final CarDirectionSetting? leftBackSetting;
+  AICycleClaimMeSetting? settings;
+  CarDirectionSetting? frontSetting;
+  CarDirectionSetting? rightFrontSetting;
+  CarDirectionSetting? leftFrontSetting;
+  CarDirectionSetting? backSetting;
+  CarDirectionSetting? rightBackSetting;
+  CarDirectionSetting? leftBackSetting;
 
   ///
   @override
@@ -217,6 +217,7 @@ class _FolderDetailPageState
                                       frontSetting!.borderRadius?.toDouble(),
                                   height: frontSetting!.height?.toDouble(),
                                   width: frontSetting!.width?.toDouble(),
+                                  hideCloseUpShot: controller.hideCloseUpShot,
                                 ),
                               ),
                             ),
@@ -243,6 +244,7 @@ class _FolderDetailPageState
                                     height:
                                         rightFrontSetting!.height?.toDouble(),
                                     width: rightFrontSetting!.width?.toDouble(),
+                                    hideCloseUpShot: controller.hideCloseUpShot,
                                   ),
                                 ),
                               ),
@@ -254,22 +256,25 @@ class _FolderDetailPageState
                                 margin: const EdgeInsets.only(top: 64),
                                 child: Obx(
                                   () => CarPosition(
-                                    direction: CarPartDirectionEnum.leftFront,
-                                    vehicleTypeId:
-                                        widget.argument.vehicleTypeId,
-                                    claimFolderId:
-                                        widget.argument.aicycleClaimId ??
-                                            widget.argument.externalClaimId,
-                                    imageDirectionModel:
-                                        controller.leftFront.value,
-                                    customDirectionName:
-                                        leftFrontSetting!.directionName,
-                                    borderRadius: leftFrontSetting!.borderRadius
-                                        ?.toDouble(),
-                                    height:
-                                        leftFrontSetting!.height?.toDouble(),
-                                    width: leftFrontSetting!.width?.toDouble(),
-                                  ),
+                                      direction: CarPartDirectionEnum.leftFront,
+                                      vehicleTypeId:
+                                          widget.argument.vehicleTypeId,
+                                      claimFolderId:
+                                          widget.argument.aicycleClaimId ??
+                                              widget.argument.externalClaimId,
+                                      imageDirectionModel:
+                                          controller.leftFront.value,
+                                      customDirectionName:
+                                          leftFrontSetting!.directionName,
+                                      borderRadius: leftFrontSetting!
+                                          .borderRadius
+                                          ?.toDouble(),
+                                      height:
+                                          leftFrontSetting!.height?.toDouble(),
+                                      width:
+                                          leftFrontSetting!.width?.toDouble(),
+                                      hideCloseUpShot:
+                                          controller.hideCloseUpShot),
                                 ),
                               ),
                             ),
@@ -294,6 +299,7 @@ class _FolderDetailPageState
                                         ?.toDouble(),
                                     height: leftBackSetting!.height?.toDouble(),
                                     width: leftBackSetting!.width?.toDouble(),
+                                    hideCloseUpShot: controller.hideCloseUpShot,
                                   ),
                                 ),
                               ),
@@ -320,6 +326,7 @@ class _FolderDetailPageState
                                     height:
                                         rightBackSetting!.height?.toDouble(),
                                     width: rightBackSetting!.width?.toDouble(),
+                                    hideCloseUpShot: controller.hideCloseUpShot,
                                   ),
                                 ),
                               ),
@@ -341,6 +348,7 @@ class _FolderDetailPageState
                                       backSetting!.borderRadius?.toDouble(),
                                   height: backSetting!.height?.toDouble(),
                                   width: backSetting!.width?.toDouble(),
+                                  hideCloseUpShot: controller.hideCloseUpShot,
                                 ),
                               ),
                             ),

@@ -34,11 +34,13 @@ class ClaimMeCameraArgument {
   final List<ClaimImageModel>? middleShotImages;
   final List<ClaimImageModel>? closeUpShotImages;
   final List<CarPartHasDamageModel>? carPartHasDamage;
+  final bool hideCloseUpShot;
 
   ClaimMeCameraArgument({
     required this.carPartDirectionEnum,
     required this.carModelEnum,
     required this.claimId,
+    required this.hideCloseUpShot,
     this.closeUpShotImages,
     this.longShotImages,
     this.middleShotImages,
@@ -62,6 +64,7 @@ class _CameraPageState
   void initState() {
     super.initState();
     controller.argument = widget.argument;
+    controller.setUpTab();
   }
 
   @override
@@ -309,28 +312,26 @@ class _CameraPageState
       tabs: [
         Tab(text: LocaleKeys.longShot.trans),
         Tab(text: LocaleKeys.middleShot.trans),
-        Obx(
-          () => Tab(
-            text: controller.partLoading.isFalse
-                ? LocaleKeys.closeUpShot.trans
-                : null,
-            child: controller.partLoading.isTrue
-                ? const CupertinoActivityIndicator(
-                    color: CColors.inkA100,
-                    radius: 6,
-                  )
-                : null,
+        if (controller.argument?.hideCloseUpShot != true)
+          Obx(
+            () => Tab(
+              text: controller.partLoading.isFalse
+                  ? LocaleKeys.closeUpShot.trans
+                  : null,
+              child: controller.partLoading.isTrue
+                  ? const CupertinoActivityIndicator(
+                      color: CColors.inkA100,
+                      radius: 6,
+                    )
+                  : null,
+            ),
           ),
-        ),
       ],
     );
   }
 
   Future<bool> onWillPop(BuildContext context) async {
-    Navigator.pop(
-      context,
-      '',
-    );
+    Navigator.pop(context, '');
     return false;
   }
 }

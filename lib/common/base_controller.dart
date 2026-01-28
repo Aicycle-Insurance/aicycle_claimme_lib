@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:aicycle_claimme_lib/features/aicycle_claim_me/data/model/user_info_model.dart';
+
 import '../../enum/app_state.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
@@ -20,6 +22,7 @@ abstract class ClaimMeBaseController extends FullLifeCycleController {
   final RxBool isLoading = true.obs;
   final Rx<BaseStatus> status = Rx<BaseStatus>(BaseStatus(message: null));
   final receiveErrorStream = StreamController<dynamic>.broadcast();
+  UserInfoResponse? user;
 
   @override
   void onInit() {

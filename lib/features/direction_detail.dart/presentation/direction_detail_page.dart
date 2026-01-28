@@ -113,6 +113,7 @@ class _DirectionDetailPageState
                             initPositionIndex: 0,
                             oldImageId: oldImageId,
                             carPartHasDamage: controller.carPartsForCloseUpShot,
+                            hideCloseUpShot: widget.argument.hideCloseUpShot,
                           ),
                         ),
                       ),
@@ -143,6 +144,7 @@ class _DirectionDetailPageState
                             initPositionIndex: 1,
                             oldImageId: oldImageId,
                             carPartHasDamage: controller.carPartsForCloseUpShot,
+                            hideCloseUpShot: widget.argument.hideCloseUpShot,
                           ),
                         ),
                       ),
@@ -151,35 +153,38 @@ class _DirectionDetailPageState
                 ),
               ),
               const Gap(20),
-              Obx(
-                () => RangeImageSection(
-                  rangeId: 3,
-                  images: controller.closeUpShotImages.value,
-                  isLoading: controller.closeUpLoading.value,
-                  onDeleteImage: controller.onDeleteImage,
-                  deletingList: controller.deletingList.value,
-                  onTakePhoto: (oldImageId) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => CameraPage(
-                          argument: ClaimMeCameraArgument(
-                            carPartDirectionEnum:
-                                widget.argument.carPartDirectionEnum,
-                            carModelEnum: widget.argument.carModelEnum,
-                            claimId: widget.argument.claimId,
-                            closeUpShotImages: controller.closeUpShotImages,
-                            longShotImages: controller.longShotImages,
-                            middleShotImages: controller.middleShotImages,
-                            initPositionIndex: 2,
-                            oldImageId: oldImageId,
-                            carPartHasDamage: controller.carPartsForCloseUpShot,
+              if (widget.argument.hideCloseUpShot != true)
+                Obx(
+                  () => RangeImageSection(
+                    rangeId: 3,
+                    images: controller.closeUpShotImages.value,
+                    isLoading: controller.closeUpLoading.value,
+                    onDeleteImage: controller.onDeleteImage,
+                    deletingList: controller.deletingList.value,
+                    onTakePhoto: (oldImageId) {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CameraPage(
+                            argument: ClaimMeCameraArgument(
+                              carPartDirectionEnum:
+                                  widget.argument.carPartDirectionEnum,
+                              carModelEnum: widget.argument.carModelEnum,
+                              claimId: widget.argument.claimId,
+                              closeUpShotImages: controller.closeUpShotImages,
+                              longShotImages: controller.longShotImages,
+                              middleShotImages: controller.middleShotImages,
+                              initPositionIndex: 2,
+                              oldImageId: oldImageId,
+                              carPartHasDamage:
+                                  controller.carPartsForCloseUpShot,
+                              hideCloseUpShot: widget.argument.hideCloseUpShot,
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
-              ),
             ],
           ),
         ),

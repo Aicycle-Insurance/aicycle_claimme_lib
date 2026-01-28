@@ -69,7 +69,7 @@ class GetUploadUrlResponse extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (urls != null) 'urls': urls,
+        if (urls != null) 'urls': urls?.map((e) => e.toJson()).toList(),
         if (message != null) 'message': message,
         if (status != null) 'status': status,
       };

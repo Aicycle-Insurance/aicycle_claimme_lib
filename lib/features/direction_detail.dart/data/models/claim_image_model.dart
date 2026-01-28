@@ -394,7 +394,8 @@ class DamageInfo extends Equatable {
         if (repairPlan != null) 'repairPlan': repairPlan,
         if (area != null) 'area': area,
         if (location != null) 'location': location,
-        if (damageDetail != null) 'damageDetail': damageDetail,
+        if (damageDetail != null)
+          'damageDetail': damageDetail?.map((e) => e.toJson()).toList(),
       };
 
   DamageInfo copyWith({
@@ -569,15 +570,20 @@ class ClaimImageModel extends Equatable {
         if (timeProcess != null) 'timeProcess': timeProcess,
         if (timeAppUpload != null) 'timeAppUpload': timeAppUpload,
         if (errorNote != null) 'errorNote': errorNote,
-        if (errorType != null) 'errorType': errorType,
+        if (errorType != null)
+          'errorType': errorType?.map((e) => e.toJson()).toList(),
         if (imageRangeId != null) 'imageRangeId': imageRangeId,
         if (filePath != null) 'filePath': filePath,
         if (traceId != null) 'traceId': traceId,
         if (processStatus != null) 'processStatus': processStatus,
-        if (partsMasks != null) 'partsMasks': partsMasks,
-        if (damagePart != null) 'damagePart': damagePart,
-        if (damageMasks != null) 'damageMasks': damageMasks,
-        if (damageInfo != null) 'damageInfo': damageInfo,
+        if (partsMasks != null)
+          'partsMasks': partsMasks?.map((e) => e.toJson()).toList(),
+        if (damagePart != null)
+          'damagePart': damagePart?.map((e) => e.toJson()).toList(),
+        if (damageMasks != null)
+          'damageMasks': damageMasks?.map((e) => e.toJson()).toList(),
+        if (damageInfo != null)
+          'damageInfo': damageInfo?.map((e) => e.toJson()).toList(),
       };
 
   ClaimImageModel copyWith({

@@ -389,7 +389,8 @@ class CarParts extends Equatable {
         if (maskPath != null) 'maskPath': maskPath,
         if (isPart != null) 'isPart': isPart,
         if (partDirection != null) 'partDirection': partDirection,
-        if (damages != null) 'damages': damages,
+        if (damages != null)
+          'damages': damages?.map((e) => e.toJson()).toList(),
         if (carPartKey != null) 'carPartKey': carPartKey,
         if (className != null) 'name': className,
         if (maskColor != null) 'maskColor': maskColor,
@@ -515,7 +516,8 @@ class DamageAssessmentModel extends Equatable {
         if (imgDrawName != null) 'imgDrawName': imgDrawName,
         if (imgDrawUrl != null) 'imgDrawUrl': imgDrawUrl,
         if (extraInfor != null) 'extraInfor': extraInfor,
-        if (carDamages != null) 'damages': carDamages,
+        if (carDamages != null)
+          'damages': carDamages?.map((e) => e.toJson()).toList(),
         if (carParts != null) 'carParts': carParts,
       };
 
@@ -602,7 +604,7 @@ class DamageAssessmentResponse extends Equatable {
           'errorCodeFromEngine': errorCodeFromEngine,
         if (message != null) 'message': message,
         if (imageId != null) 'imageId': imageId,
-        if (result != null) 'result': result,
+        if (result != null) 'result': result?.toJson(),
       };
 
   DamageAssessmentResponse copyWith({

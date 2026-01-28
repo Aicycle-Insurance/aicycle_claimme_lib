@@ -60,10 +60,10 @@ class AicycleClaimMeRepositoryImpl implements AiCycleClaimMeRepository {
   }
 
   @override
-  Future<Either<APIErrors, UserInfo>> getUserInfo() async {
+  Future<Either<APIErrors, UserInfoResponse>> getUserInfo() async {
     try {
       final res = await AicycleClaimMeApi.getUserInfo().request();
-      return Right(UserInfo.fromJson(res));
+      return Right(UserInfoResponse.fromJson(res));
     } catch (e) {
       if (e is APIErrors) {
         return Left(e);

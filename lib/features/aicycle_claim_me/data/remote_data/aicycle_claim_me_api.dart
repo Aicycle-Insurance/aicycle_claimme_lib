@@ -36,9 +36,7 @@ class AicycleClaimMeApi extends APIRequest {
             endpoint: Endpoint.claimFolders,
             method: HTTPMethod.get,
             isLogResponse: false,
-            query: {
-              "externalClaimId": externalClaimId,
-            });
+            query: {"externalClaimId": externalClaimId});
 
   ///
   AicycleClaimMeApi.getUserInfo()
@@ -50,7 +48,7 @@ class AicycleClaimMeApi extends APIRequest {
               : environment == Evn.stage
                   ? BaseEndpoint.stageAdminBaseUrl
                   : BaseEndpoint.devAdminBaseUrl,
-          isLogResponse: false,
+          isLogResponse: true,
           isBaseResponse: false,
         );
 }
