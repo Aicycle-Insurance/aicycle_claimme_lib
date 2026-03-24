@@ -6,7 +6,7 @@ import '../../data/models/image_upload_response.dart';
 
 abstract class CameraRepository {
   Future<Either<APIErrors, DamageAssessmentResponse>>
-      callAiEngineAfterTakePhotoV2({
+  callAiEngineAfterTakePhotoV2({
     required String claimId,
     required String imageName,
     required String filePath,

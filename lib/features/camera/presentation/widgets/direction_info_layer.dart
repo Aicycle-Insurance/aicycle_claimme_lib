@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:aicycle_claimme_lib/features/camera/data/models/car_part_has_damage_model.dart';
 import 'package:flutter/material.dart';
 
@@ -127,10 +129,12 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
                 },
                 child: Container(
                   key: dropDownKey,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black..withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -165,10 +169,12 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
                 },
                 child: Container(
                   key: carPartDropDownKey,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black..withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
@@ -195,7 +201,7 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black..withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
@@ -212,7 +218,7 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
       width: 200,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black..withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -249,7 +255,7 @@ class _DirectionInfoLayerState extends State<DirectionInfoLayer> {
       width: 250,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black..withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

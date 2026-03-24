@@ -24,10 +24,13 @@ class CarPosition extends StatelessWidget {
   final double? borderRadius;
   final String? customDirectionName;
   final num? vehicleTypeId;
+  final bool hideCloseUpShot;
+
   const CarPosition({
     super.key,
     required this.direction,
     required this.claimFolderId,
+    required this.hideCloseUpShot,
     this.imageDirectionModel,
     this.width,
     this.height,
@@ -50,6 +53,7 @@ class CarPosition extends StatelessWidget {
                   carPartDirectionEnum: direction,
                   carModelEnum: CarModelEnum.fromId(vehicleTypeId),
                   claimId: claimFolderId,
+                  hideCloseUpShot: hideCloseUpShot,
                 ),
               ),
             ),
@@ -62,6 +66,7 @@ class CarPosition extends StatelessWidget {
                   carPartDirectionEnum: direction,
                   carModelEnum: CarModelEnum.kiaMorning,
                   claimId: claimFolderId,
+                  hideCloseUpShot: hideCloseUpShot,
                 ),
               ),
             ),
@@ -105,7 +110,7 @@ class CarPosition extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
-                            color: Colors.black.withOpacity(0.85),
+                            color: Colors.black..withValues(alpha: 0.85),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,

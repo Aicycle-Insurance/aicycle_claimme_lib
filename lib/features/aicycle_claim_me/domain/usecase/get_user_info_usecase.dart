@@ -8,7 +8,7 @@ class GetUserInfoUsecase {
   final AiCycleClaimMeRepository repository;
   GetUserInfoUsecase(this.repository);
 
-  Future<Either<APIErrors, UserInfo>> call() {
+  Future<Either<APIErrors, UserInfoResponse>> call() {
     return repository.getUserInfo();
   }
 }

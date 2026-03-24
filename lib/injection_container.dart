@@ -26,10 +26,7 @@ class InjectionContainer {
   }
 
   static void _camera() {
-    Get.lazyPut(
-      () => ClaimMeCameraRepositoryImpl(),
-      fenix: true,
-    );
+    Get.lazyPut(() => ClaimMeCameraRepositoryImpl(), fenix: true);
     Get.lazyPut(
       () => ClaimMeUploadImageUsecase(Get.find<ClaimMeCameraRepositoryImpl>()),
       fenix: true,
@@ -41,51 +38,48 @@ class InjectionContainer {
   }
 
   static void _folderDetail() {
-    Get.lazyPut(
-      () => ClaimMeFolderDetailRepositoryImpl(),
-      fenix: true,
-    );
-    Get.lazyPut(
-      () => ClaimMeDirectionDetailRepositoryImpl(),
-      fenix: true,
-    );
+    Get.lazyPut(() => ClaimMeFolderDetailRepositoryImpl(), fenix: true);
+    Get.lazyPut(() => ClaimMeDirectionDetailRepositoryImpl(), fenix: true);
     Get.lazyPut(
       () => ClaimMeGetImageDirectionUsecase(
-          Get.find<ClaimMeFolderDetailRepositoryImpl>()),
+        Get.find<ClaimMeFolderDetailRepositoryImpl>(),
+      ),
       fenix: true,
     );
     Get.lazyPut(
       () => ClaimMeGetResultUsecase(
-          Get.find<ClaimMeFolderDetailRepositoryImpl>()),
+        Get.find<ClaimMeFolderDetailRepositoryImpl>(),
+      ),
       fenix: true,
     );
     Get.lazyPut(
       () => GetDirectionImageDetailUsecase(
-          Get.find<ClaimMeDirectionDetailRepositoryImpl>()),
+        Get.find<ClaimMeDirectionDetailRepositoryImpl>(),
+      ),
       fenix: true,
     );
     Get.lazyPut(
       () => ClaimMeDeleteAllImageUsecase(
-          Get.find<ClaimMeDirectionDetailRepositoryImpl>()),
+        Get.find<ClaimMeDirectionDetailRepositoryImpl>(),
+      ),
       fenix: true,
     );
     Get.lazyPut(
       () => ClaimMeDeleteImageByIdUsecase(
-          Get.find<ClaimMeDirectionDetailRepositoryImpl>()),
+        Get.find<ClaimMeDirectionDetailRepositoryImpl>(),
+      ),
       fenix: true,
     );
     Get.lazyPut(
       () => ClaimMeGetCarPartHasDamageUsecase(
-          Get.find<ClaimMeDirectionDetailRepositoryImpl>()),
+        Get.find<ClaimMeDirectionDetailRepositoryImpl>(),
+      ),
       fenix: true,
     );
   }
 
   static void _folder() {
-    Get.lazyPut(
-      () => AicycleClaimMeRepositoryImpl(),
-      fenix: true,
-    );
+    Get.lazyPut(() => AicycleClaimMeRepositoryImpl(), fenix: true);
     Get.lazyPut(
       () =>
           ClaimMeCreateFolderUsecase(Get.find<AicycleClaimMeRepositoryImpl>()),
@@ -93,7 +87,8 @@ class InjectionContainer {
     );
     Get.lazyPut(
       () => ClaimMeGetDuplicateFolderUsecase(
-          Get.find<AicycleClaimMeRepositoryImpl>()),
+        Get.find<AicycleClaimMeRepositoryImpl>(),
+      ),
       fenix: true,
     );
     Get.lazyPut(

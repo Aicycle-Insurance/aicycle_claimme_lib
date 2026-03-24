@@ -55,12 +55,14 @@ class PreviewWithMask extends StatelessWidget {
       for (var mask in damageAssessmentModel!.carDamages!) {
         if (!cachedDamageType.contains(mask.maskPath)) {
           cachedDamageType.add(mask.maskPath ?? '0');
-          var currentDamageType = damageTypes.firstWhereOrNull((element) =>
-              element.damageTypeGuid == mask.classUuid ||
-              element.damageTypeSlugId == mask.damageKey);
-          var color =
-              ColorUtils.colorFromHex(currentDamageType?.damageTypeColor)
-                  .withOpacity(0.3);
+          var currentDamageType = damageTypes.firstWhereOrNull(
+            (element) =>
+                element.damageTypeGuid == mask.classUuid ||
+                element.damageTypeSlugId == mask.damageKey,
+          );
+          var color = ColorUtils.colorFromHex(
+            currentDamageType?.damageTypeColor,
+          )..withValues(alpha: 0.3);
           var box = mask.box ?? [0, 0, 1, 1];
 
           masks.add(
@@ -68,10 +70,12 @@ class PreviewWithMask extends StatelessWidget {
               left: (box[0]?.toDouble() ?? 0) * imWidth,
               top: (box[1]?.toDouble() ?? 0) * imHeight,
               child: SizedBox(
-                height: ((box[1]?.toDouble() ?? 0) - (box[3]?.toDouble() ?? 0))
+                height:
+                    ((box[1]?.toDouble() ?? 0) - (box[3]?.toDouble() ?? 0))
                         .abs() *
                     imHeight,
-                width: ((box[0]?.toDouble() ?? 0) - (box[2]?.toDouble() ?? 0))
+                width:
+                    ((box[0]?.toDouble() ?? 0) - (box[2]?.toDouble() ?? 0))
                         .abs() *
                     imWidth,
                 child: CachedImageWidget(
@@ -108,16 +112,11 @@ class PreviewWithMask extends StatelessWidget {
                       placeholder: (context, url) => const SizedBox(
                         height: 54,
                         width: 54,
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                        child: Center(child: CircularProgressIndicator()),
                       ),
                     )
                   else
-                    Image.file(
-                      File(file.path),
-                      fit: BoxFit.contain,
-                    ),
+                    Image.file(File(file.path), fit: BoxFit.contain),
                   ...masks,
                 ],
               ),
@@ -142,18 +141,15 @@ class PreviewWithMask extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black..withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(4),
           ),
           child: CupertinoButton(
             padding: EdgeInsets.zero,
-            minSize: 0,
+            minimumSize: Size(0, 0),
             onPressed: retake,
             child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 border: Border.all(color: Colors.white),
@@ -179,7 +175,7 @@ class PreviewWithMask extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black..withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(4),
             ),
             child: Row(
@@ -212,8 +208,8 @@ class PreviewWithMask extends StatelessWidget {
                 // SizedBox(width: 8.h),
                 CupertinoButton(
                   padding: EdgeInsets.zero,
-                  minSize: 0,
-                  onPressed: onNoTapped,
+                  minimumSize: Size(0, 0),
+                  onPressed: onYesTapped,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
@@ -227,9 +223,7 @@ class PreviewWithMask extends StatelessWidget {
                       children: [
                         Text(
                           LocaleKeys.next.trans,
-                          style: const TextStyle(
-                            color: CColors.primaryA500,
-                          ),
+                          style: const TextStyle(color: CColors.primaryA500),
                         ),
                         const Gap(8),
                         const Icon(

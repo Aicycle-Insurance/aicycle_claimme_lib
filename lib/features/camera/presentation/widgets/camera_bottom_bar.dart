@@ -50,18 +50,15 @@ class AiCameraBottomBar extends StatelessWidget {
             if (previewFile == null) ...[
               CupertinoButton(
                 padding: const EdgeInsets.only(left: 16),
-                minSize: 0,
                 onPressed: toggleFlashMode,
+                minimumSize: Size(0, 0),
                 child: Container(
                   height: 60,
                   width: 60,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: CColors.inkA100,
-                    border: Border.all(
-                      width: 1,
-                      color: CColors.inkA100,
-                    ),
+                    border: Border.all(width: 1, color: CColors.inkA100),
                   ),
                   padding: const EdgeInsets.all(2),
                   child: AnimatedRotation(
@@ -80,7 +77,7 @@ class AiCameraBottomBar extends StatelessWidget {
               Center(
                 child: CupertinoButton(
                   padding: const EdgeInsets.only(left: 16),
-                  minSize: 0,
+                  minimumSize: Size(0, 0),
                   onPressed: takePhoto,
                   child: Container(
                     height: 60,
@@ -115,8 +112,9 @@ class AiCameraBottomBar extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedImageWidget(
-                            url:
-                                imageUrls.isNotEmpty ? imageUrls.last : noImage,
+                            url: imageUrls.isNotEmpty
+                                ? imageUrls.last
+                                : noImage,
                             height: 52,
                             width: 52,
                             fit: BoxFit.cover,

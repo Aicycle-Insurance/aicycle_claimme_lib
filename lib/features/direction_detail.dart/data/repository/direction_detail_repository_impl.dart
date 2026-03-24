@@ -40,8 +40,11 @@ class ClaimMeDirectionDetailRepositoryImpl
           currentPage: currentPage,
         ).request();
       }
-      return Right(List<ClaimImageModel>.from(
-          (res as List).map((e) => ClaimImageModel.fromJson(e)).toList()));
+      return Right(
+        List<ClaimImageModel>.from(
+          (res as List).map((e) => ClaimImageModel.fromJson(e)).toList(),
+        ),
+      );
     } catch (e) {
       if (e is APIErrors) {
         return Left(e);
@@ -52,8 +55,10 @@ class ClaimMeDirectionDetailRepositoryImpl
   }
 
   @override
-  Future<Either<APIErrors, bool>> deleteAllImage(
-      {int? partDirectionId, required String claimId}) async {
+  Future<Either<APIErrors, bool>> deleteAllImage({
+    int? partDirectionId,
+    required String claimId,
+  }) async {
     try {
       await DirectionDetailAPI.deleteAllImage(
         claimId: claimId,
@@ -70,12 +75,11 @@ class ClaimMeDirectionDetailRepositoryImpl
   }
 
   @override
-  Future<Either<APIErrors, bool>> deleteImageById(
-      {required String imageId}) async {
+  Future<Either<APIErrors, bool>> deleteImageById({
+    required String imageId,
+  }) async {
     try {
-      await DirectionDetailAPI.deleteImageById(
-        imageId: imageId,
-      ).request();
+      await DirectionDetailAPI.deleteImageById(imageId: imageId).request();
       return const Right(true);
     } catch (e) {
       if (e is APIErrors) {
@@ -87,16 +91,20 @@ class ClaimMeDirectionDetailRepositoryImpl
   }
 
   @override
-  Future<Either<APIErrors, List<CarPartHasDamageModel>>> getCarPartHasDamage(
-      {required int partDirectionId, required String claimId}) async {
+  Future<Either<APIErrors, List<CarPartHasDamageModel>>> getCarPartHasDamage({
+    required int partDirectionId,
+    required String claimId,
+  }) async {
     try {
       final res = await DirectionDetailAPI.getCarPartHasDamage(
         claimId: claimId,
         directionId: partDirectionId.toString(),
       ).request();
-      return Right(List<CarPartHasDamageModel>.from((res as List)
-          .map((e) => CarPartHasDamageModel.fromJson(e))
-          .toList()));
+      return Right(
+        List<CarPartHasDamageModel>.from(
+          (res as List).map((e) => CarPartHasDamageModel.fromJson(e)).toList(),
+        ),
+      );
     } catch (e) {
       if (e is APIErrors) {
         return Left(e);

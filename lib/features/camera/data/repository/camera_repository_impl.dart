@@ -14,15 +14,16 @@ import '../remote_data/camera_api.dart';
 
 class ClaimMeCameraRepositoryImpl implements CameraRepository {
   @override
-  Future<Either<APIErrors, ImageUploadResponse>> uploadImageToS3Server(
-      {required String localFilePath}) async {
+  Future<Either<APIErrors, ImageUploadResponse>> uploadImageToS3Server({
+    required String localFilePath,
+  }) async {
     try {
       // get url
       var serverFilePath =
           'INSURANCE/${DateTime.now().millisecondsSinceEpoch}/${basename(localFilePath)}';
-      var uploadUrlResponse =
-          await CameraAPI.getImageUploadUrl(serverFilePath: serverFilePath)
-              .request();
+      var uploadUrlResponse = await CameraAPI.getImageUploadUrl(
+        serverFilePath: serverFilePath,
+      ).request();
       final uploadUrlRes = GetUploadUrlResponse.fromJson(uploadUrlResponse);
       String? s3FilePath;
 
@@ -36,9 +37,7 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
           data: File(localFilePath).openRead(),
           options: Options(
             contentType: "multiple/form-data",
-            headers: {
-              "Content-Length": File(localFilePath).lengthSync(),
-            },
+            headers: {"Content-Length": File(localFilePath).lengthSync()},
           ),
         );
         if (s3Response.statusCode == 200) {
@@ -48,9 +47,9 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
 
       /// upload thanh cong thi validate
       if (s3FilePath != null && s3FilePath.isNotEmpty) {
-        var result =
-            await CameraAPI.validateAfterUploadToS3(serverFilePath: s3FilePath)
-                .request();
+        var result = await CameraAPI.validateAfterUploadToS3(
+          serverFilePath: s3FilePath,
+        ).request();
         return Right(ImageUploadResponse.fromJson(result));
       }
       return Left(FetchDataError('Upload image failed'));
@@ -59,10 +58,9 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
         return Left(e);
       } else {
         if (e.toString().toLowerCase().contains('connection') ||
-            e
-                .toString()
-                .toLowerCase()
-                .contains('can\'t assign requested address')) {
+            e.toString().toLowerCase().contains(
+              'can\'t assign requested address',
+            )) {
           return Left(NoInternetError('Connection aborted'));
         }
         return Left(FetchDataError(e.toString()));
@@ -72,7 +70,7 @@ class ClaimMeCameraRepositoryImpl implements CameraRepository {
 
   @override
   Future<Either<APIErrors, DamageAssessmentResponse>>
-      callAiEngineAfterTakePhotoV2({
+  callAiEngineAfterTakePhotoV2({
     required String claimId,
     required String imageName,
     required String filePath,

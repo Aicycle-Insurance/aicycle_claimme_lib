@@ -29,13 +29,13 @@ class CarDirectionSetting extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (directionSlug != null) 'directionSlug': directionSlug,
-        if (directionName != null) 'directionName': directionName,
-        if (width != null) 'width': width,
-        if (height != null) 'height': height,
-        if (borderRadius != null) 'borderRadius': borderRadius,
-        if (isDefault != null) 'isDefault': isDefault,
-      };
+    if (directionSlug != null) 'directionSlug': directionSlug,
+    if (directionName != null) 'directionName': directionName,
+    if (width != null) 'width': width,
+    if (height != null) 'height': height,
+    if (borderRadius != null) 'borderRadius': borderRadius,
+    if (isDefault != null) 'isDefault': isDefault,
+  };
 
   CarDirectionSetting copyWith({
     String? directionSlug,
@@ -88,18 +88,20 @@ class AICycleClaimMeSetting extends Equatable {
       customCarImage: json['customCarImage']?.toString(),
       carDirections: json['carDirections'] is List
           ? json['carDirections']
-              .map<CarDirectionSetting>((e) => CarDirectionSetting.fromJson(e))
-              .toList()
+                .map<CarDirectionSetting>(
+                  (e) => CarDirectionSetting.fromJson(e),
+                )
+                .toList()
           : null,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'bgImage': bgImage,
-        'bgColor': bgColor,
-        'customCarImage': customCarImage,
-        'carDirections': carDirections?.map((e) => e.toJson()).toList(),
-      };
+    'bgImage': bgImage,
+    'bgColor': bgColor,
+    'customCarImage': customCarImage,
+    'carDirections': carDirections?.map((e) => e.toJson()).toList(),
+  };
 
   AICycleClaimMeSetting copyWith({
     String? bgImage,
@@ -117,11 +119,6 @@ class AICycleClaimMeSetting extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      bgImage,
-      bgColor,
-      customCarImage,
-      carDirections,
-    ];
+    return [bgImage, bgColor, customCarImage, carDirections];
   }
 }

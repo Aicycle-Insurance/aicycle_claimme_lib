@@ -41,24 +41,26 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       Get.find();
 
   CameraController? cameraController;
-  var isInActive = false.obs;
-  var isCameraLoading = false.obs;
+  final isInActive = false.obs;
+  final isCameraLoading = false.obs;
   ClaimMeCameraArgument? argument;
-  late final TabController tabController;
-  var flashMode = Rx<FlashMode>(FlashMode.off);
-  var previewFile = Rx<XFile?>(null);
-  var isResizing = false.obs;
+  TabController? tabController;
+  final flashMode = Rx<FlashMode>(FlashMode.off);
+  final previewFile = Rx<XFile?>(null);
+  final isResizing = false.obs;
 
   late Stream<DeviceOrientation> sensorStream;
-  var currentOrientation = Rx<DeviceOrientation>(DeviceOrientation.portraitUp);
+  final currentOrientation = Rx<DeviceOrientation>(
+    DeviceOrientation.portraitUp,
+  );
 
-  var showRetake = false.obs;
-  var showErrorDialog = false.obs;
-  var currentTabIndex = 0.obs;
-  var carPartOnSelected = Rx<CarPartHasDamageModel?>(null);
-  var isConfidentLevelWarning = false.obs;
-  var damageAssessmentResponse = Rx<DamageAssessmentResponse?>(null);
-  var isPortraitUpWhileTakePhoto = false.obs;
+  final showRetake = false.obs;
+  final showErrorDialog = false.obs;
+  final currentTabIndex = 0.obs;
+  final carPartOnSelected = Rx<CarPartHasDamageModel?>(null);
+  final isConfidentLevelWarning = false.obs;
+  final damageAssessmentResponse = Rx<DamageAssessmentResponse?>(null);
+  final isPortraitUpWhileTakePhoto = false.obs;
 
   ///
   DamageAssessmentResponse? cacheDamageResponse;
@@ -74,12 +76,12 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       imageRangeIds[currentTabIndex.value];
 
   ///
-  var carPartsForCloseUpShot = <CarPartHasDamageModel>[].obs;
+  final carPartsForCloseUpShot = <CarPartHasDamageModel>[].obs;
 
   ///
-  var longShotImages = <String>[].obs;
-  var middleShotImages = <String>[].obs;
-  var closeUpShotImages = <String>[].obs;
+  final longShotImages = <String>[].obs;
+  final middleShotImages = <String>[].obs;
+  final closeUpShotImages = <String>[].obs;
 
   List<String> get currentImageList {
     switch (currentTabIndex.value) {
@@ -95,12 +97,11 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
   }
 
   ///
-  var currentReplacedImageId = ''.obs;
+  final currentReplacedImageId = ''.obs;
 
   @override
   void onInit() {
     WidgetsBinding.instance.addObserver(this);
-    tabController = TabController(length: 3, vsync: this);
     if (cameras.isNotEmpty) {
       onNewCameraSelected(cameras[0]);
     }
@@ -126,19 +127,25 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     }
     super.onReady();
     if (argument?.longShotImages != null) {
-      longShotImages.assignAll(argument!.longShotImages!
-          .map((e) => e.imageUrl ?? e.url ?? '')
-          .toList());
+      longShotImages.assignAll(
+        argument!.longShotImages!
+            .map((e) => e.imageUrl ?? e.url ?? '')
+            .toList(),
+      );
     }
     if (argument?.middleShotImages != null) {
-      middleShotImages.assignAll(argument!.middleShotImages!
-          .map((e) => e.imageUrl ?? e.url ?? '')
-          .toList());
+      middleShotImages.assignAll(
+        argument!.middleShotImages!
+            .map((e) => e.imageUrl ?? e.url ?? '')
+            .toList(),
+      );
     }
     if (argument?.closeUpShotImages != null) {
-      closeUpShotImages.assignAll(argument!.closeUpShotImages!
-          .map((e) => e.imageUrl ?? e.url ?? '')
-          .toList());
+      closeUpShotImages.assignAll(
+        argument!.closeUpShotImages!
+            .map((e) => e.imageUrl ?? e.url ?? '')
+            .toList(),
+      );
     }
     if (argument?.carPartHasDamage != null &&
         argument!.carPartHasDamage!.isNotEmpty) {
@@ -153,7 +160,9 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     }
     final currentPos = await LocationServices.getLocation();
     currentLocation = await LocationServices.getLocationInfo(
-        currentPos?.latitude, currentPos?.longitude);
+      currentPos?.latitude,
+      currentPos?.longitude,
+    );
   }
 
   var isPickingPhoto = false.obs;
@@ -174,6 +183,14 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       isInActive(false);
       onNewCameraSelected(cameraCtrl.description);
     }
+  }
+
+  void setUpTab() {
+    tabController?.dispose();
+    tabController = TabController(
+      length: argument?.hideCloseUpShot != true ? 3 : 2,
+      vsync: this,
+    );
   }
 
   Future<void> onNewCameraSelected(CameraDescription cameraDescription) async {
@@ -259,8 +276,8 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         if (savePhotoAfterShot == true) {
           await SaverGallery.saveImage(
             await resizeFile.readAsBytes(),
-            name: resizeFile.name,
-            androidExistNotSave: true,
+            fileName: resizeFile.name,
+            skipIfExists: true,
           );
         }
         await cameraController?.resumePreview();
@@ -331,7 +348,6 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
               timeAppUpload: timer.elapsedMilliseconds / 1000,
             );
           }
-
           /// warning
           else if (r.level == 'warning') {
             cacheValidationModel['localFilePath'] = file.path;
@@ -340,19 +356,17 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
                 timer.elapsedMilliseconds / 1000;
             isLoading(false);
             showRetake(false);
-            status(BaseStatus(
-              message: r.message ?? 'Warning',
-              state: AppState.warning,
-            ));
+            status(
+              BaseStatus(
+                message: r.message ?? 'Warning',
+                state: AppState.warning,
+              ),
+            );
           }
-
           /// error
           else {
             isLoading(false);
-            status(BaseStatus(
-              message: null,
-              state: AppState.idle,
-            ));
+            status(BaseStatus(message: null, state: AppState.idle));
             showRetake(true);
           }
         },
@@ -384,78 +398,67 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       isTruck: argument?.carModelEnum == CarModelEnum.truck,
     );
 
-    callEngineRes.fold((l) {
-      isLoading(false);
+    callEngineRes.fold(
+      (l) {
+        isLoading(false);
 
-      /// Code from engine
-      if (l.errorCodeFromEngine != null) {
-        status(
-          BaseStatus(
-            message: '${l.code.toString()}: ${l.details.toString()}',
-            state: AppState.customError,
-          ),
-        );
-        showErrorDialog(true);
-        status(
-          BaseStatus(
-            message: '${l.code.toString()}: ${l.details.toString()}',
-            state: AppState.customError,
-          ),
-        );
-        showRetake(false);
-        showErrorDialog(true);
-      } else {
-        status(
-          BaseStatus(
-            message: '${l.code.toString()}: ${l.details.toString()}',
-            state: AppState.customError,
-          ),
-        );
-        showErrorDialog(true);
-        showRetake(true);
-      }
-    }, (r) async {
-      await getCarPartsForCloseUpShot();
-      isLoading(false);
-      if (currentTabIndex.value == 2) {
-        updateDirection(r);
-        previewFile.value = null;
-        cameraController?.resumePreview();
-      } else if (r.errorCodeFromEngine == null || r.errorCodeFromEngine == 0) {
-        updateDirection(r);
-        status(
-          BaseStatus(
-            message: null,
-            state: AppState.success,
-          ),
-        );
-        damageAssessmentResponse.value = r;
-        showRetake(false);
-      } else {
-        cacheDamageResponse = r;
-
-        /// confident level thấp
-        if (warningCodeFromEngine.contains(r.errorCodeFromEngine)) {
+        /// Code from engine
+        if (l.errorCodeFromEngine != null) {
           status(
             BaseStatus(
-              message: r.message,
-              state: AppState.warning,
+              message: '${l.code.toString()}: ${l.details.toString()}',
+              state: AppState.customError,
             ),
           );
-          showRetake(false);
-          isConfidentLevelWarning(true);
-        } else {
+          showErrorDialog(true);
           status(
             BaseStatus(
-              message: r.message,
+              message: '${l.code.toString()}: ${l.details.toString()}',
               state: AppState.customError,
             ),
           );
           showRetake(false);
           showErrorDialog(true);
+        } else {
+          status(
+            BaseStatus(
+              message: '${l.code.toString()}: ${l.details.toString()}',
+              state: AppState.customError,
+            ),
+          );
+          showErrorDialog(true);
+          showRetake(true);
         }
-      }
-    });
+      },
+      (r) async {
+        await getCarPartsForCloseUpShot();
+        isLoading(false);
+        if (currentTabIndex.value == 2) {
+          updateDirection(r);
+          previewFile.value = null;
+          cameraController?.resumePreview();
+        } else if (r.errorCodeFromEngine == null ||
+            r.errorCodeFromEngine == 0) {
+          updateDirection(r);
+          status(BaseStatus(message: null, state: AppState.success));
+          damageAssessmentResponse.value = r;
+          showRetake(false);
+        } else {
+          cacheDamageResponse = r;
+
+          /// confident level thấp
+          if (warningCodeFromEngine.contains(r.errorCodeFromEngine)) {
+            status(BaseStatus(message: r.message, state: AppState.warning));
+            showRetake(false);
+            isConfidentLevelWarning(true);
+          } else {
+            status(BaseStatus(message: r.message, state: AppState.customError));
+            showRetake(false);
+            showErrorDialog(true);
+          }
+        }
+      },
+    );
   }
 
   updateDirection(DamageAssessmentResponse response) async {
@@ -466,8 +469,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         ///
         if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
           Get.find<ClaimMeDirectionDetailController>().getDirectionImage(1);
-          Get.find<ClaimMeDirectionDetailController>()
-              .carPartsForCloseUpShot
+          Get.find<ClaimMeDirectionDetailController>().carPartsForCloseUpShot
               .assignAll(carPartsForCloseUpShot.value);
         }
         break;
@@ -480,8 +482,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         ///
         if (Get.isRegistered<ClaimMeDirectionDetailController>()) {
           Get.find<ClaimMeDirectionDetailController>().getDirectionImage(2);
-          Get.find<ClaimMeDirectionDetailController>()
-              .carPartsForCloseUpShot
+          Get.find<ClaimMeDirectionDetailController>().carPartsForCloseUpShot
               .assignAll(carPartsForCloseUpShot.value);
         }
         break;
@@ -502,10 +503,9 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     ///
     if (Get.isRegistered<ClaimMeFolderDetailController>()) {
       await Get.find<ClaimMeFolderDetailController>().getImageDirection();
-      Get.find<ClaimMeFolderDetailController>()
-          .damageResponseStream
-          .sink
-          .add(response);
+      Get.find<ClaimMeFolderDetailController>().damageResponseStream.sink.add(
+        response,
+      );
     }
   }
 
@@ -521,7 +521,8 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
           );
         } else {
           status(
-              BaseStatus(message: 'Hệ thống lỗi', state: AppState.customError));
+            BaseStatus(message: 'Hệ thống lỗi', state: AppState.customError),
+          );
           showErrorDialog(true);
           damageAssessmentResponse.value = null;
           previewFile.value = null;
@@ -539,8 +540,8 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
         if (status.value.state == AppState.warning &&
             cacheDamageResponse != null) {
           await deleteImageByIdUsecase(
-                  imageId: cacheDamageResponse!.imageId.toString())
-              .then((value) => cacheDamageResponse = null);
+            imageId: cacheDamageResponse!.imageId.toString(),
+          ).then((value) => cacheDamageResponse = null);
         }
         previewFile.value = null;
         cacheValidationModel = {};
@@ -553,11 +554,18 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
   }
 
   void onNextTapped() {
-    if (currentTabIndex.value == 0) {
-      onTabChanged(1);
-    } else if (currentTabIndex.value == 1) {
-      onTabChanged(2);
-    }
+    damageAssessmentResponse.value = null;
+    currentReplacedImageId.value = '';
+    cacheValidationModel = {};
+    damageAssessmentResponse.value = null;
+    showErrorDialog(false);
+    cacheDamageResponse = null;
+    previewFile.value = null;
+    // if (currentTabIndex.value == 0) {
+    //   onTabChanged(1);
+    // } else if (currentTabIndex.value == 1) {
+    //   onTabChanged(2);
+    // }
   }
 
   void onTabChanged(int index) {
@@ -568,6 +576,7 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
     showErrorDialog(false);
     cacheDamageResponse = null;
     previewFile.value = null;
+    // status(BaseStatus(message: '', state: AppState.idle));
     if (index == 2 && carPartsForCloseUpShot.isEmpty) {
       status(
         BaseStatus(
@@ -577,15 +586,10 @@ class ClaimMeCameraPageController extends ClaimMeBaseController
       );
       onTabChanged(1);
     } else {
-      status(
-        BaseStatus(
-          message: '',
-          state: AppState.idle,
-        ),
-      );
+      status(BaseStatus(message: '', state: AppState.idle));
       previewFile.value = null;
       currentTabIndex(index);
-      tabController.animateTo(index);
+      tabController?.animateTo(index);
     }
   }
 

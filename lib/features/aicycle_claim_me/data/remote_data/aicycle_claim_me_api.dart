@@ -13,44 +13,43 @@ class AicycleClaimMeApi extends APIRequest {
     String? appUser,
     bool? hasLicensePlate = true,
   }) : super(
-            endpoint: Endpoint.claimFolders,
-            method: HTTPMethod.post,
-            isLogResponse: false,
-            body: {
-              "claimName": folderName,
-              "vehicleBrandId": vehicleBrandId,
-              if (vehicleLicensePlates != null)
-                "vehicleLicensePlates": vehicleLicensePlates,
-              "externalClaimId": externalClaimId,
-              if (carColor != null) "carColor": carColor,
-              if (appUser != null) "appUser": appUser,
-              "isClaim": true,
-              if (hasLicensePlate != null) "hasLicensePlate": hasLicensePlate,
-              if (parentId != null) "parentClaimId": parentId,
-            });
+         endpoint: Endpoint.claimFolders,
+         method: HTTPMethod.post,
+         isLogResponse: false,
+         body: {
+           "claimName": folderName,
+           "vehicleBrandId": vehicleBrandId,
+           if (vehicleLicensePlates != null)
+             "vehicleLicensePlates": vehicleLicensePlates,
+           "externalClaimId": externalClaimId,
+           if (carColor != null) "carColor": carColor,
+           if (appUser != null) "appUser": appUser,
+           "isClaim": true,
+           if (hasLicensePlate != null) "hasLicensePlate": hasLicensePlate,
+           if (parentId != null) "parentClaimId": parentId,
+         },
+       );
 
   ///
-  AicycleClaimMeApi.getDuplicateFolder({
-    required String externalClaimId,
-  }) : super(
-            endpoint: Endpoint.claimFolders,
-            method: HTTPMethod.get,
-            isLogResponse: false,
-            query: {
-              "externalClaimId": externalClaimId,
-            });
+  AicycleClaimMeApi.getDuplicateFolder({required String externalClaimId})
+    : super(
+        endpoint: Endpoint.claimFolders,
+        method: HTTPMethod.get,
+        isLogResponse: false,
+        query: {"externalClaimId": externalClaimId},
+      );
 
   ///
   AicycleClaimMeApi.getUserInfo()
-      : super(
-          endpoint: Endpoint.getUserInfo,
-          method: HTTPMethod.get,
-          baseUrl: environment == Evn.production
-              ? BaseEndpoint.adminBaseUrl
-              : environment == Evn.stage
-                  ? BaseEndpoint.stageAdminBaseUrl
-                  : BaseEndpoint.devAdminBaseUrl,
-          isLogResponse: false,
-          isBaseResponse: false,
-        );
+    : super(
+        endpoint: Endpoint.getUserInfo,
+        method: HTTPMethod.get,
+        baseUrl: environment == Evn.production
+            ? BaseEndpoint.adminBaseUrl
+            : environment == Evn.stage
+            ? BaseEndpoint.stageAdminBaseUrl
+            : BaseEndpoint.devAdminBaseUrl,
+        isLogResponse: true,
+        isBaseResponse: false,
+      );
 }

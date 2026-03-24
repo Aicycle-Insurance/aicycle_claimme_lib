@@ -76,8 +76,8 @@ class WarningDialog extends StatelessWidget {
                       borderRadius: 6,
                       textStyle: CTextStyles.base.s14.whiteColor.w300(),
                     ),
-                  )
-                ]
+                  ),
+                ],
               ],
             ),
           ),

@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:aicycle_claimme_lib/features/aicycle_claim_me/data/model/user_info_model.dart';
+
 import '../../enum/app_state.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
@@ -10,16 +12,14 @@ class BaseStatus {
   final String? message;
   final AppState state;
 
-  BaseStatus({
-    required this.message,
-    this.state = AppState.init,
-  });
+  BaseStatus({required this.message, this.state = AppState.init});
 }
 
 abstract class ClaimMeBaseController extends FullLifeCycleController {
   final RxBool isLoading = true.obs;
   final Rx<BaseStatus> status = Rx<BaseStatus>(BaseStatus(message: null));
   final receiveErrorStream = StreamController<dynamic>.broadcast();
+  UserInfoResponse? user;
 
   @override
   void onInit() {
@@ -45,62 +45,64 @@ abstract class ClaimMeBaseController extends FullLifeCycleController {
     bool? isRefreshing,
     // RefreshController? controller,
   }) {
-    result.fold((error) {
-      isLoading(false);
-      receiveErrorStream.sink.add(error);
-      if (shouldShowError ?? true && error is! NoMessageError) {
-        if (error is NoInternetError) {
-          // Utils.instance.showError(
-          //   error: error,
-          //   message: 'No internet',
-          // );
-          status.value = BaseStatus(
-            message: 'No internet',
-            state: AppState.failed,
-          );
-        } else {
-          if (error.details.toString().toLowerCase().contains('connection') ||
-              error.details
-                  .toString()
-                  .toLowerCase()
-                  .contains('can\'t assign requested address')) {
+    result.fold(
+      (error) {
+        isLoading(false);
+        receiveErrorStream.sink.add(error);
+        if (shouldShowError ?? true && error is! NoMessageError) {
+          if (error is NoInternetError) {
+            // Utils.instance.showError(
+            //   error: error,
+            //   message: 'No internet',
+            // );
             status.value = BaseStatus(
-              message: 'Connection aborted',
+              message: 'No internet',
               state: AppState.failed,
             );
           } else {
-            status.value = BaseStatus(
-              message: error.details.toString(),
-              state: AppState.failed,
-            );
+            if (error.details.toString().toLowerCase().contains('connection') ||
+                error.details.toString().toLowerCase().contains(
+                  'can\'t assign requested address',
+                )) {
+              status.value = BaseStatus(
+                message: 'Connection aborted',
+                state: AppState.failed,
+              );
+            } else {
+              status.value = BaseStatus(
+                message: error.details.toString(),
+                state: AppState.failed,
+              );
+            }
           }
         }
-      }
-      if (onFail != null) {
-        onFail(error);
-      }
-      // if ((controller ?? refreshController) != null && isRefreshing != null) {
-      //   isRefreshing
-      //       ? (controller ?? refreshController)!.refreshFailed()
-      //       : (controller ?? refreshController)!.loadFailed();
-      // }
-    }, (data) {
-      isLoading(false);
-      if (onSuccess != null) {
-        onSuccess(data);
-      }
-      // if ((controller ?? refreshController) != null && isRefreshing != null) {
-      //   if (isRefreshing) {
-      //     (controller ?? refreshController)!
-      //         .refreshCompleted(resetFooterState: true);
-      //   } else {
-      //     if (data is List && data.isEmpty) {
-      //       (controller ?? refreshController)!.loadNoData();
-      //     } else {
-      //       (controller ?? refreshController)!.loadComplete();
-      //     }
-      //   }
-      // }
-    });
+        if (onFail != null) {
+          onFail(error);
+        }
+        // if ((controller ?? refreshController) != null && isRefreshing != null) {
+        //   isRefreshing
+        //       ? (controller ?? refreshController)!.refreshFailed()
+        //       : (controller ?? refreshController)!.loadFailed();
+        // }
+      },
+      (data) {
+        isLoading(false);
+        if (onSuccess != null) {
+          onSuccess(data);
+        }
+        // if ((controller ?? refreshController) != null && isRefreshing != null) {
+        //   if (isRefreshing) {
+        //     (controller ?? refreshController)!
+        //         .refreshCompleted(resetFooterState: true);
+        //   } else {
+        //     if (data is List && data.isEmpty) {
+        //       (controller ?? refreshController)!.loadNoData();
+        //     } else {
+        //       (controller ?? refreshController)!.loadComplete();
+        //     }
+        //   }
+        // }
+      },
+    );
   }
 }

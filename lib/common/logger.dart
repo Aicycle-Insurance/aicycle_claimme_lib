@@ -7,7 +7,7 @@ final logger = Logger(
   filter: null,
   printer: foundation.kDebugMode
       ? PrettyPrinter(
-          printTime: false,
+          dateTimeFormat: DateTimeFormat.none,
           lineLength: 100,
           errorMethodCount: 0,
           methodCount: 0,

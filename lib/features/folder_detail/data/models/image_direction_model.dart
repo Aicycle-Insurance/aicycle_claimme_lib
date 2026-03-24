@@ -26,12 +26,12 @@ class ImageDirectionModel extends Equatable {
   }
 
   Map<String, dynamic> toJson() => {
-        if (directionName != null) 'directionName': directionName,
-        if (directionSlug != null) 'directionSlug': directionSlug,
-        if (totalImage != null) 'totalImage': totalImage,
-        if (directionId != null) 'directionId': directionId,
-        if (thumbnail != null) 'thumbnail': thumbnail,
-      };
+    if (directionName != null) 'directionName': directionName,
+    if (directionSlug != null) 'directionSlug': directionSlug,
+    if (totalImage != null) 'totalImage': totalImage,
+    if (directionId != null) 'directionId': directionId,
+    if (thumbnail != null) 'thumbnail': thumbnail,
+  };
 
   ImageDirectionModel copyWith({
     String? directionName,
@@ -51,12 +51,6 @@ class ImageDirectionModel extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      directionName,
-      directionSlug,
-      totalImage,
-      directionId,
-      thumbnail,
-    ];
+    return [directionName, directionSlug, totalImage, directionId, thumbnail];
   }
 }

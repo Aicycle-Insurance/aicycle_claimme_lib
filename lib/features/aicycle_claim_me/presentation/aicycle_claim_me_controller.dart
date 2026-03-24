@@ -16,7 +16,7 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
   final GetUserInfoUsecase getUserInfoUsecase = Get.find();
 
   late AiCycleClaimMeArgument argument;
-  late AICycleClaimMeSetting? uiSettings;
+  AICycleClaimMeSetting? uiSettings;
   var claimFolder = Rx<ClaimFolderModel?>(null);
 
   static const organizations = {
@@ -83,12 +83,14 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
           aicycleClaimId: r.claimId,
           environtment: argument.environtment,
           locale: argument.locale,
+          xApplication: argument.xApplication,
+          enableVersion2: argument.enableVersion2,
+          savePhotoAfterShot: argument.savePhotoAfterShot,
+          isAICycle: argument.isAICycle,
+          vehicleTypeId: argument.vehicleTypeId,
         );
         isLoading(false);
-        status.value = BaseStatus(
-          message: null,
-          state: AppState.redirect,
-        );
+        status.value = BaseStatus(message: null, state: AppState.redirect);
         // claimFolder.value = r;
       },
     );
@@ -96,7 +98,8 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
 
   void getDuplicateFolder() async {
     var res = await getDuplicateFolderUsecase(
-        externalClaimId: argument.externalClaimId);
+      externalClaimId: argument.externalClaimId,
+    );
     res.fold(
       (l) {
         isLoading(false);
@@ -112,12 +115,14 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
           aicycleClaimId: r.claimId,
           environtment: argument.environtment,
           locale: argument.locale,
+          xApplication: argument.xApplication,
+          enableVersion2: argument.enableVersion2,
+          savePhotoAfterShot: argument.savePhotoAfterShot,
+          isAICycle: argument.isAICycle,
+          vehicleTypeId: argument.vehicleTypeId,
         );
         isLoading(false);
-        status.value = BaseStatus(
-          message: null,
-          state: AppState.redirect,
-        );
+        status.value = BaseStatus(message: null, state: AppState.redirect);
         claimFolder.value = r;
       },
     );
@@ -125,9 +130,10 @@ class AiCycleClaimMeController extends ClaimMeBaseController {
 
   Future getUserInfo() async {
     isLoading(true);
-    processUsecaseResult<UserInfo>(
+    processUsecaseResult<UserInfoResponse>(
       result: await getUserInfoUsecase(),
       onSuccess: (p0) {
+        user = p0;
         if (p0.data?.organizations != null &&
             p0.data!.organizations!.isNotEmpty) {
           uiSettings = p0.data!.organizations!.first.kvp?.sdk;

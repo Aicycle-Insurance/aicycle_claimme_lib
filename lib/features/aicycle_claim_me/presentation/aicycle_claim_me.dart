@@ -14,11 +14,7 @@ import '../../../generated/locales.g.dart';
 import '../../folder_detail/presentation/folder_detail_page.dart';
 import 'aicycle_claim_me_controller.dart';
 
-enum Evn {
-  dev,
-  stage,
-  production,
-}
+enum Evn { dev, stage, production }
 
 bool? enableVersion2 = true;
 bool? isAICycle = true;
@@ -116,10 +112,7 @@ class _AiCycleClaimMeState
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              CColors.primaryA400,
-              CColors.primaryA500,
-            ],
+            colors: [CColors.primaryA400, CColors.primaryA500],
           ),
         ),
         child: Column(
@@ -129,6 +122,7 @@ class _AiCycleClaimMeState
             Assets.images.logo.image(
               package: packageName,
               width: 300,
+              fit: BoxFit.scaleDown,
             ),
             const Gap(24),
             Text(
@@ -142,7 +136,7 @@ class _AiCycleClaimMeState
                 borderRadius: BorderRadius.circular(2),
                 color: CColors.active,
               ),
-            )
+            ),
           ],
         ),
       ),
