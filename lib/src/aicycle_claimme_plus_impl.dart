@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import '../aicycle_claimme_plus.dart';
+import 'config/aicycle_config.dart';
+import 'core/theme/app_colors.dart';
+import 'core/utils/screen_utils.dart';
+import 'features/home/presentation/controller/home_controller.dart';
+import 'features/home/presentation/home_page.dart';
 
 /// The main entry point for the SDK as a Widget.
 ///
@@ -41,8 +46,50 @@ class AicycleClaimMe extends StatefulWidget {
 }
 
 class _AicycleClaimMeState extends State<AicycleClaimMe> {
+  late final HomeController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    // Lock orientation to portrait when using the package
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    _controller = HomeController();
+    _controller.init(widget.aiCycleConfig);
+  }
+
+  @override
+  void dispose() {
+    // Restore orientation when the widget is disposed
+    SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    ScreenUtil.init(context);
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: ListenableBuilder(
+        listenable: _controller,
+        builder: (context, child) {
+          if (_controller.status == ClaimMeStatus.loading ||
+              _controller.status == ClaimMeStatus.initial) {
+            return widget.aiCycleConfig.displayConfig.loadingWidget ??
+                const Center(child: CircularProgressIndicator());
+          }
+
+          if (_controller.status == ClaimMeStatus.success) {
+            return HomePage(
+              controller: _controller,
+              config: widget.aiCycleConfig,
+              onComplete: widget.onComplete,
+            );
+          }
+
+          return const SizedBox.shrink();
+        },
+      ),
+    );
   }
 }

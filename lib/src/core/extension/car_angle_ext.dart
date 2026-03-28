@@ -22,7 +22,7 @@ extension CarAngleExt on AicycleCarAngle {
         return 'phai-4wif2Z';
       case AicycleCarAngle.regCertFront:
         return 'tem-dang-kiem-LC81Ar';
-      case AicycleCarAngle.regCertRear:
+      case AicycleCarAngle.regCertBack:
         return 'tem-dang-kiem-LC81Ar';
       case AicycleCarAngle.exterior:
         return '45-trai-truoc-C1xM02';

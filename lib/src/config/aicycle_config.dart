@@ -33,7 +33,7 @@ enum AicycleCarAngle {
   regCertFront,
 
   /// Góc đăng kiểm sau
-  regCertRear,
+  regCertBack,
 
   /// Góc ngoại thất - dùng cho capture nhiều góc ngoại thất liên tiếp.
   exterior,
@@ -49,8 +49,8 @@ const Map<AicycleCarAngle, String> _kDefaultCarAnglesWithDisplayName = {
   AicycleCarAngle.rearRight: 'Sau phải',
   AicycleCarAngle.left: 'Sườn trái',
   AicycleCarAngle.right: 'Sườn phải',
-  AicycleCarAngle.regCertFront: 'Đăng kiểm trước',
-  AicycleCarAngle.regCertRear: 'Đăng kiểm sau',
+  AicycleCarAngle.regCertFront: 'Đăng kiểm mặt trước',
+  AicycleCarAngle.regCertBack: 'Đăng kiểm mặt sau',
   AicycleCarAngle.exterior: 'Ngoại thất',
 };
 

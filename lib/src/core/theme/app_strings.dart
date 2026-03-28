@@ -6,7 +6,7 @@
 class AppStrings {
   AppStrings._();
 
-  static const String package = 'aicycle_buyme_plus';
+  static const String package = 'aicycle_claimme_plus';
 
   // General Actions
   static const String btnDone = 'Hoàn thành';
