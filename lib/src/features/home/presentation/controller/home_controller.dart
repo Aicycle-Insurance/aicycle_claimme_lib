@@ -52,7 +52,7 @@ class HomeController extends ChangeNotifier {
         );
       }
 
-      // await sl.vehicleImageVault.loadAllDirectionalImages();
+      await sl.vehicleImageVault.loadAllDirectionalImages();
       // await sl.validationVault.validateVehicleAngle();
 
       _status = ClaimMeStatus.success;

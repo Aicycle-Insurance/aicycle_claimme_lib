@@ -18,6 +18,7 @@ class AppColors {
   static const Color surface = Colors.white; // Background of Cards/Containers
   static const Color backgroundGray = Color(0xFFFAFAFA);
   static const Color backgroundError = Color(0xFFFEE4E2);
+  static const Color backgroundPurple = Color(0xFFF5F2FE);
 
   // Text Colors
   static const Color textPrimary = Color(0xFF1F2738); // Main headings/text
@@ -36,8 +37,10 @@ class AppColors {
   static const Color border = Color(0xFFDEE2E6);
   static const Color divider = Color(0xFFE9ECEF);
   static const Color borderGray = Color(0xFFD5D7DA);
+  static const Color borderPurple = Color(0xFF404CD7);
 
   static const Color shadowLight = Color(0xFF00001A);
+  static const Color shadowPurple = Color(0xFF5B67F1);
 
   static const Color ink2 = Color(0xFF6D7280);
 }

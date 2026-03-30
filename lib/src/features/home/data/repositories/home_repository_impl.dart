@@ -1,6 +1,8 @@
 import '../../../../core/utils/internal_cache.dart';
+import '../../domain/entities/directional_image.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../data_sources/home_remote_data_source.dart';
+import '../mapper/directional_image_mapper.dart';
 import '../models/claim_me_folder_model.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
@@ -55,5 +57,25 @@ class HomeRepositoryImpl implements HomeRepository {
     final id = model.claimId?.toString() ?? '';
     InternalCache.claimId = id;
     return id;
+  }
+
+  @override
+  Future<List<DirectionalImage>> getDirectionalImages({
+    required String claimId,
+    required String angleId,
+  }) async {
+    final models = await _remoteDataSource.getDirectionalImages(
+      claimId: claimId,
+      angleId: angleId,
+    );
+    return models.map((m) => m.toEntity()).toList();
+  }
+
+  @override
+  Future<void> deleteImageById({
+    required List<int> imageIds,
+    String? vehicleAngleId,
+  }) async {
+    await _remoteDataSource.deleteImageById(imageIds, vehicleAngleId);
   }
 }

@@ -1,13 +1,12 @@
 import 'package:aicycle_claimme_plus/src/core/theme/app_colors.dart';
-import 'package:aicycle_claimme_plus/src/core/theme/app_strings.dart';
-import 'package:aicycle_claimme_plus/src/core/theme/app_text_styles.dart';
 import 'package:aicycle_claimme_plus/src/core/utils/screen_utils.dart';
-import 'package:aicycle_claimme_plus/src/core/widgets/dashed_container.dart';
 import 'package:aicycle_claimme_plus/src/features/home/presentation/widgets/reg_cert_section.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/aicycle_config.dart';
 import 'controller/home_controller.dart';
+import 'widgets/exterior_section.dart';
+import 'widgets/ocr_section.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -33,8 +32,9 @@ class HomePage extends StatelessWidget {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.h),
         child: Column(
+          spacing: 24.h,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [RegCertSection()],
+          children: [RegCertSection(), OCRSection(), ExteriorSection()],
         ),
       ),
     );

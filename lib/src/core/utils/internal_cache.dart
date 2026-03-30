@@ -14,7 +14,7 @@ class InternalCache {
   /// Làm mới toàn bộ tài nguyên khi thoát SDK
   static void resetAll() {
     clear();
-    // sl.vehicleImageVault.reset();
+    sl.vehicleImageVault.reset();
     // sl.validationVault.reset();
   }
 }

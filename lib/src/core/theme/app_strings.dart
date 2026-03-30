@@ -32,7 +32,7 @@ class AppStrings {
   static const String photoRegStamp = 'Ảnh tem đăng kiểm';
   static const String photoVinNumber = 'Ảnh số khung';
   static const String photoTaplo = 'Ảnh taplo';
-  static const String photoExterior = 'Ảnh xe ô tô';
+  static const String photoExterior = 'Ảnh ngoại thất';
 
   // Miscellaneous
   static const String guide = 'Hướng dẫn';
@@ -140,4 +140,8 @@ class AppStrings {
   static const String error = 'Lỗi';
   static const String isProcessing =
       'Hệ thống đang xử lý dữ liệu.\nVui lòng đợi trong giây lát.';
+
+  static const String aiAnalyze = 'AI phân tích';
+  static const String viewDetailOCR = 'Xem chi tiết kết quả OCR';
+  static const String carVersion = 'Phiên bản';
 }

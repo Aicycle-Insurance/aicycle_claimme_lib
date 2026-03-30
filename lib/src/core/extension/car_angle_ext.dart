@@ -16,14 +16,12 @@ extension CarAngleExt on AicycleCarAngle {
         return '45-trai-sau-1q3G3J';
       case AicycleCarAngle.rearRight:
         return '45-phai-sau-fRzY3r';
-      case AicycleCarAngle.left:
-        return 'trai-MyuVUE';
-      case AicycleCarAngle.right:
-        return 'phai-4wif2Z';
-      case AicycleCarAngle.regCertFront:
-        return 'tem-dang-kiem-LC81Ar';
-      case AicycleCarAngle.regCertBack:
-        return 'tem-dang-kiem-LC81Ar';
+      // case AicycleCarAngle.left:
+      //   return 'trai-MyuVUE';
+      // case AicycleCarAngle.right:
+      //   return 'phai-4wif2Z';
+      case AicycleCarAngle.regCert:
+        return 'dang-kiem-xe-82YjAa';
       case AicycleCarAngle.exterior:
         return '45-trai-truoc-C1xM02';
     }
@@ -32,29 +30,9 @@ extension CarAngleExt on AicycleCarAngle {
   String get title {
     final config = AicycleClaimMe.config;
     final displayName =
-        config.displayConfig.carAnglesWithDisplayName[this]?.toLowerCase() ??
-        AppStrings.noDisplayName.toLowerCase();
-
-    switch (this) {
-      case AicycleCarAngle.front:
-        return AppStrings.frontCaptureTitle(displayName);
-      case AicycleCarAngle.frontLeft:
-        return AppStrings.frontLeftCaptureTitle(displayName);
-      case AicycleCarAngle.frontRight:
-        return AppStrings.frontRightCaptureTitle(displayName);
-      case AicycleCarAngle.rear:
-        return AppStrings.rearCaptureTitle(displayName);
-      case AicycleCarAngle.rearLeft:
-        return AppStrings.rearLeftCaptureTitle(displayName);
-      case AicycleCarAngle.rearRight:
-        return AppStrings.rearRightCaptureTitle(displayName);
-      case AicycleCarAngle.left:
-        return AppStrings.leftCaptureTitle(displayName);
-      case AicycleCarAngle.right:
-        return AppStrings.rightCaptureTitle(displayName);
-      default:
-        return displayName;
-    }
+        config.displayConfig.carAnglesWithDisplayName[this] ??
+        AppStrings.noDisplayName;
+    return displayName;
   }
 
   String get description {
@@ -71,10 +49,10 @@ extension CarAngleExt on AicycleCarAngle {
         return AppStrings.rearLeftCaptureDescription;
       case AicycleCarAngle.rearRight:
         return AppStrings.rearRightCaptureDescription;
-      case AicycleCarAngle.left:
-        return AppStrings.leftCaptureDescription;
-      case AicycleCarAngle.right:
-        return AppStrings.rightCaptureDescription;
+      // case AicycleCarAngle.left:
+      //   return AppStrings.leftCaptureDescription;
+      // case AicycleCarAngle.right:
+      //   return AppStrings.rightCaptureDescription;
       default:
         return '';
     }

@@ -28,6 +28,10 @@ class $AssetsImagesGen {
   AssetGenImage get icErrorOutline =>
       const AssetGenImage('assets/images/ic_error_outline.png');
 
+  /// File path: assets/images/ic_starts.png
+  AssetGenImage get icStarts =>
+      const AssetGenImage('assets/images/ic_starts.png');
+
   /// File path: assets/images/ic_trash_01.png
   AssetGenImage get icTrash01 =>
       const AssetGenImage('assets/images/ic_trash_01.png');
@@ -36,7 +40,12 @@ class $AssetsImagesGen {
   AssetGenImage get imgCar => const AssetGenImage('assets/images/img_car.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [icErrorOutline, icTrash01, imgCar];
+  List<AssetGenImage> get values => [
+    icErrorOutline,
+    icStarts,
+    icTrash01,
+    imgCar,
+  ];
 }
 
 class Assets {

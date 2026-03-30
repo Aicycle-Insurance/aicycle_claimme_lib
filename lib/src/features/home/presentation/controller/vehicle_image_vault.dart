@@ -1,6 +1,226 @@
 import 'package:flutter/foundation.dart';
 
+import '../../../../../aicycle_claimme_plus.dart';
+import '../../../../core/extension/car_angle_ext.dart';
+import '../../../../core/utils/internal_cache.dart';
+import '../../domain/entities/directional_image.dart';
+import '../../domain/usecases/delete_image_use_case.dart';
+import '../../domain/usecases/get_directional_image_use_case.dart';
+
 /// Central store for managing all car capture images.
 /// Shared across different pages (HomePage, CameraPage, CarCapturePage...)
 /// via `sl.vehicleImageVault`
-class VehicleImageVault extends ChangeNotifier {}
+class VehicleImageVault extends ChangeNotifier {
+  final DeleteImageUseCase _deleteImageUseCase;
+  final GetDirectionalImagesUseCase _getDirectionalImagesUseCase;
+
+  VehicleImageVault(
+    this._deleteImageUseCase,
+    this._getDirectionalImagesUseCase,
+  );
+
+  /// Ảnh các góc cụ thể
+  final Set<DirectionalImage> _regCertImages = {};
+  final Set<DirectionalImage> _frontImages = {};
+  final Set<DirectionalImage> _frontLeftImages = {};
+  final Set<DirectionalImage> _frontRightImages = {};
+  final Set<DirectionalImage> _rearImages = {};
+  final Set<DirectionalImage> _rearLeftImages = {};
+  final Set<DirectionalImage> _rearRightImages = {};
+
+  /// The list of image IDs currently selected for actions (e.g., deletion).
+  final List<int> _selectedImageIds = [];
+  bool _isDeleting = false;
+
+  /// getters
+  List<DirectionalImage> get regCertImages => _regCertImages.toList();
+  List<DirectionalImage> get frontImages => _frontImages.toList();
+  List<DirectionalImage> get frontLeftImages => _frontLeftImages.toList();
+  List<DirectionalImage> get frontRightImages => _frontRightImages.toList();
+  List<DirectionalImage> get rearImages => _rearImages.toList();
+  List<DirectionalImage> get rearLeftImages => _rearLeftImages.toList();
+  List<DirectionalImage> get rearRightImages => _rearRightImages.toList();
+
+  List<int> get selectedImageIds => List.unmodifiable(_selectedImageIds);
+  bool get isDeleting => _isDeleting;
+
+  /// Thêm ảnh từ server
+  void addImagesFromServer(
+    AicycleCarAngle angle,
+    List<DirectionalImage> images,
+  ) {
+    switch (angle) {
+      case AicycleCarAngle.regCert:
+        _regCertImages.addAll(images);
+        break;
+      case AicycleCarAngle.front:
+        _frontImages.addAll(images);
+        break;
+      case AicycleCarAngle.frontLeft:
+        _frontLeftImages.addAll(images);
+        break;
+      case AicycleCarAngle.frontRight:
+        _frontRightImages.addAll(images);
+        break;
+      case AicycleCarAngle.rear:
+        _rearImages.addAll(images);
+        break;
+      case AicycleCarAngle.rearLeft:
+        _rearLeftImages.addAll(images);
+        break;
+      case AicycleCarAngle.rearRight:
+        _rearRightImages.addAll(images);
+        break;
+      default:
+        break;
+    }
+    notifyListeners();
+  }
+
+  /// Lấy ảnh theo góc
+  List<DirectionalImage> getImagesForAngle(AicycleCarAngle angle) {
+    switch (angle) {
+      case AicycleCarAngle.regCert:
+        return _regCertImages.toList();
+      case AicycleCarAngle.front:
+        return _frontImages.toList();
+      case AicycleCarAngle.frontLeft:
+        return _frontLeftImages.toList();
+      case AicycleCarAngle.frontRight:
+        return _frontRightImages.toList();
+      case AicycleCarAngle.rear:
+        return _rearImages.toList();
+      case AicycleCarAngle.rearLeft:
+        return _rearLeftImages.toList();
+      case AicycleCarAngle.rearRight:
+        return _rearRightImages.toList();
+      default:
+        return [];
+    }
+  }
+
+  /// Checks if an image ID is currently selected.
+  bool isSelected(int? imageId) {
+    if (imageId == null) return false;
+    return _selectedImageIds.contains(imageId);
+  }
+
+  /// Toggles the selection state of a given image URL.
+  void toggleImageSelection(int? imageId) {
+    if (imageId == null) return;
+    if (_selectedImageIds.contains(imageId)) {
+      _selectedImageIds.remove(imageId);
+    } else {
+      _selectedImageIds.add(imageId);
+    }
+    notifyListeners();
+  }
+
+  /// Clears the current image selection.
+  void clearSelection() {
+    _selectedImageIds.clear();
+    notifyListeners();
+  }
+
+  /// Deletes all locally selected images from their respective angle lists.
+  Future<void> deleteSelectedImages(AicycleCarAngle angle) async {
+    if (_selectedImageIds.isEmpty) return;
+
+    _isDeleting = true;
+    notifyListeners();
+    try {
+      // Delete from server
+      await _deleteImageUseCase(
+        DeleteImageUseCaseParams(
+          imageIds: List<int>.from(_selectedImageIds),
+          vehicleAngleId: angle == AicycleCarAngle.exterior ? null : angle.id,
+        ),
+      );
+
+      // Remove from all specific lists
+      _regCertImages.removeWhere(
+        (img) => _selectedImageIds.contains(img.imageId),
+      );
+      _frontImages.removeWhere(
+        (img) => _selectedImageIds.contains(img.imageId),
+      );
+      _frontLeftImages.removeWhere(
+        (img) => _selectedImageIds.contains(img.imageId),
+      );
+      _frontRightImages.removeWhere(
+        (img) => _selectedImageIds.contains(img.imageId),
+      );
+      _rearImages.removeWhere((img) => _selectedImageIds.contains(img.imageId));
+      _rearLeftImages.removeWhere(
+        (img) => _selectedImageIds.contains(img.imageId),
+      );
+      _rearRightImages.removeWhere(
+        (img) => _selectedImageIds.contains(img.imageId),
+      );
+      _selectedImageIds.clear();
+    } finally {
+      _isDeleting = false;
+      notifyListeners();
+    }
+  }
+
+  /// Clears all stored images (e.g., when the SDK initializes a new flow).
+  void reset() {
+    _regCertImages.clear();
+    _frontImages.clear();
+    _frontLeftImages.clear();
+    _frontRightImages.clear();
+    _rearImages.clear();
+    _rearLeftImages.clear();
+    _rearRightImages.clear();
+    _selectedImageIds.clear();
+    notifyListeners();
+  }
+
+  /// Fetch ảnh của tất cả các góc cùng lúc (parallel), rồi phân loại.
+  Future<void> loadAllDirectionalImages() async {
+    final claimId = InternalCache.claimId;
+    if (claimId.isEmpty) return;
+
+    // Danh sách các ID cần fetch (bao gồm các góc trong enum và 4 góc ẩn)
+    final List<({String id, AicycleCarAngle angle})> fetchConfig = [
+      ...AicycleCarAngle.values.map((a) => (id: a.id, angle: a)),
+      (id: 'phai-truoc-eYWg1d', angle: AicycleCarAngle.frontRight),
+      (id: 'trai-truoc-r6BEZd', angle: AicycleCarAngle.frontLeft),
+      (id: 'phai-sau-v1hAm6', angle: AicycleCarAngle.rearRight),
+      (id: 'trai-sau-t8QgFO', angle: AicycleCarAngle.rearLeft),
+    ];
+
+    // Reset trạng thái hiện tại trước khi load mới
+    reset();
+
+    final results = await Future.wait(
+      fetchConfig.map(
+        (config) => _fetchAngle(claimId: claimId, angleId: config.id),
+      ),
+    );
+
+    for (int i = 0; i < fetchConfig.length; i++) {
+      final angle = fetchConfig[i].angle;
+      final images = results[i];
+
+      if (images.isNotEmpty) {
+        addImagesFromServer(angle, images);
+      }
+    }
+  }
+
+  /// Fetch ảnh của một góc, trả về list rỗng nếu lỗi.
+  Future<List<DirectionalImage>> _fetchAngle({
+    required String claimId,
+    required String angleId,
+  }) async {
+    try {
+      return await _getDirectionalImagesUseCase(
+        GetDirectionalImagesParams(claimId: claimId, angleId: angleId),
+      );
+    } catch (_) {
+      return [];
+    }
+  }
+}
