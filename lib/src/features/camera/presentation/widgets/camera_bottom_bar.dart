@@ -2,10 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 
-// import '../../../../../gen/assets.gen.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/theme/app_colors.dart';
-// import '../../../../core/theme/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../controllers/camera_controller.dart';

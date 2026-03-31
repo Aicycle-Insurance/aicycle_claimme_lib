@@ -17,7 +17,7 @@ class ValidationVault extends ChangeNotifier {
 
   ValidationVault(this._validateVehicleAngleUseCase) {
     sl.vehicleImageVault.addListener(_onVaultChanged);
-    _isHasImage = sl.vehicleImageVault.hasImages;
+    _isHasImage = sl.vehicleImageVault.hasAnyImage;
     validateVehicleAngle();
   }
 
@@ -33,7 +33,7 @@ class ValidationVault extends ChangeNotifier {
   bool get isError => _validationType == ValidationType.error;
 
   Future<void> validateVehicleAngle() async {
-    _isHasImage = sl.vehicleImageVault.hasImages;
+    _isHasImage = sl.vehicleImageVault.hasAnyImage;
     if (!_config.validationConfig.missingPartValidation || !isHasImage) {
       _message = null;
       _validationType = ValidationType.initial;

@@ -194,7 +194,8 @@ class _CameraPageState extends State<CameraPage> {
                         builder: (context, _) {
                           if (widget.args.vehicleAngle !=
                               AicycleCarAngle.regCert) {
-                            if (!sl.vehicleImageVault.hasImages && _showGuide) {
+                            if (!sl.vehicleImageVault.hasAnyImage &&
+                                _showGuide) {
                               return Center(
                                 child: FirstGuidePopup(
                                   onTap: () =>

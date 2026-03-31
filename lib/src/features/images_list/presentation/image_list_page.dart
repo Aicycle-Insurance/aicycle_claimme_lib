@@ -239,12 +239,17 @@ class _ImageListPageState extends State<ImageListPage> {
                   OutlinedButton.icon(
                     onPressed: () {
                       sl.vehicleImageVault.clearSelection();
+                      final angle =
+                          widget.vehicleAngle == AicycleCarAngle.regCert
+                          ? AicycleCarAngle.regCert
+                          : AicycleCarAngle.exterior;
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => CameraPage(
                             args: CameraArgs(
-                              vehicleAngle: widget.vehicleAngle,
+                              vehicleAngle: angle,
                               isFramedPhoto: false,
                             ),
                           ),

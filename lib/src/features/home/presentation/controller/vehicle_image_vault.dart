@@ -27,6 +27,7 @@ class VehicleImageVault extends ChangeNotifier {
   final Set<DirectionalImage> _rearImages = {};
   final Set<DirectionalImage> _rearLeftImages = {};
   final Set<DirectionalImage> _rearRightImages = {};
+  final Set<DirectionalImage> _exteriorImages = {};
 
   /// The list of image IDs currently selected for actions (e.g., deletion).
   final List<int> _selectedImageIds = [];
@@ -40,17 +41,11 @@ class VehicleImageVault extends ChangeNotifier {
   List<DirectionalImage> get rearImages => _rearImages.toList();
   List<DirectionalImage> get rearLeftImages => _rearLeftImages.toList();
   List<DirectionalImage> get rearRightImages => _rearRightImages.toList();
+  List<DirectionalImage> get exteriorImages => _exteriorImages.toList();
 
   List<int> get selectedImageIds => List.unmodifiable(_selectedImageIds);
   bool get isDeleting => _isDeleting;
-  bool get hasImages =>
-      _regCertImages.isNotEmpty ||
-      _frontImages.isNotEmpty ||
-      _frontLeftImages.isNotEmpty ||
-      _frontRightImages.isNotEmpty ||
-      _rearImages.isNotEmpty ||
-      _rearLeftImages.isNotEmpty ||
-      _rearRightImages.isNotEmpty;
+  bool get hasAnyImage => _exteriorImages.isNotEmpty;
 
   /// Thêm ảnh từ server
   void addImagesFromServer(
@@ -63,21 +58,27 @@ class VehicleImageVault extends ChangeNotifier {
         break;
       case AicycleCarAngle.front:
         _frontImages.addAll(images);
+        _exteriorImages.addAll(images);
         break;
       case AicycleCarAngle.frontLeft:
         _frontLeftImages.addAll(images);
+        _exteriorImages.addAll(images);
         break;
       case AicycleCarAngle.frontRight:
         _frontRightImages.addAll(images);
+        _exteriorImages.addAll(images);
         break;
       case AicycleCarAngle.rear:
         _rearImages.addAll(images);
+        _exteriorImages.addAll(images);
         break;
       case AicycleCarAngle.rearLeft:
         _rearLeftImages.addAll(images);
+        _exteriorImages.addAll(images);
         break;
       case AicycleCarAngle.rearRight:
         _rearRightImages.addAll(images);
+        _exteriorImages.addAll(images);
         break;
       default:
         break;
@@ -103,7 +104,7 @@ class VehicleImageVault extends ChangeNotifier {
       case AicycleCarAngle.rearRight:
         return _rearRightImages.toList();
       default:
-        return [];
+        return _exteriorImages.toList();
     }
   }
 
@@ -163,6 +164,9 @@ class VehicleImageVault extends ChangeNotifier {
         (img) => _selectedImageIds.contains(img.imageId),
       );
       _rearRightImages.removeWhere(
+        (img) => _selectedImageIds.contains(img.imageId),
+      );
+      _exteriorImages.removeWhere(
         (img) => _selectedImageIds.contains(img.imageId),
       );
       _selectedImageIds.clear();

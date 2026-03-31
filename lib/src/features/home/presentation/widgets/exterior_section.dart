@@ -146,7 +146,10 @@ class CornerButton extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => CameraPage(
-          args: CameraArgs(vehicleAngle: angle, isFramedPhoto: true),
+          args: CameraArgs(
+            vehicleAngle: AicycleCarAngle.exterior,
+            isFramedPhoto: true,
+          ),
         ),
       ),
     );
