@@ -1,16 +1,19 @@
+import '../../../../../aicycle_claimme_plus.dart';
+import '../../../../core/extension/car_angle_ext.dart';
 import '../../../../core/network/api_endpoints.dart';
 import '../../../../core/network/dio_client.dart';
 import '../models/claim_me_folder_model.dart';
 import '../models/directional_image_model.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<ClaimMeFolderModel> createBuyFolder(Map<String, dynamic> data);
+  Future<ClaimMeFolderModel> createClaimFolder(Map<String, dynamic> data);
   Future<ClaimMeFolderModel> getDuplicateFolder(String externalId);
   Future<List<DirectionalImageModel>> getDirectionalImages({
     required String claimId,
     required String angleId,
   });
   Future<void> deleteImageById(List<int> imageIds, String? vehicleAngleId);
+  Future<String> getValidationResult({required String claimId});
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -19,7 +22,9 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   HomeRemoteDataSourceImpl(this._dioClient);
 
   @override
-  Future<ClaimMeFolderModel> createBuyFolder(Map<String, dynamic> data) async {
+  Future<ClaimMeFolderModel> createClaimFolder(
+    Map<String, dynamic> data,
+  ) async {
     final response = await _dioClient.post<dynamic>(
       ApiEndpoints.createClaimDocument,
       data: data,
@@ -64,5 +69,17 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
             : null,
       );
     }
+  }
+
+  @override
+  Future<String> getValidationResult({required String claimId}) async {
+    final response = await _dioClient.post<dynamic>(
+      ApiEndpoints.getValidationResult,
+      data: {'claimId': claimId, 'direction': AicycleCarAngle.exterior.id},
+    );
+    if (response['message'] != null) {
+      return response['message'] as String;
+    }
+    return '';
   }
 }

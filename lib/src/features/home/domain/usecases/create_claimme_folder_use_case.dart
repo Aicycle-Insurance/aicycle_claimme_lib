@@ -1,6 +1,6 @@
 import '../repositories/home_repository.dart';
 
-class CreateBuyMeFolderParams {
+class CreateClaimMeFolderParams {
   final String externalClaimId;
   final String? claimName;
   final String? vehicleBrandId;
@@ -14,7 +14,7 @@ class CreateBuyMeFolderParams {
   final String? vehicleType;
   final bool? hasLicensePlate;
 
-  CreateBuyMeFolderParams({
+  CreateClaimMeFolderParams({
     required this.externalClaimId,
     this.claimName,
     this.vehicleBrandId,
@@ -30,12 +30,12 @@ class CreateBuyMeFolderParams {
   });
 }
 
-class CreateBuyMeFolderUseCase {
+class CreateClaimMeFolderUseCase {
   final HomeRepository _repository;
 
-  CreateBuyMeFolderUseCase(this._repository);
+  CreateClaimMeFolderUseCase(this._repository);
 
-  Future<String> call(CreateBuyMeFolderParams params) async {
+  Future<String> call(CreateClaimMeFolderParams params) async {
     return _repository.createNewAiCycleDocument(
       externalClaimId: params.externalClaimId,
       claimName: params.claimName,

@@ -24,6 +24,10 @@ class $AssetsGifGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/ic_camera_plus.png
+  AssetGenImage get icCameraPlus =>
+      const AssetGenImage('assets/images/ic_camera_plus.png');
+
   /// File path: assets/images/ic_error_outline.png
   AssetGenImage get icErrorOutline =>
       const AssetGenImage('assets/images/ic_error_outline.png');
@@ -39,12 +43,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/img_car.png
   AssetGenImage get imgCar => const AssetGenImage('assets/images/img_car.png');
 
+  /// File path: assets/images/img_xguide.png
+  AssetGenImage get imgXguide =>
+      const AssetGenImage('assets/images/img_xguide.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+    icCameraPlus,
     icErrorOutline,
     icStarts,
     icTrash01,
     imgCar,
+    imgXguide,
   ];
 }
 

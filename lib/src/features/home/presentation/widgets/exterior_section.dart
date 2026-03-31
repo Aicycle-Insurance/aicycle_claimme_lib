@@ -10,6 +10,8 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/screen_utils.dart';
+import '../../../camera/presentation/pages/camera_page.dart';
+import '../../../images_list/presentation/image_list_page.dart';
 
 class ExteriorSection extends StatelessWidget {
   const ExteriorSection({super.key});
@@ -139,6 +141,26 @@ class CornerButton extends StatelessWidget {
   const CornerButton({super.key, required this.angle});
   final AicycleCarAngle angle;
 
+  void _goToCamera(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CameraPage(
+          args: CameraArgs(vehicleAngle: angle, isFramedPhoto: true),
+        ),
+      ),
+    );
+  }
+
+  void _gotoImageList(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ImageListPage(vehicleAngle: angle),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
@@ -147,11 +169,7 @@ class CornerButton extends StatelessWidget {
         final images = sl.vehicleImageVault.getImagesForAngle(angle);
         final hasImage = images.isNotEmpty;
         return InkWell(
-          onTap: hasImage
-              ? null
-              : () {
-                  // TODO: go to camera screen
-                },
+          onTap: hasImage ? null : () => _goToCamera(context),
           child: SizedBox(
             height: 92.h,
             child: Column(
@@ -189,9 +207,7 @@ class CornerButton extends StatelessWidget {
                                 children: [
                                   /// Images count
                                   InkWell(
-                                    onTap: () {
-                                      // TODO: go to camera screen
-                                    },
+                                    onTap: () => _gotoImageList(context),
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 6.w,
@@ -226,9 +242,7 @@ class CornerButton extends StatelessWidget {
 
                                   /// Take more images button
                                   InkWell(
-                                    onTap: () {
-                                      // TODO: go to camera screen
-                                    },
+                                    onTap: () => _goToCamera(context),
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 4.w,

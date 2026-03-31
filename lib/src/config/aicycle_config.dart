@@ -50,7 +50,7 @@ const Map<AicycleCarAngle, String> _kDefaultCarAnglesWithDisplayName = {
   AicycleCarAngle.exterior: 'Ngoại thất',
 };
 
-/// Public configuration for the AiCycle BuyMe SDK.
+/// Public configuration for the AiCycle ClaimMe SDK.
 class AiCycleConfig {
   /// Thông tin xe
   final CarInformation? carInformation;

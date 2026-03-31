@@ -4,6 +4,7 @@ import 'package:aicycle_claimme_plus/src/features/home/presentation/widgets/reg_
 import 'package:flutter/material.dart';
 
 import '../../../config/aicycle_config.dart';
+import '../../../core/di/injection.dart';
 import 'controller/home_controller.dart';
 import 'widgets/exterior_section.dart';
 import 'widgets/ocr_section.dart';
@@ -29,12 +30,27 @@ class HomePage extends StatelessWidget {
         elevation: 0,
         toolbarHeight: 0,
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.h),
-        child: Column(
-          spacing: 24.h,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [RegCertSection(), OCRSection(), ExteriorSection()],
+      body: RefreshIndicator(
+        onRefresh: sl.vehicleImageVault.loadAllDirectionalImages,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.h),
+          child: ListenableBuilder(
+            listenable: sl.vehicleImageVault,
+            builder: (context, _) {
+              final images = sl.vehicleImageVault.getImagesForAngle(
+                AicycleCarAngle.regCert,
+              );
+              return Column(
+                spacing: 24.h,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RegCertSection(images: images),
+                  if (images.isNotEmpty) OCRSection(),
+                  ExteriorSection(),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

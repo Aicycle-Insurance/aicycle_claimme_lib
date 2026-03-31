@@ -25,4 +25,6 @@ abstract class HomeRepository {
     required List<int> imageIds,
     String? vehicleAngleId,
   });
+
+  Future<String> getValidationResult({required String claimId});
 }

@@ -1,10 +1,16 @@
 import '../../core/network/dio_client.dart';
+import '../../features/camera/data/data_source/image_remote_data_source.dart';
+import '../../features/camera/data/repositories/image_repository_impl.dart';
+import '../../features/camera/domain/repositories/image_respository.dart';
+import '../../features/camera/domain/usecases/upload_image_use_case.dart';
+import '../../features/camera/domain/usecases/upload_vehicle_inspection_use_case.dart';
 import '../../features/home/data/data_sources/home_remote_data_source.dart';
 import '../../features/home/data/repositories/home_repository_impl.dart';
 import '../../features/home/domain/repositories/home_repository.dart';
-import '../../features/home/domain/usecases/create_buyme_folder_use_case.dart';
+import '../../features/home/domain/usecases/create_claimme_folder_use_case.dart';
 import '../../features/home/domain/usecases/delete_image_use_case.dart';
 import '../../features/home/domain/usecases/get_directional_image_use_case.dart';
+import '../../features/home/domain/usecases/validate_vehicle_angle_use_case.dart';
 import '../../features/home/presentation/controller/validation_vault.dart';
 import '../../features/home/presentation/controller/vehicle_image_vault.dart';
 import '../utils/logger.dart';
@@ -25,25 +31,44 @@ class AiCycleInjection {
     deleteImageUseCase,
     getDirectionalImagesUseCase,
   );
-  late final ValidationVault validationVault = ValidationVault();
+  late final ValidationVault validationVault = ValidationVault(
+    validateVehicleAngleUseCase,
+  );
 
   // --- Data Sources ---
   late final HomeRemoteDataSource homeRemoteDataSource =
       HomeRemoteDataSourceImpl(_dioClient);
+
+  late final ImageRemoteDataSource imageRemoteDataSource =
+      ImageRemoteDataSourceImpl(_dioClient);
 
   // --- Repositories ---
   late final HomeRepository homeRepository = HomeRepositoryImpl(
     homeRemoteDataSource,
   );
 
+  late final ImageRepository imageRepository = ImageRepositoryImpl(
+    imageRemoteDataSource,
+  );
+
   // --- Use Cases ---
-  late final CreateBuyMeFolderUseCase createBuyMeFolderUseCase =
-      CreateBuyMeFolderUseCase(homeRepository);
+  late final CreateClaimMeFolderUseCase createClaimMeFolderUseCase =
+      CreateClaimMeFolderUseCase(homeRepository);
   late final DeleteImageUseCase deleteImageUseCase = DeleteImageUseCase(
     homeRepository,
   );
   late final GetDirectionalImagesUseCase getDirectionalImagesUseCase =
       GetDirectionalImagesUseCase(homeRepository);
+
+  late final UploadVehicleInspectionUseCase uploadVehicleInspectionUseCase =
+      UploadVehicleInspectionUseCase(imageRepository);
+
+  late final UploadImageUseCase uploadImageUseCase = UploadImageUseCase(
+    imageRepository,
+  );
+
+  late final ValidateVehicleAngleUseCase validateVehicleAngleUseCase =
+      ValidateVehicleAngleUseCase(homeRepository);
 }
 
 /// Global instance for accessing dependencies.

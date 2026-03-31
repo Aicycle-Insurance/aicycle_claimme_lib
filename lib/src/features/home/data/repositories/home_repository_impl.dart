@@ -40,7 +40,7 @@ class HomeRepositoryImpl implements HomeRepository {
       'hasLicensePlate': hasLicensePlate,
     };
     try {
-      final model = await _remoteDataSource.createBuyFolder(data);
+      final model = await _remoteDataSource.createClaimFolder(data);
       return _processResponse(model);
     } catch (e) {
       if (e.toString().toLowerCase().contains('duplicate')) {
@@ -77,5 +77,10 @@ class HomeRepositoryImpl implements HomeRepository {
     String? vehicleAngleId,
   }) async {
     await _remoteDataSource.deleteImageById(imageIds, vehicleAngleId);
+  }
+
+  @override
+  Future<String> getValidationResult({required String claimId}) {
+    return _remoteDataSource.getValidationResult(claimId: claimId);
   }
 }

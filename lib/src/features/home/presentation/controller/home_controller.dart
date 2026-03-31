@@ -3,14 +3,14 @@ import 'package:flutter/foundation.dart';
 import '../../../../../aicycle_claimme_plus.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/utils/internal_cache.dart';
-import '../../domain/usecases/create_buyme_folder_use_case.dart';
+import '../../domain/usecases/create_claimme_folder_use_case.dart';
 
-/// Status of the BuyMe folder creation or initialization process.
+/// Status of the ClaimMe folder creation or initialization process.
 enum ClaimMeStatus { initial, loading, success, error }
 
 class HomeController extends ChangeNotifier {
-  final CreateBuyMeFolderUseCase _createBuyMeFolderUseCase =
-      sl.createBuyMeFolderUseCase;
+  final CreateClaimMeFolderUseCase _createClaimMeFolderUseCase =
+      sl.createClaimMeFolderUseCase;
 
   ClaimMeStatus _status = ClaimMeStatus.initial;
   String _errorMessage = '';
@@ -32,8 +32,8 @@ class HomeController extends ChangeNotifier {
       } else {
         final carInfo = config.carInformation;
 
-        await _createBuyMeFolderUseCase(
-          CreateBuyMeFolderParams(
+        await _createClaimMeFolderUseCase(
+          CreateClaimMeFolderParams(
             externalClaimId: config.generalConfig.documentId,
             claimName:
                 config.generalConfig.documentName ??

@@ -43,6 +43,14 @@ class VehicleImageVault extends ChangeNotifier {
 
   List<int> get selectedImageIds => List.unmodifiable(_selectedImageIds);
   bool get isDeleting => _isDeleting;
+  bool get hasImages =>
+      _regCertImages.isNotEmpty ||
+      _frontImages.isNotEmpty ||
+      _frontLeftImages.isNotEmpty ||
+      _frontRightImages.isNotEmpty ||
+      _rearImages.isNotEmpty ||
+      _rearLeftImages.isNotEmpty ||
+      _rearRightImages.isNotEmpty;
 
   /// Thêm ảnh từ server
   void addImagesFromServer(

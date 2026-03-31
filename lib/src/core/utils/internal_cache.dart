@@ -3,7 +3,7 @@ import '../di/injection.dart';
 class InternalCache {
   InternalCache._();
 
-  /// ID của hồ sơ hiện tại (buyMeFolderId)
+  /// ID của hồ sơ hiện tại (claimMeFolderId)
   static String claimId = '';
 
   /// Xóa cache khi reset SDK hoặc logout
@@ -15,6 +15,6 @@ class InternalCache {
   static void resetAll() {
     clear();
     sl.vehicleImageVault.reset();
-    // sl.validationVault.reset();
+    sl.validationVault.reset();
   }
 }
