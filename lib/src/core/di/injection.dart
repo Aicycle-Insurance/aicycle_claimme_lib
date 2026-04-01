@@ -12,7 +12,7 @@ import '../../features/home/domain/usecases/delete_image_use_case.dart';
 import '../../features/home/domain/usecases/get_directional_image_use_case.dart';
 import '../../features/home/domain/usecases/get_vehicle_info_use_case.dart';
 import '../../features/home/domain/usecases/validate_vehicle_angle_use_case.dart';
-import '../../features/home/presentation/controller/validation_vault.dart';
+// import '../../features/home/presentation/controller/validation_vault.dart';
 import '../../features/home/presentation/controller/vehicle_image_vault.dart';
 import '../utils/logger.dart';
 
@@ -32,9 +32,9 @@ class AiCycleInjection {
     deleteImageUseCase,
     getDirectionalImagesUseCase,
   );
-  late final ValidationVault validationVault = ValidationVault(
-    validateVehicleAngleUseCase,
-  );
+  // late final ValidationVault validationVault = ValidationVault(
+  //   validateVehicleAngleUseCase,
+  // );
 
   // --- Data Sources ---
   late final HomeRemoteDataSource homeRemoteDataSource =

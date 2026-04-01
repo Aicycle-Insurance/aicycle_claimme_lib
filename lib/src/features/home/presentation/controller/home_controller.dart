@@ -61,8 +61,6 @@ class HomeController extends ChangeNotifier {
       }
 
       await sl.vehicleImageVault.loadAllDirectionalImages();
-      // await sl.validationVault.validateVehicleAngle();
-
       sl.vehicleImageVault.addListener(_onVaultChanged);
       _onVaultChanged();
 
@@ -82,7 +80,7 @@ class HomeController extends ChangeNotifier {
     sl.vehicleImageVault.removeListener(_onVaultChanged);
     InternalCache.resetAll();
     sl.vehicleImageVault.reset();
-    sl.validationVault.reset();
+    // sl.validationVault.reset();
     AicycleClaimMe.configInternal = null;
     super.dispose();
   }

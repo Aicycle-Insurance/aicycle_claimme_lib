@@ -15,6 +15,6 @@ class InternalCache {
   static void resetAll() {
     clear();
     sl.vehicleImageVault.reset();
-    sl.validationVault.reset();
+    // sl.validationVault.reset();
   }
 }

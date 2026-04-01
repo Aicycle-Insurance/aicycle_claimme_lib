@@ -139,67 +139,67 @@ class _ImageListPageState extends State<ImageListPage> {
               : SafeArea(
                   child: Column(
                     children: [
-                      ListenableBuilder(
-                        listenable: sl.validationVault,
-                        builder: (context, child) {
-                          return Visibility(
-                            visible:
-                                sl.validationVault.message?.isNotEmpty == true,
-                            child: Container(
-                              width: double.infinity,
-                              margin: EdgeInsets.all(
-                                16.r,
-                              ).copyWith(bottom: 8.r),
-                              padding: EdgeInsets.all(8.r),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.r),
-                                border: Border.all(
-                                  color: sl.validationVault.isSuccess
-                                      ? AppColors.success
-                                      : sl.validationVault.isError
-                                      ? AppColors.error
-                                      : Colors.transparent,
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (sl.validationVault.isError)
-                                    Assets.images.icErrorOutline.image(
-                                      package: AppStrings.package,
-                                      height: 38.h,
-                                      width: 38.h,
-                                    ),
-                                  Padding(
-                                    padding: EdgeInsets.all(8.r),
-                                    child: Row(
-                                      children: [
-                                        if (sl.validationVault.isSuccess) ...[
-                                          Icon(
-                                            Icons.check_circle_outline_rounded,
-                                            color: AppColors.success,
-                                            size: 20.r,
-                                          ),
-                                          SizedBox(width: 8.w),
-                                        ],
-                                        Expanded(
-                                          child: Text(
-                                            sl.validationVault.message ?? '',
-                                            style: AppTextStyles.bodySemibold
-                                                .copyWith(
-                                                  color: AppColors.textPrimary,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                      // ListenableBuilder(
+                      //   listenable: sl.validationVault,
+                      //   builder: (context, child) {
+                      //     return Visibility(
+                      //       visible:
+                      //           sl.validationVault.message?.isNotEmpty == true,
+                      //       child: Container(
+                      //         width: double.infinity,
+                      //         margin: EdgeInsets.all(
+                      //           16.r,
+                      //         ).copyWith(bottom: 8.r),
+                      //         padding: EdgeInsets.all(8.r),
+                      //         decoration: BoxDecoration(
+                      //           borderRadius: BorderRadius.circular(12.r),
+                      //           border: Border.all(
+                      //             color: sl.validationVault.isSuccess
+                      //                 ? AppColors.success
+                      //                 : sl.validationVault.isError
+                      //                 ? AppColors.error
+                      //                 : Colors.transparent,
+                      //           ),
+                      //         ),
+                      //         child: Column(
+                      //           crossAxisAlignment: CrossAxisAlignment.start,
+                      //           children: [
+                      //             if (sl.validationVault.isError)
+                      //               Assets.images.icErrorOutline.image(
+                      //                 package: AppStrings.package,
+                      //                 height: 38.h,
+                      //                 width: 38.h,
+                      //               ),
+                      //             Padding(
+                      //               padding: EdgeInsets.all(8.r),
+                      //               child: Row(
+                      //                 children: [
+                      //                   if (sl.validationVault.isSuccess) ...[
+                      //                     Icon(
+                      //                       Icons.check_circle_outline_rounded,
+                      //                       color: AppColors.success,
+                      //                       size: 20.r,
+                      //                     ),
+                      //                     SizedBox(width: 8.w),
+                      //                   ],
+                      //                   Expanded(
+                      //                     child: Text(
+                      //                       sl.validationVault.message ?? '',
+                      //                       style: AppTextStyles.bodySemibold
+                      //                           .copyWith(
+                      //                             color: AppColors.textPrimary,
+                      //                           ),
+                      //                     ),
+                      //                   ),
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
                       Expanded(
                         child: GridView.builder(
                           gridDelegate:
