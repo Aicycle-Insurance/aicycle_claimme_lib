@@ -3,7 +3,9 @@ import 'package:flutter/foundation.dart';
 import '../../../../../aicycle_claimme_plus.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/utils/internal_cache.dart';
+import '../../domain/entities/segment_result.dart';
 import '../../domain/usecases/create_claimme_folder_use_case.dart';
+import '../../domain/usecases/get_damage_statistics_use_case.dart';
 import '../../domain/usecases/get_vehicle_info_use_case.dart';
 import '../../domain/entities/ocr_info.dart';
 
@@ -14,6 +16,8 @@ class HomeController extends ChangeNotifier {
   final CreateClaimMeFolderUseCase _createClaimMeFolderUseCase =
       sl.createClaimMeFolderUseCase;
   final GetVehicleInfoUseCase _getVehicleInfoUseCase = sl.getVehicleInfoUseCase;
+  final GetDamageStatisticsUseCase _getDamageStatisticsUseCase =
+      sl.getDamageStatisticsUseCase;
 
   ClaimMeStatus _status = ClaimMeStatus.initial;
   String _errorMessage = '';
@@ -21,11 +25,15 @@ class HomeController extends ChangeNotifier {
   OCRInfo? _ocrInfo;
   bool _isFetchingOCR = false;
   int _previousRegCertCount = 0;
+  List<SegmentResult> _damageStatistics = [];
+  bool _isGettingDamageStatistics = false;
 
   ClaimMeStatus get status => _status;
   String get errorMessage => _errorMessage;
   OCRInfo? get ocrInfo => _ocrInfo;
   bool get isFetchingOCR => _isFetchingOCR;
+  List<SegmentResult> get damageStatistics => _damageStatistics;
+  bool get isGettingDamageStatistics => _isGettingDamageStatistics;
 
   /// Create new or get existing AiCycle document, then load all directional images.
   Future<void> init(AiCycleConfig config) async {
@@ -71,6 +79,20 @@ class HomeController extends ChangeNotifier {
       _errorMessage = e.toString();
       if (!_isDisposed) notifyListeners();
       rethrow;
+    }
+  }
+
+  Future<void> getDamageStatistics() async {
+    final claimId = InternalCache.claimId;
+    _isGettingDamageStatistics = true;
+    if (!_isDisposed) notifyListeners();
+    try {
+      _damageStatistics = await _getDamageStatisticsUseCase(claimId);
+    } catch (e) {
+      debugPrint('Error getting damage statistics: $e');
+    } finally {
+      _isGettingDamageStatistics = false;
+      if (!_isDisposed) notifyListeners();
     }
   }
 

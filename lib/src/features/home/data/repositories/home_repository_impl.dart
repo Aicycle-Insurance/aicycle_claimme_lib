@@ -1,10 +1,12 @@
 import '../../../../core/utils/internal_cache.dart';
 import '../../domain/entities/directional_image.dart';
 import '../../domain/entities/ocr_info.dart';
+import '../../domain/entities/segment_result.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../data_sources/home_remote_data_source.dart';
 import '../mapper/directional_image_mapper.dart';
 import '../mapper/ocr_mapper.dart';
+import '../mapper/segment_result_mapper.dart';
 import '../models/claim_me_folder_model.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
@@ -90,5 +92,11 @@ class HomeRepositoryImpl implements HomeRepository {
   Future<OCRInfo> getVehicleInfo(String claimId) async {
     final res = await _remoteDataSource.getVehicleInfo(claimId);
     return res.toEntity();
+  }
+
+  @override
+  Future<List<SegmentResult>> getDamageStatistics(String claimId) async {
+    final response = await _remoteDataSource.getDamageStatistics(claimId);
+    return response.map((e) => e.toEntity()).toList();
   }
 }

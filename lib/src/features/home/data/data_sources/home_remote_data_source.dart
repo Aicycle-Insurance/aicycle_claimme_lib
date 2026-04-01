@@ -4,6 +4,7 @@ import '../../../../core/network/api_endpoints.dart';
 import '../../../../core/network/dio_client.dart';
 import '../models/claim_me_folder_model.dart';
 import '../models/directional_image_model.dart';
+import '../models/segment_result_model.dart';
 import '../models/vehicle_info_model.dart';
 
 abstract class HomeRemoteDataSource {
@@ -16,6 +17,7 @@ abstract class HomeRemoteDataSource {
   Future<void> deleteImageById(List<int> imageIds, String? vehicleAngleId);
   Future<String> getValidationResult({required String claimId});
   Future<VehicleInfoModel> getVehicleInfo(String claimId);
+  Future<List<SegmentResultModel>> getDamageStatistics(String claimId);
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -92,5 +94,13 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       queryParameters: {'claimId': claimId},
     );
     return VehicleInfoModel.fromJson(response);
+  }
+
+  @override
+  Future<List<SegmentResultModel>> getDamageStatistics(String claimId) async {
+    final response = await _dioClient.get<List<dynamic>>(
+      ApiEndpoints.getSegmentResult(claimId),
+    );
+    return response.map((e) => SegmentResultModel.fromJson(e)).toList();
   }
 }

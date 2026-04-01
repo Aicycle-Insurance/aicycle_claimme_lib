@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 
 import '../../../config/aicycle_config.dart';
 import '../../../core/di/injection.dart';
+import '../../../core/parse_output.dart';
+import '../../../core/theme/app_strings.dart';
+import '../../../core/theme/app_text_styles.dart';
 import 'controller/home_controller.dart';
 import 'widgets/exterior_section.dart';
 import 'widgets/ocr_section.dart';
@@ -61,6 +64,59 @@ class HomePage extends StatelessWidget {
             },
           ),
         ),
+      ),
+      bottomNavigationBar: ListenableBuilder(
+        listenable: Listenable.merge([controller, sl.vehicleImageVault]),
+        builder: (context, _) {
+          final bool hasImages = sl.vehicleImageVault.hasAnyImage;
+          final bool isLoading = controller.isGettingDamageStatistics;
+
+          return Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.shadowLight.withValues(alpha: 0.05),
+                  blurRadius: 8,
+                  offset: const Offset(0, -4),
+                ),
+              ],
+            ),
+            child: SafeArea(
+              child: ElevatedButton(
+                onPressed: (hasImages && !isLoading)
+                    ? () async {
+                        await controller.getDamageStatistics();
+                        final data = ParseOutput.parseDamageStatistics(
+                          controller.damageStatistics,
+                        );
+                        onComplete?.call(data);
+                      }
+                    : null,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: Colors.white,
+                  minimumSize: Size(double.infinity, 40.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6.r),
+                  ),
+                  elevation: 0,
+                ),
+                child: isLoading
+                    ? SizedBox(
+                        height: 20.h,
+                        width: 20.h,
+                        child: const CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : Text(AppStrings.btnViewResult, style: AppTextStyles.button),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

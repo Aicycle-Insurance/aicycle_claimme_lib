@@ -19,6 +19,7 @@ class AppStrings {
   static const String btnRetake = 'Chụp lại';
   static const String btnSave = 'Lưu';
   static const String btnContinue = 'Tiếp tục';
+  static const String btnViewResult = 'Xem kết quả';
 
   // Instructions Header
   static const String instructionTitle = 'Hướng dẫn chụp xe';

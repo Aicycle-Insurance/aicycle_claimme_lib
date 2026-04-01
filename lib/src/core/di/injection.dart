@@ -9,6 +9,7 @@ import '../../features/home/data/repositories/home_repository_impl.dart';
 import '../../features/home/domain/repositories/home_repository.dart';
 import '../../features/home/domain/usecases/create_claimme_folder_use_case.dart';
 import '../../features/home/domain/usecases/delete_image_use_case.dart';
+import '../../features/home/domain/usecases/get_damage_statistics_use_case.dart';
 import '../../features/home/domain/usecases/get_directional_image_use_case.dart';
 import '../../features/home/domain/usecases/get_vehicle_info_use_case.dart';
 import '../../features/home/domain/usecases/validate_vehicle_angle_use_case.dart';
@@ -73,6 +74,9 @@ class AiCycleInjection {
 
   late final GetVehicleInfoUseCase getVehicleInfoUseCase =
       GetVehicleInfoUseCase(homeRepository);
+
+  late final GetDamageStatisticsUseCase getDamageStatisticsUseCase =
+      GetDamageStatisticsUseCase(homeRepository);
 }
 
 /// Global instance for accessing dependencies.
