@@ -54,16 +54,16 @@ class HomeController extends ChangeNotifier {
             claimName:
                 config.generalConfig.documentName ??
                 config.generalConfig.documentId,
-            vehicleBrandId: '5',
-            priceTypeId: 10,
+            vehicleBrandId: carInfo.brandId,
+            priceTypeId: int.tryParse(carInfo.garageId),
             isClaim: false,
-            brand: carInfo?.carCompanyId,
-            model: carInfo?.carModelId,
-            vehicleYear: carInfo?.manufacturingYear,
-            vehicleSpec: carInfo?.vehicleVersion,
-            licensePlate: carInfo?.licensePlate,
-            vehicleType: carInfo?.vehicleType ?? 'truck',
-            hasLicensePlate: carInfo?.licensePlate.isNotEmpty == true,
+            brand: carInfo.companyId,
+            model: carInfo.modelId,
+            vehicleYear: carInfo.manufacturingYear,
+            vehicleSpec: carInfo.vehicleVersion,
+            licensePlate: carInfo.licensePlate,
+            vehicleType: carInfo.vehicleType ?? 'sedan',
+            hasLicensePlate: carInfo.licensePlate.isNotEmpty == true,
           ),
         );
       }

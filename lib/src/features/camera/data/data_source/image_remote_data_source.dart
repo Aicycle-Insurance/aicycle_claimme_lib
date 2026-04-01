@@ -37,9 +37,9 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
       'img': await _dioClient.createMultipartFile(imagePath),
       'claimId': claimId,
       "isValidate": config.validationConfig.sameCarValidation,
-      "carCompany": config.carInformation?.carCompanyId,
-      "carModel": config.carInformation?.carModelId,
-      "licensePlate": config.carInformation?.licensePlate,
+      "carCompany": config.carInformation.companyId,
+      "carModel": config.carInformation.modelId,
+      "licensePlate": config.carInformation.licensePlate,
     });
 
     final response = await _dioClient.post<dynamic>(
@@ -145,9 +145,9 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
         "direction": angleId ?? '45-phai-truoc-UoYzs6',
         "isValidate": config.validationConfig.sameCarValidation,
         "isFramedPhoto": isFramedPhoto,
-        "carCompany": config.carInformation?.carCompanyId,
-        "carModel": config.carInformation?.carModelId,
-        "licensePlate": config.carInformation?.licensePlate,
+        "carCompany": config.carInformation.companyId,
+        "carModel": config.carInformation.modelId,
+        "licensePlate": config.carInformation.licensePlate,
       },
     );
   }

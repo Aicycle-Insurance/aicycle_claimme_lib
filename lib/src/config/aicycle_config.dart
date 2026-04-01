@@ -53,7 +53,7 @@ const Map<AicycleCarAngle, String> _kDefaultCarAnglesWithDisplayName = {
 /// Public configuration for the AiCycle ClaimMe SDK.
 class AiCycleConfig {
   /// Thông tin xe
-  final CarInformation? carInformation;
+  final CarInformation carInformation;
 
   /// Cấu hình validation
   final ValidationConfig validationConfig;
@@ -67,7 +67,7 @@ class AiCycleConfig {
   const AiCycleConfig({
     required this.generalConfig,
     this.displayConfig = const DisplayConfig(),
-    this.carInformation,
+    required this.carInformation,
     this.validationConfig = const ValidationConfig(
       missingPartValidation: true,
       sameCarValidation: true,
@@ -109,11 +109,11 @@ class GeneralConfig {
 }
 
 class CarInformation {
-  /// Hãng xe (ví dụ: "mazda-05")
-  final String carCompanyId;
+  /// Hãng xe (ví dụ: "toyota")
+  final String companyId;
 
   /// Dòng xe/Hiệu xe (ví dụ: "mazda.bt_50")
-  final String carModelId;
+  final String modelId;
 
   /// Năm sản xuất (ví dụ: 2022)
   final int? manufacturingYear;
@@ -131,9 +131,17 @@ class CarInformation {
   /// Dạng hex #RRGGBB
   final String? color;
 
+  /// ID của garage
+  final String garageId;
+
+  /// ID của brand
+  final String brandId;
+
   CarInformation({
-    required this.carCompanyId,
-    required this.carModelId,
+    required this.companyId,
+    required this.modelId,
+    required this.brandId,
+    required this.garageId,
     this.manufacturingYear,
     required this.vehicleVersion,
     required this.licensePlate,
