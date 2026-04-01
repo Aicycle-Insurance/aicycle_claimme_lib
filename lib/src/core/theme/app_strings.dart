@@ -144,4 +144,20 @@ class AppStrings {
   static const String aiAnalyze = 'AI phân tích';
   static const String viewDetailOCR = 'Xem chi tiết kết quả OCR';
   static const String carVersion = 'Phiên bản';
+
+  // OCR Detail
+  static const String ocrResultTitle = 'Kết quả OCR Đăng kiểm';
+  static const String licensePlateOcr = 'BIỂN ĐĂNG KÝ';
+  static const String manufacturedYearOcr = 'NĂM SẢN XUẤT';
+  static const String serialNumberOcr = 'Số quản lý';
+  static const String vehicleTypeOcr = 'Loại phương tiện';
+  static const String vehicleMarkOcr = 'Nhãn hiệu';
+  static const String modelCodeOcr = 'Số loại';
+  static const String engineNumberOcr = 'Số máy';
+  static const String chassisNumberOcr = 'Số khung';
+  static const String countryOcr = 'Nước sản xuất';
+  static const String wheelFormulaOcr = 'Công thức bánh xe';
+  static const String fuelTypeOcr = 'Loại nhiên liệu';
+  static const String engineDisplacementOcr = 'Dung tích động cơ';
+  static const String confirmInfo = 'Xác nhận thông tin';
 }

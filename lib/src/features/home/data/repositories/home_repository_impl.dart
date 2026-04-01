@@ -1,8 +1,10 @@
 import '../../../../core/utils/internal_cache.dart';
 import '../../domain/entities/directional_image.dart';
+import '../../domain/entities/ocr_info.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../data_sources/home_remote_data_source.dart';
 import '../mapper/directional_image_mapper.dart';
+import '../mapper/ocr_mapper.dart';
 import '../models/claim_me_folder_model.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
@@ -82,5 +84,11 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<String> getValidationResult({required String claimId}) {
     return _remoteDataSource.getValidationResult(claimId: claimId);
+  }
+
+  @override
+  Future<OCRInfo> getVehicleInfo(String claimId) async {
+    final res = await _remoteDataSource.getVehicleInfo(claimId);
+    return res.toEntity();
   }
 }

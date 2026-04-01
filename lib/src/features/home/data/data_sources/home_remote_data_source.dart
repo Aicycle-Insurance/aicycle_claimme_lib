@@ -4,6 +4,7 @@ import '../../../../core/network/api_endpoints.dart';
 import '../../../../core/network/dio_client.dart';
 import '../models/claim_me_folder_model.dart';
 import '../models/directional_image_model.dart';
+import '../models/vehicle_info_model.dart';
 
 abstract class HomeRemoteDataSource {
   Future<ClaimMeFolderModel> createClaimFolder(Map<String, dynamic> data);
@@ -14,6 +15,7 @@ abstract class HomeRemoteDataSource {
   });
   Future<void> deleteImageById(List<int> imageIds, String? vehicleAngleId);
   Future<String> getValidationResult({required String claimId});
+  Future<VehicleInfoModel> getVehicleInfo(String claimId);
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -81,5 +83,14 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       return response['message'] as String;
     }
     return '';
+  }
+
+  @override
+  Future<VehicleInfoModel> getVehicleInfo(String claimId) async {
+    final response = await _dioClient.get<dynamic>(
+      ApiEndpoints.getVehicleInfo,
+      queryParameters: {'claimId': claimId},
+    );
+    return VehicleInfoModel.fromJson(response);
   }
 }

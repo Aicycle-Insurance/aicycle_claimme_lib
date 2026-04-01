@@ -45,7 +45,16 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RegCertSection(images: images),
-                  if (images.isNotEmpty) OCRSection(),
+                  if (images.isNotEmpty)
+                    ListenableBuilder(
+                      listenable: controller,
+                      builder: (context, _) {
+                        return OCRSection(
+                          ocrInfo: controller.ocrInfo,
+                          isFetching: controller.isFetchingOCR,
+                        );
+                      },
+                    ),
                   ExteriorSection(),
                 ],
               );

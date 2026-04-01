@@ -1,4 +1,5 @@
 import '../entities/directional_image.dart';
+import '../entities/ocr_info.dart';
 
 abstract class HomeRepository {
   Future<String> createNewAiCycleDocument({
@@ -27,4 +28,6 @@ abstract class HomeRepository {
   });
 
   Future<String> getValidationResult({required String claimId});
+
+  Future<OCRInfo> getVehicleInfo(String claimId);
 }

@@ -1,13 +1,30 @@
-import 'package:aicycle_claimme_plus/gen/assets.gen.dart';
-import 'package:aicycle_claimme_plus/src/core/utils/screen_utils.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../gen/assets.gen.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../../../core/utils/screen_utils.dart';
+import '../../../../core/widgets/custom_shimmer.dart';
+import '../../domain/entities/ocr_info.dart';
+import 'ocr_detail.dart';
 
 class OCRSection extends StatelessWidget {
-  const OCRSection({super.key});
+  const OCRSection({super.key, this.ocrInfo, this.isFetching = false});
+  final OCRInfo? ocrInfo;
+  final bool isFetching;
+
+  void _showOCRDetail(BuildContext context) {
+    if (isFetching || ocrInfo == null) return;
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        insetPadding: EdgeInsets.all(24.r),
+        backgroundColor: Colors.transparent,
+        child: OcrDetail(ocrInfo: ocrInfo!),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,12 +95,14 @@ class OCRSection extends StatelessWidget {
                               color: AppColors.textSecondary,
                             ),
                           ),
-                          Text(
-                            'Vinfast VF8',
-                            style: AppTextStyles.body12Medium.copyWith(
-                              color: AppColors.primary,
-                            ),
-                          ),
+                          isFetching
+                              ? CustomShimmer(width: 60.w, height: 20.h)
+                              : Text(
+                                  ocrInfo?.vehicleCompany ?? '',
+                                  style: AppTextStyles.body12Medium.copyWith(
+                                    color: AppColors.primary,
+                                  ),
+                                ),
                         ],
                       ),
                       VerticalDivider(
@@ -103,12 +122,14 @@ class OCRSection extends StatelessWidget {
                                 color: AppColors.textSecondary,
                               ),
                             ),
-                            Text(
-                              'Vinfast VF8',
-                              style: AppTextStyles.body12Medium.copyWith(
-                                color: AppColors.primary,
-                              ),
-                            ),
+                            isFetching
+                                ? CustomShimmer(width: 150.w, height: 20.h)
+                                : Text(
+                                    ocrInfo?.codebookName ?? '',
+                                    style: AppTextStyles.body12Medium.copyWith(
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
                           ],
                         ),
                       ),
@@ -120,19 +141,19 @@ class OCRSection extends StatelessWidget {
           ),
           Divider(color: AppColors.border, thickness: 1, height: 1),
           InkWell(
-            onTap: () {
-              // TODO: show orc result
-            },
+            onTap: () => _showOCRDetail(context),
             child: SizedBox(
               height: 52.h,
               width: double.maxFinite,
               child: Center(
-                child: Text(
-                  AppStrings.viewDetailOCR,
-                  style: AppTextStyles.body12Light.copyWith(
-                    color: AppColors.primary,
-                  ),
-                ),
+                child: isFetching
+                    ? CustomShimmer(width: 150.w, height: 16.h)
+                    : Text(
+                        AppStrings.viewDetailOCR,
+                        style: AppTextStyles.body12Light.copyWith(
+                          color: AppColors.primary,
+                        ),
+                      ),
               ),
             ),
           ),
