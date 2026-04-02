@@ -20,7 +20,7 @@ class ApiEndpoints {
   static const String validateUploadImage = '/claimimages/validate';
 
   /// Endpoint for process uploaded image.
-  static const String processImage = '/v2/buy-me/process';
+  static const String processImage = '/v2/claim-me/process';
   // === End Combo api for upload image ===
 
   /// Endpoint for delete image by id.
