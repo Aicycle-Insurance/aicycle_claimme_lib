@@ -11,6 +11,7 @@ import '../../../../core/extension/xx_file.dart';
 import '../../../../core/utils/image_utils.dart';
 import '../../../../core/utils/internal_cache.dart';
 import '../../../home/domain/entities/directional_image.dart';
+import '../../domain/entities/upload_vehicle_inspection.dart';
 import '../../domain/usecases/upload_image_use_case.dart';
 import '../../domain/usecases/upload_vehicle_inspection_use_case.dart';
 
@@ -144,26 +145,36 @@ class XCameraController extends ChangeNotifier {
       _setUploading(true);
 
       final compressedImage = await ImageUtils.compressedImage(_capturedImage!);
-
+      late UploadVehicleInspection result;
       // Chỉ upload nếu góc chụp là regCert (đăng kiểm)
       if (angle == AicycleCarAngle.regCert) {
-        await _uploadRegCert(compressedImage);
+        result = await _uploadRegCert(compressedImage);
       } else {
-        await _uploadRegularImage(compressedImage);
+        result = await _uploadRegularImage(compressedImage);
       }
 
-      _setUploading(false);
-      onSuccess();
+      /// Handle if status 200 mà vẫn có error :)
+      if (result.errorCodeFromEngine != null &&
+          warningEngineCodes.contains(result.errorCodeFromEngine)) {
+        onWarning(
+          EngineException(result.errorMessage, result.errorCodeFromEngine),
+        );
+      } else if (result.errorCodeFromEngine != null &&
+          result.errorCodeFromEngine != 0) {
+        onError(result.errorMessage ?? 'Something went wrong.');
+      } else {
+        onSuccess();
+      }
     } on EngineException catch (e) {
-      _setUploading(false);
       if (warningEngineCodes.contains(e.engineCode)) {
         onWarning(e);
       } else {
         onError(e.message ?? 'Something went wrong.');
       }
     } catch (e) {
-      _setUploading(false);
       onError(e.toString());
+    } finally {
+      _setUploading(false);
     }
   }
 
@@ -172,7 +183,7 @@ class XCameraController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _uploadRegCert(XFile compressedImage) async {
+  Future<UploadVehicleInspection> _uploadRegCert(XFile compressedImage) async {
     final claimId = InternalCache.claimId;
 
     final result = await sl.uploadVehicleInspectionUseCase(
@@ -188,9 +199,12 @@ class XCameraController extends ChangeNotifier {
         [DirectionalImage(imageId: result.imageId, imageUrl: result.imgUrl)],
       );
     }
+    return result;
   }
 
-  Future<void> _uploadRegularImage(XFile compressedImage) async {
+  Future<UploadVehicleInspection> _uploadRegularImage(
+    XFile compressedImage,
+  ) async {
     final claimId = InternalCache.claimId;
 
     final result = await sl.uploadImageUseCase(
@@ -207,6 +221,7 @@ class XCameraController extends ChangeNotifier {
         [DirectionalImage(imageId: result.imageId, imageUrl: result.imgUrl)],
       );
     }
+    return result;
   }
 
   @override

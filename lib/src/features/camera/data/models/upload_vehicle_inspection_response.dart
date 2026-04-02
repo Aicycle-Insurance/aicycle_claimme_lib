@@ -38,7 +38,7 @@ class UploadVehicleInspectionResponse {
     }
     return UploadVehicleInspectionResponse(
       errorCodeFromEngine: json['errorCodeFromEngine'] as int?,
-      errorMessage: json['errorMessage'] as String?,
+      errorMessage: (json['errorMessage'] ?? json['message']) as String?,
       claimId: json['claimId'] as int?,
       vehicleInspectionOcrId: json['vehicleInspectionOcrId'] as int?,
       carCompany: json['carCompany'] as String?,
