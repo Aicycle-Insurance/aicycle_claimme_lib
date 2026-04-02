@@ -49,6 +49,10 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Chúng tôi cần truy cập camera để chụp ảnh xe giám định.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Chúng tôi cần truy cập thư viện ảnh để chọn ảnh xe giám định.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -56,7 +56,7 @@ class HomeController extends ChangeNotifier {
                 config.generalConfig.documentId,
             vehicleBrandId: carInfo.brandId,
             priceTypeId: int.tryParse(carInfo.garageId),
-            isClaim: false,
+            isClaim: true,
             brand: carInfo.companyId,
             model: carInfo.modelId,
             vehicleYear: carInfo.manufacturingYear,
