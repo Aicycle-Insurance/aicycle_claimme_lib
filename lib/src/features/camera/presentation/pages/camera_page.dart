@@ -65,7 +65,7 @@ class _CameraPageState extends State<CameraPage> {
     if (mounted) {
       CommonValidationDialog.show(
         context: context,
-        title: 'Warning',
+        title: AppStrings.warning,
         quarterTurns: 1,
         message: warning.message ?? 'Something went wrong.',
         primaryButtonLabel: AppStrings.btnRetake,
@@ -76,7 +76,7 @@ class _CameraPageState extends State<CameraPage> {
         },
         onSecondaryTapped: () {
           Navigator.pop(context);
-          Navigator.pop(context);
+          _controller.onWarningContinue();
         },
       );
     }

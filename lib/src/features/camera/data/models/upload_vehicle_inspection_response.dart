@@ -8,9 +8,11 @@ class UploadVehicleInspectionResponse {
   final int? imageId;
   final String? imgUrl;
   final String? imageDirection;
+  final String? errorLevel;
 
   UploadVehicleInspectionResponse({
     this.errorCodeFromEngine,
+    this.errorLevel,
     this.errorMessage,
     this.claimId,
     this.vehicleInspectionOcrId,
@@ -38,6 +40,7 @@ class UploadVehicleInspectionResponse {
     }
     return UploadVehicleInspectionResponse(
       errorCodeFromEngine: json['errorCodeFromEngine'] as int?,
+      errorLevel: json['errorLevel'] as String?,
       errorMessage: (json['errorMessage'] ?? json['message']) as String?,
       claimId: json['claimId'] as int?,
       vehicleInspectionOcrId: json['vehicleInspectionOcrId'] as int?,
@@ -68,6 +71,7 @@ class UploadVehicleInspectionResponse {
       if (imageId != null) 'imageId': imageId,
       if (imgUrl != null) 'imgUrl': imgUrl,
       if (imageDirection != null) 'imageDirection': imageDirection,
+      if (errorLevel != null) 'errorLevel': errorLevel,
     };
   }
 }

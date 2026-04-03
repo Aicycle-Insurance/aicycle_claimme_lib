@@ -20,6 +20,7 @@ class AppStrings {
   static const String btnSave = 'Lưu';
   static const String btnContinue = 'Tiếp tục';
   static const String btnViewResult = 'Xem kết quả';
+  static const String warning = 'Cảnh báo';
 
   // Instructions Header
   static const String instructionTitle = 'Hướng dẫn chụp xe';

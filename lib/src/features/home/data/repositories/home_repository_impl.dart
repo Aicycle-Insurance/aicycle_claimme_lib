@@ -39,7 +39,7 @@ class HomeRepositoryImpl implements HomeRepository {
       'model': model,
       'vehicleYear': vehicleYear,
       'vehicleSpec': vehicleSpec,
-      'licensePlate': licensePlate,
+      'vehicleLicensePlates': licensePlate,
       'vehicleType': vehicleType,
       'hasLicensePlate': hasLicensePlate,
     };
