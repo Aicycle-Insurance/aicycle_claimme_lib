@@ -31,7 +31,7 @@ class OldXCameraController extends ChangeNotifier {
 
   int _currentTabIndex = 0;
   UploadVehicleInspection? _uploadResultCached;
-  List<CarPartHasDamage> _carPartHasDamages = [];
+  final List<CarPartHasDamage> _carPartHasDamages = [];
   bool _isPartLoading = false;
   CarPartHasDamage? _selectedPart;
 
@@ -248,7 +248,7 @@ class OldXCameraController extends ChangeNotifier {
     _isPartLoading = true;
     _carPartHasDamages.clear();
     notifyListeners();
-    for (final numberID in angle.numberId) {
+    for (final numberID in AicycleCarAngle.exterior.numberId) {
       final result = await sl.getListCarPartHasDamageUseCase(
         GetListCarPartHasDamageParams(
           claimId: InternalCache.claimId,

@@ -61,7 +61,7 @@ extension CarAngleExt on AicycleCarAngle {
       case AicycleCarAngle.regCert:
         return [0];
       case AicycleCarAngle.exterior:
-        return [0];
+        return [2, 3, 4, 9, 8, 5, 7, 11, 6, 10];
     }
   }
 

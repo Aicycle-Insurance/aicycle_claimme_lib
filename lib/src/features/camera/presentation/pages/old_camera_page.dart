@@ -165,14 +165,10 @@ class _OldCameraPageState extends State<OldCameraPage>
                       visible: _controller.capturedImage == null,
                       child: InkWell(
                         onTap: () => Navigator.pop(context),
-                        child: AnimatedRotation(
-                          turns: turns,
-                          duration: const Duration(milliseconds: 300),
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 24.r,
-                          ),
+                        child: Icon(
+                          Icons.arrow_back_rounded,
+                          color: Colors.white,
+                          size: 24.r,
                         ),
                       ),
                     ),

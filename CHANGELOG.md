@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Back to use old camera layout.
+
 ## 1.0.1
 
 - Fix upload image error.
