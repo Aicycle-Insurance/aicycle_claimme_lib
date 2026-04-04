@@ -1,6 +1,6 @@
 name: aicycle_claimme_plus
 description: "An AICycle ClaimMe Plus package."
-version: 1.0.3
+version: 1.0.4
 homepage: https://aicycle.ai/
 
 environment:

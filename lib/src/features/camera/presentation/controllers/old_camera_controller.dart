@@ -196,6 +196,15 @@ class OldXCameraController extends ChangeNotifier {
       } else if (result.errorLevel == ErrorLevel.error) {
         onError(result.errorMessage ?? 'Something went wrong.');
       } else {
+        sl.vehicleImageVault.addImagesFromServer(
+          result.angleFromEngine ?? angle,
+          [
+            DirectionalImage(
+              imageId: result.imageId,
+              imageUrl: result.imgUrl,
+            ),
+          ],
+        );
         onSuccess();
       }
     } on EngineException catch (e) {

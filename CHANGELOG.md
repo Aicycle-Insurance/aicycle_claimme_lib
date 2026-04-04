@@ -1,3 +1,7 @@
+## 1.0.4
+
+- Fix upload image error.
+
 ## 1.0.3
 
 - Fix tab camera layout.
