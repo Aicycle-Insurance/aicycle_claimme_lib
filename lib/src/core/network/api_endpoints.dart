@@ -40,4 +40,8 @@ class ApiEndpoints {
   /// Endpoint for get image result.
   static String getImageResult(String claimId) =>
       '/v2/claimfolders/$claimId/image-result';
+
+  /// Endpoint for get car part has damage.
+  static String getCarPartHasDamage(String claimId) =>
+      '/claimfolders/$claimId/get-car-part-results';
 }

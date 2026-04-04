@@ -27,6 +27,44 @@ extension CarAngleExt on AicycleCarAngle {
     }
   }
 
+  //  up(1, 'tren-BrogFf'),
+  //   front(2, 'truoc-sT9qgX'),
+  //   d45RightFront(3, '45-phai-truoc-UoYzs6'),
+  //   d45LeftFront(4, '45-trai-truoc-C1xM02'),
+  //   back(5, 'sau-htBwjB'),
+  //   d45RightBack(6, '45-phai-sau-fRzY3r'),
+  //   d45LeftBack(7, '45-trai-sau-1q3G3J'),
+  //   rightFront(8, 'phai-truoc-eYWg1d'),
+  //   leftFront(9, 'trai-truoc-r6BEZd'),
+  //   rightBack(10, 'phai-sau-v1hAm6'),
+  //   leftBack(11, 'trai-sau-t8QgFO'),
+
+  //   /// Góc trái trên môi trường dev có id là 31
+  //   leftDev(31, 'trai-MyuVUE'),
+
+  //   /// Góc trái trên môi trường production có id là 22
+  //   leftProd(22, 'trai-MyuVUE');
+  List<int> get numberId {
+    switch (this) {
+      case AicycleCarAngle.front:
+        return [2];
+      case AicycleCarAngle.frontLeft:
+        return [4, 9];
+      case AicycleCarAngle.frontRight:
+        return [3, 8];
+      case AicycleCarAngle.rear:
+        return [5];
+      case AicycleCarAngle.rearLeft:
+        return [7, 11];
+      case AicycleCarAngle.rearRight:
+        return [6, 10];
+      case AicycleCarAngle.regCert:
+        return [0];
+      case AicycleCarAngle.exterior:
+        return [0];
+    }
+  }
+
   String get title {
     final config = AicycleClaimMe.config;
     final displayName =

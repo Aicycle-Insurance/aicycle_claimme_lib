@@ -12,6 +12,7 @@ import '../../../core/widgets/app_checkbox.dart';
 import '../../../core/widgets/delete_confirm_dialog.dart';
 import '../../camera/presentation/pages/camera_page.dart';
 import '../../home/domain/entities/directional_image.dart';
+import '../../camera/presentation/pages/old_camera_page.dart';
 
 class ImageListPage extends StatefulWidget {
   const ImageListPage({super.key, required this.vehicleAngle});
@@ -239,22 +240,27 @@ class _ImageListPageState extends State<ImageListPage> {
                   OutlinedButton.icon(
                     onPressed: () {
                       sl.vehicleImageVault.clearSelection();
-                      final angle =
-                          widget.vehicleAngle == AicycleCarAngle.regCert
-                          ? AicycleCarAngle.regCert
-                          : AicycleCarAngle.exterior;
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CameraPage(
-                            args: CameraArgs(
-                              vehicleAngle: angle,
-                              isFramedPhoto: false,
+                      if (widget.vehicleAngle == AicycleCarAngle.regCert) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CameraPage(
+                              args: CameraArgs(
+                                vehicleAngle: AicycleCarAngle.regCert,
+                                isFramedPhoto: false,
+                              ),
                             ),
                           ),
-                        ),
-                      );
+                        );
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                OldCameraPage(angle: widget.vehicleAngle),
+                          ),
+                        );
+                      }
                     },
                     style: OutlinedButton.styleFrom(
                       backgroundColor: images.isEmpty

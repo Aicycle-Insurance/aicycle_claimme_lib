@@ -5,12 +5,16 @@ class UploadImageParams {
   final String imagePath;
   final String claimId;
   final String? angleId;
+  final String? positionId;
+  final String? vehiclePartExcelId;
   final bool isFramedPhoto;
 
   UploadImageParams({
     required this.imagePath,
     required this.claimId,
     this.angleId,
+    this.positionId,
+    this.vehiclePartExcelId,
     this.isFramedPhoto = false,
   });
 }
@@ -25,6 +29,8 @@ class UploadImageUseCase {
       imagePath: params.imagePath,
       claimId: params.claimId,
       angleId: params.angleId,
+      positionId: params.positionId,
+      vehiclePartExcelId: params.vehiclePartExcelId,
       isFramedPhoto: params.isFramedPhoto,
     );
   }

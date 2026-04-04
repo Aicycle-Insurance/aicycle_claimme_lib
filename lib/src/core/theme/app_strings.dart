@@ -162,4 +162,11 @@ class AppStrings {
   static const String fuelTypeOcr = 'Loại nhiên liệu';
   static const String engineDisplacementOcr = 'Dung tích động cơ';
   static const String confirmInfo = 'Xác nhận thông tin';
+
+  // Capture range
+  static const String captureRangeOverview = 'Toàn cảnh';
+  static const String captureRangeMiddle = 'Trung cảnh';
+  static const String captureRangeDetail = 'Cận cảnh';
+  static const String noDamageParts =
+      'Không phát hiện bộ phận hỏng hóc cần chụp cận cảnh';
 }

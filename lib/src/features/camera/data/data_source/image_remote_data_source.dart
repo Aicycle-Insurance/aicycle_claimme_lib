@@ -4,6 +4,7 @@ import '../../../../../aicycle_claimme_plus.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/network/api_endpoints.dart';
 import '../../../../core/network/dio_client.dart';
+import '../models/car_part_has_damage_model.dart';
 import '../models/get_upload_url_response.dart';
 import '../models/upload_vehicle_inspection_response.dart';
 
@@ -17,10 +18,17 @@ abstract class ImageRemoteDataSource {
     required String imagePath,
     required String claimId,
     String? angleId,
+    String? positionId,
+    String? vehiclePartExcelId,
     bool isFramedPhoto = false,
   });
 
   Future<void> deleteImageById(List<int> imageIds, String? vehicleAngleId);
+
+  Future<List<CarPartHasDamageModel>> getCarPartHasDamage({
+    required String claimId,
+    required String directionId,
+  });
 }
 
 class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
@@ -37,8 +45,8 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
       'img': await _dioClient.createMultipartFile(imagePath),
       'claimId': claimId,
       "isValidate": config.validationConfig.sameCarValidation,
-      "carCompany": config.carInformation.companyId,
-      "carModel": config.carInformation.modelId,
+      "carCompany": config.carInformation.companyName,
+      "carModel": config.carInformation.modelName,
       "licensePlate": config.carInformation.licensePlate,
     });
 
@@ -54,6 +62,8 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
     required String imagePath,
     required String claimId,
     String? angleId,
+    String? positionId,
+    String? vehiclePartExcelId,
     bool isFramedPhoto = false,
   }) async {
     final serverFilePath = _generateServerFilePath(imagePath);
@@ -85,6 +95,8 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
       claimId,
       finalS3Path,
       angleId,
+      positionId,
+      vehiclePartExcelId,
       isFramedPhoto,
     );
 
@@ -132,6 +144,8 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
     String claimId,
     String serverPath,
     String? angleId,
+    String? positionId,
+    String? vehiclePartExcelId,
     bool isFramedPhoto,
   ) async {
     final config = AicycleClaimMe.config;
@@ -141,12 +155,13 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
         'claimId': claimId,
         'filePath': serverPath,
         "imageName": serverPath,
-        "position": 'toan-canh-afh4l5',
+        "position": positionId ?? 'toan-canh-afh4l5',
         "direction": angleId ?? '45-phai-truoc-UoYzs6',
+        "vehiclePartExcelId": vehiclePartExcelId,
         "isValidate": config.validationConfig.sameCarValidation,
         "isFramedPhoto": isFramedPhoto,
-        "carCompany": config.carInformation.companyId,
-        "carModel": config.carInformation.modelId,
+        "carCompany": config.carInformation.companyName,
+        "carModel": config.carInformation.modelName,
         "licensePlate": config.carInformation.licensePlate,
       },
     );
@@ -166,5 +181,22 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
             : null,
       );
     }
+  }
+
+  @override
+  Future<List<CarPartHasDamageModel>> getCarPartHasDamage({
+    required String claimId,
+    required String directionId,
+  }) async {
+    final response = await _dioClient.get<dynamic>(
+      ApiEndpoints.getCarPartHasDamage(claimId),
+      queryParameters: {'directionId': directionId},
+    );
+    if (response is Map && response['result'] is List) {
+      return (response['result'] as List)
+          .map((e) => CarPartHasDamageModel.fromJson(e))
+          .toList();
+    }
+    return [];
   }
 }

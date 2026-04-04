@@ -110,18 +110,18 @@ class GeneralConfig {
 
 class CarInformation {
   /// Hãng xe (ví dụ: "toyota")
-  final String companyId;
+  final String companyName;
 
-  /// Dòng xe/Hiệu xe (ví dụ: "mazda.bt_50")
-  final String modelId;
+  /// Dòng xe/Hiệu xe (ví dụ: "vios")
+  final String modelName;
 
   /// Năm sản xuất (ví dụ: 2022)
   final int? manufacturingYear;
 
-  /// Phiên bản xe (ví dụ: "luxury_1_9l_4x2_at")
-  final String vehicleVersion;
+  /// Phiên bản xe (ví dụ: "1.5C")
+  final String vehicleVersionName;
 
-  /// Biển số xe (ví dụ: "30A1983")
+  /// Biển số xe (ví dụ: "30A12345")
   final String licensePlate;
 
   /// Loại xe (ví dụ: "pickup")
@@ -135,16 +135,16 @@ class CarInformation {
   final String garageId;
 
   /// ID của brand
-  final String brandId;
+  final String vehicleBrandId;
 
   CarInformation({
-    required this.companyId,
-    required this.modelId,
-    required this.brandId,
-    required this.garageId,
+    this.companyName = '',
+    this.modelName = '',
+    this.vehicleBrandId = '',
+    this.garageId = '',
     this.manufacturingYear,
-    required this.vehicleVersion,
-    required this.licensePlate,
+    this.vehicleVersionName = '',
+    this.licensePlate = '',
     this.vehicleType,
     this.color,
   });

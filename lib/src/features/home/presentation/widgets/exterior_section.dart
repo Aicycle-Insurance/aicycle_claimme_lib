@@ -10,8 +10,9 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/screen_utils.dart';
-import '../../../camera/presentation/pages/camera_page.dart';
+// import '../../../camera/presentation/pages/camera_page.dart';
 import '../../../images_list/presentation/image_list_page.dart';
+import '../../../camera/presentation/pages/old_camera_page.dart';
 
 class ExteriorSection extends StatelessWidget {
   const ExteriorSection({super.key});
@@ -145,12 +146,14 @@ class CornerButton extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CameraPage(
-          args: CameraArgs(
-            vehicleAngle: AicycleCarAngle.exterior,
-            isFramedPhoto: true,
-          ),
-        ),
+        builder: (context) => OldCameraPage(angle: angle),
+
+        // builder: (context) => CameraPage(
+        //   args: CameraArgs(
+        //     vehicleAngle: AicycleCarAngle.exterior,
+        //     isFramedPhoto: true,
+        //   ),
+        // ),
       ),
     );
   }

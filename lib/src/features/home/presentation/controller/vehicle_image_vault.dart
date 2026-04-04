@@ -176,6 +176,22 @@ class VehicleImageVault extends ChangeNotifier {
     }
   }
 
+  /// Deletes a single image by its ID.
+  Future<void> deleteImageById(int imageId) async {
+    await _deleteImageUseCase(
+      DeleteImageUseCaseParams(imageIds: [imageId], vehicleAngleId: null),
+    );
+    _regCertImages.removeWhere((img) => img.imageId == imageId);
+    _frontImages.removeWhere((img) => img.imageId == imageId);
+    _frontLeftImages.removeWhere((img) => img.imageId == imageId);
+    _frontRightImages.removeWhere((img) => img.imageId == imageId);
+    _rearImages.removeWhere((img) => img.imageId == imageId);
+    _rearLeftImages.removeWhere((img) => img.imageId == imageId);
+    _rearRightImages.removeWhere((img) => img.imageId == imageId);
+    _exteriorImages.removeWhere((img) => img.imageId == imageId);
+    notifyListeners();
+  }
+
   /// Clears all stored images (e.g., when the SDK initializes a new flow).
   void reset() {
     _regCertImages.clear();

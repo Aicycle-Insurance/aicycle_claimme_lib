@@ -36,6 +36,7 @@ class HomeController extends ChangeNotifier {
   bool get isGettingDamageStatistics => _isGettingDamageStatistics;
 
   /// Create new or get existing AiCycle document, then load all directional images.
+  /// Khởi tạo và tạo hồ sơ/folder ClaimMe
   Future<void> init(AiCycleConfig config) async {
     try {
       _status = ClaimMeStatus.loading;
@@ -54,13 +55,13 @@ class HomeController extends ChangeNotifier {
             claimName:
                 config.generalConfig.documentName ??
                 config.generalConfig.documentId,
-            vehicleBrandId: carInfo.brandId,
+            vehicleBrandId: carInfo.vehicleBrandId,
             priceTypeId: int.tryParse(carInfo.garageId),
             isClaim: true,
-            brand: carInfo.companyId,
-            model: carInfo.modelId,
+            brand: carInfo.companyName,
+            model: carInfo.modelName,
             vehicleYear: carInfo.manufacturingYear,
-            vehicleSpec: carInfo.vehicleVersion,
+            vehicleSpec: carInfo.vehicleVersionName,
             licensePlate: carInfo.licensePlate,
             vehicleType: carInfo.vehicleType ?? 'sedan',
             hasLicensePlate: carInfo.licensePlate.isNotEmpty == true,
@@ -82,6 +83,7 @@ class HomeController extends ChangeNotifier {
     }
   }
 
+  /// Lấy thống kê hư hỏng từ server
   Future<void> getDamageStatistics() async {
     final claimId = InternalCache.claimId;
     _isGettingDamageStatistics = true;
@@ -96,6 +98,7 @@ class HomeController extends ChangeNotifier {
     }
   }
 
+  /// Giải phóng tài nguyên và xóa cache
   @override
   void dispose() {
     _isDisposed = true;
@@ -107,6 +110,7 @@ class HomeController extends ChangeNotifier {
     super.dispose();
   }
 
+  /// Xử lý khi dữ liệu trong vault thay đổi (đặc biệt là ảnh đăng kiểm)
   void _onVaultChanged() async {
     final images = sl.vehicleImageVault.regCertImages;
     final currentCount = images.length;

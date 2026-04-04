@@ -11,49 +11,57 @@ import '../../../../core/extension/xx_file.dart';
 import '../../../../core/utils/image_utils.dart';
 import '../../../../core/utils/internal_cache.dart';
 import '../../../home/domain/entities/directional_image.dart';
+import '../../domain/entities/car_part_has_damage.dart';
 import '../../domain/entities/upload_vehicle_inspection.dart';
+import '../../domain/usecases/get_list_car_part_has_damage_use_case.dart';
 import '../../domain/usecases/upload_image_use_case.dart';
-import '../../domain/usecases/upload_vehicle_inspection_use_case.dart';
 
-enum CameraStatus { initial, initializing, ready, error }
+enum OldCameraStatus { initial, initializing, ready, error }
 
-class XCameraController extends ChangeNotifier {
-  XCameraController({required this.angle});
+class OldXCameraController extends ChangeNotifier {
+  OldXCameraController({required this.angle});
 
   final AicycleCarAngle angle;
   CameraController? _controller;
-  CameraStatus _status = CameraStatus.initial;
+  OldCameraStatus _status = OldCameraStatus.initial;
   String _errorMessage = '';
   FlashMode _flashMode = FlashMode.off;
-  bool _showFrame = false;
   XXFile? _capturedImage;
   bool _isUploading = false;
-  UploadVehicleInspection? _warningResultCached;
-  static const List<int> warningEngineCodes = [
-    23212,
-    77704,
-    60006,
-    60007,
-    66616,
-  ];
+
+  int _currentTabIndex = 0;
+  UploadVehicleInspection? _uploadResultCached;
+  List<CarPartHasDamage> _carPartHasDamages = [];
+  bool _isPartLoading = false;
+  CarPartHasDamage? _selectedPart;
+
+  final Map<int, String> positionIds = {
+    0: 'toan-canh-afh4l5',
+    1: 'trung-canh-0s8mnb',
+    2: 'can-canh-czu5jp',
+  };
 
   CameraController? get controller => _controller;
-  CameraStatus get status => _status;
+  OldCameraStatus get status => _status;
   String get errorMessage => _errorMessage;
   FlashMode get flashMode => _flashMode;
-  bool get showFrame => _showFrame;
   XXFile? get capturedImage => _capturedImage;
   bool get isUploading => _isUploading;
+  int get currentTabIndex => _currentTabIndex;
+  UploadVehicleInspection? get uploadResult => _uploadResultCached;
+  bool get isPartLoading => _isPartLoading;
+  List<CarPartHasDamage> get carPartHasDamages => _carPartHasDamages;
+  CarPartHasDamage? get selectedPart => _selectedPart;
 
   /// Khởi tạo camera
   Future<void> initialize() async {
     try {
-      _status = CameraStatus.initializing;
+      _status = OldCameraStatus.initializing;
       notifyListeners();
 
       final cameras = await availableCameras();
       if (cameras.isEmpty) {
-        _status = CameraStatus.error;
+        _status = OldCameraStatus.error;
         _errorMessage = 'No cameras found';
         notifyListeners();
         return;
@@ -73,13 +81,29 @@ class XCameraController extends ChangeNotifier {
       await _controller!.initialize();
       await _controller!.setFlashMode(FlashMode.off);
 
-      _status = CameraStatus.ready;
+      _status = OldCameraStatus.ready;
       notifyListeners();
     } catch (e) {
-      _status = CameraStatus.error;
+      _status = OldCameraStatus.error;
       _errorMessage = 'Camera initialization failed: $e';
       notifyListeners();
     }
+  }
+
+  /// Thiết lập tab hiện tại (Toàn cảnh/Trung cảnh/Cận cảnh)
+  void setTabIndex(int index) {
+    _currentTabIndex = index;
+    _capturedImage = null;
+    _uploadResultCached = null;
+    if (index == 2 && _carPartHasDamages.isEmpty) {
+      getCarPartHasDamage();
+    }
+    notifyListeners();
+  }
+
+  void setSelectedPart(CarPartHasDamage? part) {
+    _selectedPart = part;
+    notifyListeners();
   }
 
   /// Chụp ảnh
@@ -105,6 +129,7 @@ class XCameraController extends ChangeNotifier {
   /// Chụp lại (reset ảnh đã chụp)
   void retake() {
     _capturedImage = null;
+    _uploadResultCached = null;
     notifyListeners();
   }
 
@@ -121,12 +146,6 @@ class XCameraController extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Chuyển đổi hiển thị khung hướng dẫn
-  void toggleFrame() {
-    _showFrame = !_showFrame;
-    notifyListeners();
-  }
-
   /// Chọn ảnh từ thư viện
   Future<void> pickImageFromGallery() async {
     final picker = ImagePicker();
@@ -140,7 +159,7 @@ class XCameraController extends ChangeNotifier {
     }
   }
 
-  /// Thực hiện upload ảnh nếu cần (dành riêng cho luồng regCert)
+  /// Upload ảnh với thông tin angle và position (cho bản cũ)
   Future<void> upload({
     required VoidCallback onSuccess,
     required void Function(EngineException warning) onWarning,
@@ -149,21 +168,28 @@ class XCameraController extends ChangeNotifier {
     if (_capturedImage == null) return;
 
     try {
-      _setUploading(true);
-      _warningResultCached = null;
-
+      _isUploading = true;
+      notifyListeners();
+      _uploadResultCached = null;
       final compressedImage = await ImageUtils.compressedImage(_capturedImage!);
-      late UploadVehicleInspection result;
-      // Chỉ upload nếu góc chụp là regCert (đăng kiểm)
-      if (angle == AicycleCarAngle.regCert) {
-        result = await _uploadRegCert(compressedImage);
-      } else {
-        result = await _uploadRegularImage(compressedImage);
-      }
+      final claimId = InternalCache.claimId;
 
-      /// Handle if status 200 mà vẫn có error :)
+      final result = await sl.uploadImageUseCase(
+        UploadImageParams(
+          imagePath: compressedImage.path,
+          claimId: claimId,
+          angleId: angle.id,
+          positionId: positionIds[_currentTabIndex],
+          vehiclePartExcelId: _currentTabIndex == 2
+              ? _selectedPart?.vehiclePartExcelId
+              : null,
+        ),
+      );
+
+      await getCarPartHasDamage();
+
       if (result.errorLevel == ErrorLevel.warning) {
-        _warningResultCached = result;
+        _uploadResultCached = result;
         onWarning(
           EngineException(result.errorMessage, result.errorCodeFromEngine),
         );
@@ -173,82 +199,69 @@ class XCameraController extends ChangeNotifier {
         onSuccess();
       }
     } on EngineException catch (e) {
-      if (warningEngineCodes.contains(e.engineCode)) {
-        onWarning(e);
-      } else {
-        onError(e.message ?? 'Something went wrong.');
-      }
+      onError(e.message ?? 'Something went wrong.');
     } catch (e) {
       onError(e.toString());
     } finally {
-      _setUploading(false);
+      _isUploading = false;
+      notifyListeners();
     }
   }
 
   /// Tiếp tục sau khi nhận cảnh báo từ engine
   void onWarningContinue() {
-    if (_warningResultCached != null) {
+    if (_uploadResultCached != null) {
       sl.vehicleImageVault
-          .addImagesFromServer(_warningResultCached!.angleFromEngine ?? angle, [
+          .addImagesFromServer(_uploadResultCached!.angleFromEngine ?? angle, [
             DirectionalImage(
-              imageId: _warningResultCached!.imageId,
-              imageUrl: _warningResultCached!.imgUrl,
+              imageId: _uploadResultCached!.imageId,
+              imageUrl: _uploadResultCached!.imgUrl,
             ),
           ]);
     }
 
-    _warningResultCached = null;
+    _uploadResultCached = null;
     _capturedImage = null;
     notifyListeners();
   }
 
-  /// Cập nhật trạng thái đang upload
-  void _setUploading(bool value) {
-    _isUploading = value;
+  /// Chụp lại sau khi nhận cảnh báo từ engine
+  void onWarningRetake() async {
+    if (_uploadResultCached?.imageId == null) {
+      _capturedImage = null;
+      _uploadResultCached = null;
+      notifyListeners();
+      return;
+    }
+    _isUploading = true;
+    notifyListeners();
+    await sl.vehicleImageVault.deleteImageById(_uploadResultCached!.imageId!);
+    await getCarPartHasDamage();
+    _isUploading = false;
+    _capturedImage = null;
+    _uploadResultCached = null;
     notifyListeners();
   }
 
-  /// Upload ảnh đăng kiểm (regCert)
-  Future<UploadVehicleInspection> _uploadRegCert(XFile compressedImage) async {
-    final claimId = InternalCache.claimId;
-
-    final result = await sl.uploadVehicleInspectionUseCase(
-      UploadVehicleInspectionParams(
-        imagePath: compressedImage.path,
-        claimId: claimId,
-      ),
-    );
-
-    if (result.imgUrl != null && result.errorLevel == ErrorLevel.success) {
-      sl.vehicleImageVault.addImagesFromServer(
-        result.angleFromEngine ?? angle,
-        [DirectionalImage(imageId: result.imageId, imageUrl: result.imgUrl)],
+  /// Lấy danh sách các bộ phận có hư hỏng
+  Future<void> getCarPartHasDamage() async {
+    _isPartLoading = true;
+    _carPartHasDamages.clear();
+    notifyListeners();
+    for (final numberID in angle.numberId) {
+      final result = await sl.getListCarPartHasDamageUseCase(
+        GetListCarPartHasDamageParams(
+          claimId: InternalCache.claimId,
+          directionId: numberID.toString(),
+        ),
       );
+      _carPartHasDamages.addAll(result);
     }
-    return result;
-  }
-
-  /// Upload ảnh thông thường theo góc chụp
-  Future<UploadVehicleInspection> _uploadRegularImage(
-    XFile compressedImage,
-  ) async {
-    final claimId = InternalCache.claimId;
-
-    final result = await sl.uploadImageUseCase(
-      UploadImageParams(
-        imagePath: compressedImage.path,
-        claimId: claimId,
-        angleId: angle.id,
-      ),
-    );
-
-    if (result.imgUrl != null && result.errorLevel == ErrorLevel.success) {
-      sl.vehicleImageVault.addImagesFromServer(
-        result.angleFromEngine ?? angle,
-        [DirectionalImage(imageId: result.imageId, imageUrl: result.imgUrl)],
-      );
+    if (_selectedPart == null && _carPartHasDamages.isNotEmpty) {
+      _selectedPart = _carPartHasDamages.first;
     }
-    return result;
+    _isPartLoading = false;
+    notifyListeners();
   }
 
   /// Giải phóng tài nguyên camera

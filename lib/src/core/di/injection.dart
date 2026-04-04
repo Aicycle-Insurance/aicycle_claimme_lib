@@ -2,6 +2,7 @@ import '../../core/network/dio_client.dart';
 import '../../features/camera/data/data_source/image_remote_data_source.dart';
 import '../../features/camera/data/repositories/image_repository_impl.dart';
 import '../../features/camera/domain/repositories/image_respository.dart';
+import '../../features/camera/domain/usecases/get_list_car_part_has_damage_use_case.dart';
 import '../../features/camera/domain/usecases/upload_image_use_case.dart';
 import '../../features/camera/domain/usecases/upload_vehicle_inspection_use_case.dart';
 import '../../features/home/data/data_sources/home_remote_data_source.dart';
@@ -68,6 +69,9 @@ class AiCycleInjection {
   late final UploadImageUseCase uploadImageUseCase = UploadImageUseCase(
     imageRepository,
   );
+
+  late final GetListCarPartHasDamageUseCase getListCarPartHasDamageUseCase =
+      GetListCarPartHasDamageUseCase(imageRepository);
 
   late final ValidateVehicleAngleUseCase validateVehicleAngleUseCase =
       ValidateVehicleAngleUseCase(homeRepository);
