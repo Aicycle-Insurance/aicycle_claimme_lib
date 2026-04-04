@@ -201,6 +201,7 @@ class VehicleImageVault extends ChangeNotifier {
     _rearImages.clear();
     _rearLeftImages.clear();
     _rearRightImages.clear();
+    _exteriorImages.clear();
     _selectedImageIds.clear();
     notifyListeners();
   }

@@ -354,7 +354,7 @@ class _OldCameraPageState extends State<OldCameraPage>
           opacity: _controller.capturedImage != null ? 0.5 : 1,
           child: TabBar(
             controller: _tabController,
-            isScrollable: true,
+            isScrollable: false,
             indicatorColor: Colors.white,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.grey,
