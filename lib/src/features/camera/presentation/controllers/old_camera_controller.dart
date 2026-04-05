@@ -13,7 +13,7 @@ import '../../../../core/utils/internal_cache.dart';
 import '../../../home/domain/entities/directional_image.dart';
 import '../../domain/entities/car_part_has_damage.dart';
 import '../../domain/entities/upload_vehicle_inspection.dart';
-import '../../domain/usecases/get_list_car_part_has_damage_use_case.dart';
+// import '../../domain/usecases/get_list_car_part_has_damage_use_case.dart';
 import '../../domain/usecases/upload_image_use_case.dart';
 
 enum OldCameraStatus { initial, initializing, ready, error }
@@ -31,14 +31,14 @@ class OldXCameraController extends ChangeNotifier {
 
   int _currentTabIndex = 0;
   UploadVehicleInspection? _uploadResultCached;
-  final List<CarPartHasDamage> _carPartHasDamages = [];
-  bool _isPartLoading = false;
+  // final List<CarPartHasDamage> _carPartHasDamages = [];
+  // bool _isPartLoading = false;
   CarPartHasDamage? _selectedPart;
 
   final Map<int, String> positionIds = {
     0: 'toan-canh-afh4l5',
     1: 'trung-canh-0s8mnb',
-    2: 'can-canh-czu5jp',
+    // 2: 'can-canh-czu5jp',
   };
 
   CameraController? get controller => _controller;
@@ -49,8 +49,8 @@ class OldXCameraController extends ChangeNotifier {
   bool get isUploading => _isUploading;
   int get currentTabIndex => _currentTabIndex;
   UploadVehicleInspection? get uploadResult => _uploadResultCached;
-  bool get isPartLoading => _isPartLoading;
-  List<CarPartHasDamage> get carPartHasDamages => _carPartHasDamages;
+  // bool get isPartLoading => _isPartLoading;
+  // List<CarPartHasDamage> get carPartHasDamages => _carPartHasDamages;
   CarPartHasDamage? get selectedPart => _selectedPart;
 
   /// Khởi tạo camera
@@ -95,9 +95,9 @@ class OldXCameraController extends ChangeNotifier {
     _currentTabIndex = index;
     _capturedImage = null;
     _uploadResultCached = null;
-    if (index == 2 && _carPartHasDamages.isEmpty) {
-      getCarPartHasDamage();
-    }
+    // if (index == 2 && _carPartHasDamages.isEmpty) {
+    //   getCarPartHasDamage();
+    // }
     notifyListeners();
   }
 
@@ -186,7 +186,7 @@ class OldXCameraController extends ChangeNotifier {
         ),
       );
 
-      await getCarPartHasDamage();
+      // await getCarPartHasDamage();
 
       if (result.errorLevel == ErrorLevel.warning) {
         _uploadResultCached = result;
@@ -198,12 +198,7 @@ class OldXCameraController extends ChangeNotifier {
       } else {
         sl.vehicleImageVault.addImagesFromServer(
           result.angleFromEngine ?? angle,
-          [
-            DirectionalImage(
-              imageId: result.imageId,
-              imageUrl: result.imgUrl,
-            ),
-          ],
+          [DirectionalImage(imageId: result.imageId, imageUrl: result.imgUrl)],
         );
         onSuccess();
       }
@@ -245,7 +240,7 @@ class OldXCameraController extends ChangeNotifier {
     _isUploading = true;
     notifyListeners();
     await sl.vehicleImageVault.deleteImageById(_uploadResultCached!.imageId!);
-    await getCarPartHasDamage();
+    // await getCarPartHasDamage();
     _isUploading = false;
     _capturedImage = null;
     _uploadResultCached = null;
@@ -253,25 +248,25 @@ class OldXCameraController extends ChangeNotifier {
   }
 
   /// Lấy danh sách các bộ phận có hư hỏng
-  Future<void> getCarPartHasDamage() async {
-    _isPartLoading = true;
-    _carPartHasDamages.clear();
-    notifyListeners();
-    for (final numberID in AicycleCarAngle.exterior.numberId) {
-      final result = await sl.getListCarPartHasDamageUseCase(
-        GetListCarPartHasDamageParams(
-          claimId: InternalCache.claimId,
-          directionId: numberID.toString(),
-        ),
-      );
-      _carPartHasDamages.addAll(result);
-    }
-    if (_selectedPart == null && _carPartHasDamages.isNotEmpty) {
-      _selectedPart = _carPartHasDamages.first;
-    }
-    _isPartLoading = false;
-    notifyListeners();
-  }
+  // Future<void> getCarPartHasDamage() async {
+  //   _isPartLoading = true;
+  //   _carPartHasDamages.clear();
+  //   notifyListeners();
+  //   for (final numberID in AicycleCarAngle.exterior.numberId) {
+  //     final result = await sl.getListCarPartHasDamageUseCase(
+  //       GetListCarPartHasDamageParams(
+  //         claimId: InternalCache.claimId,
+  //         directionId: numberID.toString(),
+  //       ),
+  //     );
+  //     _carPartHasDamages.addAll(result);
+  //   }
+  //   if (_selectedPart == null && _carPartHasDamages.isNotEmpty) {
+  //     _selectedPart = _carPartHasDamages.first;
+  //   }
+  //   _isPartLoading = false;
+  //   notifyListeners();
+  // }
 
   /// Giải phóng tài nguyên camera
   @override

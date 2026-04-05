@@ -5,9 +5,9 @@ import 'package:native_device_orientation/native_device_orientation.dart';
 
 import '../../../../../aicycle_claimme_plus.dart';
 import '../../../../core/error/exceptions.dart';
-import '../../../../core/theme/app_colors.dart';
+// import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_strings.dart';
-import '../../../../core/theme/app_text_styles.dart';
+// import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/orientation_utils.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../../../../core/widgets/validation_dialog.dart';
@@ -30,45 +30,45 @@ class _OldCameraPageState extends State<OldCameraPage>
   late final OldXCameraController _controller;
   late final TabController _tabController;
   bool _showPartSelector = false;
-  double _snackBarRightOffset = -350.0; // Hidden by default
+  // double _snackBarRightOffset = -350.0; // Hidden by default
 
   @override
   void initState() {
     super.initState();
     _controller = OldXCameraController(angle: widget.angle);
     _controller.initialize();
-    _tabController = TabController(length: 3, vsync: this);
-    _tabController.addListener(() {
-      if (_tabController.indexIsChanging) {
-        if (_tabController.index == 2) {
-          if (_controller.isPartLoading) {
-            _tabController.index = _tabController.previousIndex;
-            return;
-          }
-          if (_controller.carPartHasDamages.isEmpty) {
-            _tabController.index = _tabController.previousIndex;
-            _showSnackBarFromRight();
-            return;
-          }
-        }
-      }
-      _controller.setTabIndex(_tabController.index);
-    });
-    _controller.getCarPartHasDamage();
+    _tabController = TabController(length: 2, vsync: this);
+    // _tabController.addListener(() {
+    //   if (_tabController.indexIsChanging) {
+    //     if (_tabController.index == 2) {
+    //       if (_controller.isPartLoading) {
+    //         _tabController.index = _tabController.previousIndex;
+    //         return;
+    //       }
+    //       if (_controller.carPartHasDamages.isEmpty) {
+    //         _tabController.index = _tabController.previousIndex;
+    //         _showSnackBarFromRight();
+    //         return;
+    //       }
+    //     }
+    //   }
+    //   _controller.setTabIndex(_tabController.index);
+    // });
+    // _controller.getCarPartHasDamage();
   }
 
-  void _showSnackBarFromRight() {
-    setState(() {
-      _snackBarRightOffset = 16.0;
-    });
-    Future.delayed(const Duration(seconds: 3), () {
-      if (mounted) {
-        setState(() {
-          _snackBarRightOffset = -350.0;
-        });
-      }
-    });
-  }
+  // void _showSnackBarFromRight() {
+  //   setState(() {
+  //     _snackBarRightOffset = 16.0;
+  //   });
+  //   Future.delayed(const Duration(seconds: 3), () {
+  //     if (mounted) {
+  //       setState(() {
+  //         _snackBarRightOffset = -350.0;
+  //       });
+  //     }
+  //   });
+  // }
 
   @override
   void dispose() {
@@ -252,60 +252,60 @@ class _OldCameraPageState extends State<OldCameraPage>
                                       ),
 
                                       /// Sliding SnackBar (Custom)
-                                      AnimatedPositioned(
-                                        duration: const Duration(
-                                          milliseconds: 500,
-                                        ),
-                                        curve: Curves.easeOutCubic,
-                                        right: _snackBarRightOffset,
-                                        top: 0,
-                                        bottom: 0,
-                                        child: Center(
-                                          child: Material(
-                                            color: Colors.transparent,
-                                            child: RotatedBox(
-                                              quarterTurns: 1,
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 16.w,
-                                                  vertical: 12.h,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: AppColors.info,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                        8.r,
-                                                      ),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black26,
-                                                      blurRadius: 10.r,
-                                                      offset: const Offset(
-                                                        0,
-                                                        4,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                child: AnimatedRotation(
-                                                  turns: turns,
-                                                  duration: const Duration(
-                                                    milliseconds: 300,
-                                                  ),
-                                                  child: Text(
-                                                    AppStrings.noDamageParts,
-                                                    style: AppTextStyles
-                                                        .bodyMedium
-                                                        .copyWith(
-                                                          color: Colors.white,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      // AnimatedPositioned(
+                                      //   duration: const Duration(
+                                      //     milliseconds: 500,
+                                      //   ),
+                                      //   curve: Curves.easeOutCubic,
+                                      //   right: _snackBarRightOffset,
+                                      //   top: 0,
+                                      //   bottom: 0,
+                                      //   child: Center(
+                                      //     child: Material(
+                                      //       color: Colors.transparent,
+                                      //       child: RotatedBox(
+                                      //         quarterTurns: 1,
+                                      //         child: Container(
+                                      //           padding: EdgeInsets.symmetric(
+                                      //             horizontal: 16.w,
+                                      //             vertical: 12.h,
+                                      //           ),
+                                      //           decoration: BoxDecoration(
+                                      //             color: AppColors.info,
+                                      //             borderRadius:
+                                      //                 BorderRadius.circular(
+                                      //                   8.r,
+                                      //                 ),
+                                      //             boxShadow: [
+                                      //               BoxShadow(
+                                      //                 color: Colors.black26,
+                                      //                 blurRadius: 10.r,
+                                      //                 offset: const Offset(
+                                      //                   0,
+                                      //                   4,
+                                      //                 ),
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //           child: AnimatedRotation(
+                                      //             turns: turns,
+                                      //             duration: const Duration(
+                                      //               milliseconds: 300,
+                                      //             ),
+                                      //             child: Text(
+                                      //               AppStrings.noDamageParts,
+                                      //               style: AppTextStyles
+                                      //                   .bodyMedium
+                                      //                   .copyWith(
+                                      //                     color: Colors.white,
+                                      //                   ),
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //       ),
+                                      //     ),
+                                      //   ),
+                                      // ),
 
                                       /// Photo preview
                                       if (_controller.capturedImage != null)
@@ -366,18 +366,18 @@ class _OldCameraPageState extends State<OldCameraPage>
             tabs: [
               const Tab(text: AppStrings.captureRangeOverview),
               const Tab(text: AppStrings.captureRangeMiddle),
-              Tab(
-                child: _controller.isPartLoading
-                    ? SizedBox(
-                        width: 16.r,
-                        height: 16.r,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: Colors.white,
-                        ),
-                      )
-                    : const Text(AppStrings.captureRangeDetail),
-              ),
+              // Tab(
+              //   child: _controller.isPartLoading
+              //       ? SizedBox(
+              //           width: 16.r,
+              //           height: 16.r,
+              //           child: const CircularProgressIndicator(
+              //             strokeWidth: 2,
+              //             color: Colors.white,
+              //           ),
+              //         )
+              //       : const Text(AppStrings.captureRangeDetail),
+              // ),
             ],
           ),
         ),

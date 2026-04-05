@@ -1,3 +1,7 @@
+## 1.0.5
+
+- Remove part selector and close up image tab.
+
 ## 1.0.4
 
 - Fix upload image error.
