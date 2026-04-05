@@ -9,8 +9,8 @@ import '../models/get_upload_url_response.dart';
 import '../models/upload_vehicle_inspection_response.dart';
 
 abstract class ImageRemoteDataSource {
-  Future<UploadVehicleInspectionResponse> uploadVehicleInspection({
-    required String imagePath,
+  Future<CertUploadResponse> uploadVehicleInspection({
+    required List<String> imagePaths,
     required String claimId,
   });
 
@@ -36,13 +36,17 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
   ImageRemoteDataSourceImpl(this._dioClient);
 
   @override
-  Future<UploadVehicleInspectionResponse> uploadVehicleInspection({
-    required String imagePath,
+  Future<CertUploadResponse> uploadVehicleInspection({
+    required List<String> imagePaths,
     required String claimId,
   }) async {
     final config = AicycleClaimMe.config;
+    final multipartFiles = await Future.wait(
+      imagePaths.map((path) => _dioClient.createMultipartFile(path)),
+    );
+
     final formData = await _dioClient.createFormData({
-      'img': await _dioClient.createMultipartFile(imagePath),
+      'img': multipartFiles,
       'claimId': claimId,
       "isValidate": config.validationConfig.sameCarValidation,
       "carCompany": config.carInformation.companyName,
@@ -54,7 +58,7 @@ class ImageRemoteDataSourceImpl implements ImageRemoteDataSource {
       ApiEndpoints.uploadVehicleInspection,
       data: formData,
     );
-    return UploadVehicleInspectionResponse.fromJson(response);
+    return CertUploadResponse.fromJson(response);
   }
 
   @override

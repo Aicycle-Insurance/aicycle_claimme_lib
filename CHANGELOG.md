@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Update certificate capture rules.
+
 ## 1.0.5
 
 - Remove part selector and close up image tab.

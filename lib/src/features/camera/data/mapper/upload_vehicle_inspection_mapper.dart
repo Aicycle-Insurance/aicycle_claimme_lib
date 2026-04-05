@@ -1,4 +1,5 @@
 import '../../../../../aicycle_claimme_plus.dart';
+import '../../domain/entities/cert_upload_entity.dart';
 import '../../domain/entities/upload_vehicle_inspection.dart';
 import '../models/upload_vehicle_inspection_response.dart';
 
@@ -11,6 +12,18 @@ extension UploadVehicleInspectionMapper on UploadVehicleInspectionResponse {
       imgUrl: imgUrl,
       angleFromEngine: imageDirection.toAngle(),
       errorLevel: errorLevel?.toErrorLevel(),
+    );
+  }
+}
+
+extension CertUploadResponseMapper on CertUploadResponse {
+  CertUploadEntity toEntity() {
+    return CertUploadEntity(
+      errorCodeFromEngine: errorCodeFromEngine,
+      errorMessage: errorMessage,
+      errorLevel: errorLevel?.toErrorLevel(),
+      imageId: imageId,
+      imgUrls: predictedCarInfo?.imageUrls,
     );
   }
 }

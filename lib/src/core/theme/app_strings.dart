@@ -21,6 +21,7 @@ class AppStrings {
   static const String btnContinue = 'Tiếp tục';
   static const String btnViewResult = 'Xem kết quả';
   static const String warning = 'Cảnh báo';
+  static const String btnExit = 'Thoát';
 
   // Instructions Header
   static const String instructionTitle = 'Hướng dẫn chụp xe';
@@ -169,4 +170,8 @@ class AppStrings {
   static const String captureRangeDetail = 'Cận cảnh';
   static const String noDamageParts =
       'Không phát hiện bộ phận hỏng hóc cần chụp cận cảnh';
+  static const String regCertRule =
+      'Bạn cần chụp đủ 02 mặt đăng kiểm để hoàn thiện hồ sơ';
+  static const String captureFrontRegCert = 'Chụp mặt trước đăng kiểm';
+  static const String captureRearRegCert = 'Chụp mặt sau đăng kiểm';
 }

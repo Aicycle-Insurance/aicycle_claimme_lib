@@ -25,4 +25,16 @@ class XXFile extends XFile {
       mimeType: file.mimeType,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is XXFile &&
+        other.path == path &&
+        other.orientation == orientation;
+  }
+
+  @override
+  int get hashCode => path.hashCode ^ orientation.hashCode;
 }
