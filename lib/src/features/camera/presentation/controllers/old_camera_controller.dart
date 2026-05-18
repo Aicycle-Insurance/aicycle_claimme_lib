@@ -28,6 +28,7 @@ class OldXCameraController extends ChangeNotifier {
   FlashMode _flashMode = FlashMode.off;
   XXFile? _capturedImage;
   bool _isUploading = false;
+  bool _showFrame = false;
 
   int _currentTabIndex = 0;
   UploadVehicleInspection? _uploadResultCached;
@@ -47,6 +48,7 @@ class OldXCameraController extends ChangeNotifier {
   FlashMode get flashMode => _flashMode;
   XXFile? get capturedImage => _capturedImage;
   bool get isUploading => _isUploading;
+  bool get showFrame => _showFrame;
   int get currentTabIndex => _currentTabIndex;
   UploadVehicleInspection? get uploadResult => _uploadResultCached;
   // bool get isPartLoading => _isPartLoading;
@@ -103,6 +105,12 @@ class OldXCameraController extends ChangeNotifier {
 
   void setSelectedPart(CarPartHasDamage? part) {
     _selectedPart = part;
+    notifyListeners();
+  }
+
+  /// Chuyển đổi hiển thị khung hướng dẫn
+  void toggleFrame() {
+    _showFrame = !_showFrame;
     notifyListeners();
   }
 

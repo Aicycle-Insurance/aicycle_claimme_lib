@@ -1,3 +1,7 @@
+## 1.0.7
+
+- Add guide frame.
+
 ## 1.0.6
 
 - Update certificate capture rules.

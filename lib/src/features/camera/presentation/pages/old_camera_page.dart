@@ -1,16 +1,18 @@
-import 'package:aicycle_claimme_plus/src/core/extension/car_angle_ext.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 
 import '../../../../../aicycle_claimme_plus.dart';
+import '../../../../../gen/assets.gen.dart';
 import '../../../../core/error/exceptions.dart';
 // import '../../../../core/theme/app_colors.dart';
+import '../../../../core/extension/car_angle_ext.dart';
 import '../../../../core/theme/app_strings.dart';
 // import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/orientation_utils.dart';
 import '../../../../core/utils/screen_utils.dart';
 import '../../../../core/widgets/validation_dialog.dart';
+import '../widgets/guide_frame.dart';
 import '../widgets/old_camera_bottom_bar.dart';
 import '../widgets/old_camera_part_selector.dart';
 import '../widgets/photo_preview.dart';
@@ -240,6 +242,13 @@ class _OldCameraPageState extends State<OldCameraPage>
                                           ),
                                         ),
 
+                                      /// Guide frame
+                                      if (_tabController.index == 0) ...[
+                                        if (_controller.showFrame)
+                                          GuideFrame(carCorner: widget.angle),
+                                        _frameButton(turns),
+                                      ],
+
                                       /// Bottom Controls
                                       Visibility(
                                         visible:
@@ -342,6 +351,35 @@ class _OldCameraPageState extends State<OldCameraPage>
           },
         );
       },
+    );
+  }
+
+  Widget _frameButton(double turns) {
+    return Positioned(
+      right: 16.h,
+      top: 16.h,
+      child: InkWell(
+        onTap: _controller.toggleFrame,
+        child: Container(
+          width: 40.r,
+          height: 40.r,
+          padding: EdgeInsets.all(8.r),
+          decoration: BoxDecoration(
+            color: Colors.black38,
+            borderRadius: BorderRadius.circular(8.r),
+          ),
+          child: AnimatedRotation(
+            turns: turns,
+            duration: const Duration(milliseconds: 300),
+            child: Image.asset(
+              _controller.showFrame
+                  ? Assets.images.icFrameOn.path
+                  : Assets.images.icFrameOff.path,
+              package: AppStrings.package,
+            ),
+          ),
+        ),
+      ),
     );
   }
 

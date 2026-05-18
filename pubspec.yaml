@@ -1,6 +1,6 @@
 name: aicycle_claimme_plus
 description: "An AICycle ClaimMe Plus package."
-version: 1.0.6
+version: 1.0.7
 homepage: https://aicycle.ai/
 
 environment:
@@ -27,6 +27,14 @@ flutter:
   assets:
     - assets/images/
     - assets/gif/
+    - assets/images/front/
+    - assets/images/rear/
+    - assets/images/left/
+    - assets/images/right/
+    - assets/images/front_left/
+    - assets/images/front_right/
+    - assets/images/rear_left/
+    - assets/images/rear_right/
   fonts:
     - family: Inter
       fonts:
