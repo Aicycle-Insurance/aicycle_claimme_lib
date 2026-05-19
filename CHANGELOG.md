@@ -1,3 +1,7 @@
+## 1.0.8
+
+- Set default show guide frame.
+
 ## 1.0.7
 
 - Add guide frame.

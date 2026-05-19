@@ -28,7 +28,7 @@ class OldXCameraController extends ChangeNotifier {
   FlashMode _flashMode = FlashMode.off;
   XXFile? _capturedImage;
   bool _isUploading = false;
-  bool _showFrame = false;
+  bool _showFrame = true;
 
   int _currentTabIndex = 0;
   UploadVehicleInspection? _uploadResultCached;
