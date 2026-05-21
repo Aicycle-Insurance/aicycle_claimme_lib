@@ -97,6 +97,9 @@ class GeneralConfig {
   /// Tổ chức sử dụng SDK
   final AiCycleOrg organization;
 
+  /// Ảnh được chụp xong có được lưu vào thư viện không
+  final bool saveToGalleryAfterCapture;
+
   GeneralConfig({
     required this.apiToken,
     required this.documentId,
@@ -105,6 +108,7 @@ class GeneralConfig {
     this.documentName,
     this.showResultScreen = true,
     this.loggingEnabled = false,
+    this.saveToGalleryAfterCapture = true,
   });
 }
 

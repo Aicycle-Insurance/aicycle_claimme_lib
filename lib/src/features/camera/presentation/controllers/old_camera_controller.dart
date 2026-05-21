@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
 
@@ -16,44 +17,96 @@ import '../../domain/entities/upload_vehicle_inspection.dart';
 // import '../../domain/usecases/get_list_car_part_has_damage_use_case.dart';
 import '../../domain/usecases/upload_image_use_case.dart';
 
-enum OldCameraStatus { initial, initializing, ready, error }
+/// Các trạng thái của camera cũ
+enum OldCameraStatus {
+  /// Trạng thái ban đầu
+  initial,
+
+  /// Đang khởi tạo camera
+  initializing,
+
+  /// Camera đã sẵn sàng sử dụng
+  ready,
+
+  /// Gặp lỗi trong quá trình khởi tạo hoặc sử dụng
+  error,
+}
 
 class OldXCameraController extends ChangeNotifier {
   OldXCameraController({required this.angle});
 
+  /// Góc chụp của xe hiện tại (ví dụ: đầu xe, đuôi xe,...)
   final AicycleCarAngle angle;
+
+  /// Bộ điều khiển camera từ thư viện `camera`
   CameraController? _controller;
+
+  /// Trạng thái hiện tại của camera
   OldCameraStatus _status = OldCameraStatus.initial;
+
+  /// Thông báo lỗi khi xảy ra sự cố với camera
   String _errorMessage = '';
+
+  /// Chế độ flash hiện tại của camera (mặc định là tắt)
   FlashMode _flashMode = FlashMode.off;
+
+  /// Ảnh đã chụp được lưu trữ tạm thời dưới định dạng XXFile
   XXFile? _capturedImage;
+
+  /// Trạng thái đang tải ảnh lên máy chủ (server)
   bool _isUploading = false;
+
+  /// Trạng thái hiển thị khung hướng dẫn chụp ảnh trên màn hình
   bool _showFrame = true;
 
+  /// Chỉ số tab hiện tại (0: Toàn cảnh, 1: Trung cảnh, 2: Cận cảnh,...)
   int _currentTabIndex = 0;
+
+  /// Kết quả upload ảnh được lưu tạm thời (cache) để xử lý các bước tiếp theo khi có cảnh báo từ Engine
   UploadVehicleInspection? _uploadResultCached;
-  // final List<CarPartHasDamage> _carPartHasDamages = [];
-  // bool _isPartLoading = false;
+
+  /// Bộ phận xe bị hư hại đang được người dùng chọn
   CarPartHasDamage? _selectedPart;
 
+  /// Bản đồ (Map) lưu trữ ID vị trí (position ID) tương ứng với từng chỉ số tab
   final Map<int, String> positionIds = {
     0: 'toan-canh-afh4l5',
     1: 'trung-canh-0s8mnb',
     // 2: 'can-canh-czu5jp',
   };
 
+  /// Getter lấy bộ điều khiển camera
   CameraController? get controller => _controller;
+
+  /// Getter lấy trạng thái hiện tại của camera
   OldCameraStatus get status => _status;
+
+  /// Getter lấy thông báo lỗi của camera nếu có
   String get errorMessage => _errorMessage;
+
+  /// Getter lấy chế độ flash hiện tại
   FlashMode get flashMode => _flashMode;
+
+  /// Getter lấy file ảnh đã chụp gần nhất
   XXFile? get capturedImage => _capturedImage;
+
+  /// Getter kiểm tra xem ảnh có đang được upload hay không
   bool get isUploading => _isUploading;
+
+  /// Getter kiểm tra xem có hiển thị khung hướng dẫn hay không
   bool get showFrame => _showFrame;
+
+  /// Getter lấy chỉ số tab hiện tại
   int get currentTabIndex => _currentTabIndex;
+
+  /// Getter lấy kết quả upload ảnh từ bộ nhớ cache
   UploadVehicleInspection? get uploadResult => _uploadResultCached;
-  // bool get isPartLoading => _isPartLoading;
-  // List<CarPartHasDamage> get carPartHasDamages => _carPartHasDamages;
+
+  /// Getter lấy bộ phận xe có hư hại được chọn hiện tại
   CarPartHasDamage? get selectedPart => _selectedPart;
+
+  /// Xác định xem ảnh hiện tại có phải được chọn từ thư viện (gallery) hay không.
+  bool _isPickedFromGallery = false;
 
   /// Khởi tạo camera
   Future<void> initialize() async {
@@ -103,6 +156,7 @@ class OldXCameraController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Thiết lập bộ phận xe có hư hại được chọn
   void setSelectedPart(CarPartHasDamage? part) {
     _selectedPart = part;
     notifyListeners();
@@ -127,6 +181,7 @@ class OldXCameraController extends ChangeNotifier {
         orientation,
       );
 
+      _isPickedFromGallery = false;
       _capturedImage = XXFile.fromXFile(rotatedImage, orientation: orientation);
       notifyListeners();
     } catch (e) {
@@ -159,11 +214,24 @@ class OldXCameraController extends ChangeNotifier {
     final picker = ImagePicker();
     final file = await picker.pickImage(source: ImageSource.gallery);
     if (file != null) {
+      _isPickedFromGallery = true;
       _capturedImage = XXFile.fromXFile(
         file,
         orientation: NativeDeviceOrientation.landscapeLeft,
       );
       notifyListeners();
+    }
+  }
+
+  Future<void> _savePictureToGallery() async {
+    // Lưu ảnh vào thư viện ảnh nếu được cấu hình và ảnh chụp từ camera
+    if (AicycleClaimMe.config.generalConfig.saveToGalleryAfterCapture &&
+        !_isPickedFromGallery) {
+      try {
+        await GallerySaver.saveImage(_capturedImage!.path);
+      } catch (e) {
+        debugPrint('Failed to save to gallery: $e');
+      }
     }
   }
 
@@ -208,6 +276,7 @@ class OldXCameraController extends ChangeNotifier {
           result.angleFromEngine ?? angle,
           [DirectionalImage(imageId: result.imageId, imageUrl: result.imgUrl)],
         );
+        await _savePictureToGallery();
         onSuccess();
       }
     } on EngineException catch (e) {
@@ -230,6 +299,7 @@ class OldXCameraController extends ChangeNotifier {
               imageUrl: _uploadResultCached!.imgUrl,
             ),
           ]);
+      _savePictureToGallery();
     }
 
     _uploadResultCached = null;
