@@ -30,6 +30,9 @@ class ImageRepositoryImpl implements ImageRepository {
     String? positionId,
     String? vehiclePartExcelId,
     bool isFramedPhoto = false,
+    String? locationName,
+    String? uploadLocation,
+    String? utcTimeCreated,
   }) async {
     final response = await _remoteDataSource.uploadImage(
       imagePath: imagePath,
@@ -38,6 +41,9 @@ class ImageRepositoryImpl implements ImageRepository {
       positionId: positionId,
       vehiclePartExcelId: vehiclePartExcelId,
       isFramedPhoto: isFramedPhoto,
+      locationName: locationName,
+      uploadLocation: uploadLocation,
+      utcTimeCreated: utcTimeCreated,
     );
     return response.toEntity();
   }

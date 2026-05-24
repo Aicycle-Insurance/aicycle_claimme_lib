@@ -15,6 +15,9 @@ abstract class ImageRepository {
     String? positionId,
     String? vehiclePartExcelId,
     bool isFramedPhoto = false,
+    String? locationName,
+    String? uploadLocation,
+    String? utcTimeCreated,
   });
 
   Future<void> deleteImageById({

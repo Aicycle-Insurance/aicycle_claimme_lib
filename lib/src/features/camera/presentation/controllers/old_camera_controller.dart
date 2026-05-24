@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver_plus/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:native_device_orientation/native_device_orientation.dart';
+import 'package:native_exif/native_exif.dart';
 
 import '../../../../../aicycle_claimme_plus.dart';
 import '../../../../core/di/injection.dart';
@@ -11,6 +12,7 @@ import '../../../../core/extension/car_angle_ext.dart';
 import '../../../../core/extension/xx_file.dart';
 import '../../../../core/utils/image_utils.dart';
 import '../../../../core/utils/internal_cache.dart';
+import '../../../../core/utils/location_service.dart';
 import '../../../home/domain/entities/directional_image.dart';
 import '../../domain/entities/car_part_has_damage.dart';
 import '../../domain/entities/upload_vehicle_inspection.dart';
@@ -250,6 +252,38 @@ class OldXCameraController extends ChangeNotifier {
       final compressedImage = await ImageUtils.compressedImage(_capturedImage!);
       final claimId = InternalCache.claimId;
 
+      String? locationName;
+      String? utcTimeCreated;
+
+      if (_isPickedFromGallery) {
+        final exif = await Exif.fromPath(compressedImage.path);
+        utcTimeCreated = (await exif.getOriginalDate())
+            ?.toUtc()
+            .toIso8601String();
+        final latLong = await exif.getLatLong();
+        if (latLong != null) {
+          final location = await LocationService().getAddressFromCoordinates(
+            latitude: latLong.latitude,
+            longitude: latLong.longitude,
+          );
+          locationName = location.fold(
+            (_) => null,
+            (data) => data.formattedAddress,
+          );
+        }
+      } else {
+        utcTimeCreated = DateTime.now().toUtc().toIso8601String();
+      }
+
+      // Lấy vị trí upload
+      final locationFuture = LocationService().getCurrentLocation();
+
+      final locationResult = await locationFuture;
+      final uploadLocation = locationResult.fold(
+        (_) => null,
+        (data) => data.formattedAddress,
+      );
+
       final result = await sl.uploadImageUseCase(
         UploadImageParams(
           imagePath: compressedImage.path,
@@ -259,6 +293,9 @@ class OldXCameraController extends ChangeNotifier {
           vehiclePartExcelId: _currentTabIndex == 2
               ? _selectedPart?.vehiclePartExcelId
               : null,
+          locationName: _isPickedFromGallery ? locationName : uploadLocation,
+          uploadLocation: uploadLocation,
+          utcTimeCreated: utcTimeCreated,
         ),
       );
 

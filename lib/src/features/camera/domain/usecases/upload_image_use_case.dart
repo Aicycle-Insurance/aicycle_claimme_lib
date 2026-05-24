@@ -8,6 +8,12 @@ class UploadImageParams {
   final String? positionId;
   final String? vehiclePartExcelId;
   final bool isFramedPhoto;
+  // Địa điểm chụp hoặc lấy từ metadata ảnh
+  final String? locationName;
+  // Địa điểm tải lên
+  final String? uploadLocation;
+  // Thời gian tạo ảnh theo UTC
+  final String? utcTimeCreated;
 
   UploadImageParams({
     required this.imagePath,
@@ -16,6 +22,9 @@ class UploadImageParams {
     this.positionId,
     this.vehiclePartExcelId,
     this.isFramedPhoto = false,
+    this.locationName,
+    this.uploadLocation,
+    this.utcTimeCreated,
   });
 }
 
@@ -32,6 +41,9 @@ class UploadImageUseCase {
       positionId: params.positionId,
       vehiclePartExcelId: params.vehiclePartExcelId,
       isFramedPhoto: params.isFramedPhoto,
+      locationName: params.locationName,
+      uploadLocation: params.uploadLocation,
+      utcTimeCreated: params.utcTimeCreated,
     );
   }
 }

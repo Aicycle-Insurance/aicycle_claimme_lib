@@ -108,7 +108,7 @@ class GeneralConfig {
     this.documentName,
     this.showResultScreen = true,
     this.loggingEnabled = false,
-    this.saveToGalleryAfterCapture = true,
+    this.saveToGalleryAfterCapture = false,
   });
 }
 

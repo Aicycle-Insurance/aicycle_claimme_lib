@@ -1,3 +1,7 @@
+## 1.0.9
+
+- Implement LocationService for GPS acquisition and reverse geocoding with associated error handling
+
 ## 1.0.8
 
 - Set default show guide frame.
