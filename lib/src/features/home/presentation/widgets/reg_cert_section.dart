@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../aicycle_claimme_plus.dart';
 import '../../../../core/extension/car_angle_ext.dart';
+import '../../../../core/extension/directional_image_ext.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -67,6 +68,7 @@ class RegCertSection extends StatelessWidget {
                 children: [
                   CachedNetworkImage(
                     imageUrl: images[index].imageUrl!,
+                    cacheKey: images[index].cacheKey,
                     fit: BoxFit.cover,
                     width: double.maxFinite,
                     height: double.maxFinite,

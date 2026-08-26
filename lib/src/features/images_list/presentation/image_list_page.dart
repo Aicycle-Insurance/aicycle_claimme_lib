@@ -11,6 +11,7 @@ import '../../../core/utils/screen_utils.dart';
 import '../../../core/widgets/app_checkbox.dart';
 import '../../../core/widgets/delete_confirm_dialog.dart';
 import '../../camera/presentation/pages/camera_page.dart';
+import '../../../core/extension/directional_image_ext.dart';
 import '../../home/domain/entities/directional_image.dart';
 import '../../camera/presentation/pages/old_camera_page.dart';
 
@@ -69,6 +70,7 @@ class _ImageListPageState extends State<ImageListPage> {
                 children: [
                   CachedNetworkImage(
                     imageUrl: image.imageUrl ?? '',
+                    cacheKey: image.cacheKey,
                     fit: BoxFit.cover,
                     height: double.infinity,
                     width: double.infinity,

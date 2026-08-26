@@ -6,6 +6,7 @@ import '../../../../aicycle_claimme_plus_impl.dart';
 import '../../../../config/aicycle_config.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../core/extension/car_angle_ext.dart';
+import '../../../../core/extension/directional_image_ext.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/app_strings.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -204,6 +205,7 @@ class CornerButton extends StatelessWidget {
                             children: [
                               CachedNetworkImage(
                                 imageUrl: images.first.imageUrl ?? '',
+                                cacheKey: images.first.cacheKey,
                                 fit: BoxFit.cover,
                                 errorWidget: (context, url, error) =>
                                     const Center(child: Icon(Icons.error)),
